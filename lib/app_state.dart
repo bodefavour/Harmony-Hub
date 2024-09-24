@@ -34,6 +34,12 @@ class FFAppState extends ChangeNotifier {
     _Favorites = value;
     prefs.setBool('ff_Favorites', value);
   }
+
+  int _Logindetails = 0;
+  int get Logindetails => _Logindetails;
+  set Logindetails(int value) {
+    _Logindetails = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

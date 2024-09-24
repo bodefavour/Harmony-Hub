@@ -672,7 +672,7 @@ class _OnboardingEditWidgetState extends State<OnboardingEditWidget>
                                     logFirebaseEvent(
                                         'ONBOARDING_EDIT_GET_STARTED_BTN_ON_TAP');
 
-                                    context.pushNamed('onboarding');
+                                    context.pushNamed('homePage');
                                   },
                                   text: 'Get Started',
                                   options: FFButtonOptions(

@@ -83,9 +83,9 @@ dependencies:
   sqflite: 2.2.6
   timeago: 3.6.1
   universal_io: 2.2.2
-  url_launcher: 6.2.5
-  url_launcher_android: 6.3.0
-  url_launcher_ios: 6.2.5
+  url_launcher: 6.3.0
+  url_launcher_android: 6.3.4
+  url_launcher_ios: 6.3.1
   url_launcher_platform_interface: 2.3.2
   xml: 6.5.0
 

@@ -560,7 +560,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 await authManager.sendEmailVerification();
 
                                 context.pushNamedAuth(
-                                    'Verify', context.mounted);
+                                    'OnboardingEdit', context.mounted);
                               },
                               text: 'Sign-Up',
                               options: FFButtonOptions(

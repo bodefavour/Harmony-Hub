@@ -458,8 +458,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   return;
                                 }
 
-                                context.goNamedAuth(
-                                    'homePage', context.mounted);
+                                context.pushNamedAuth(
+                                    'OnboardingEdit', context.mounted);
                               },
                               text: 'Continue',
                               options: FFButtonOptions(

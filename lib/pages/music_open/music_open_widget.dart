@@ -234,7 +234,7 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: 430.0,
+                              width: 400.0,
                               height: 100.0,
                               decoration: const BoxDecoration(),
                               child: Visibility(
@@ -244,42 +244,40 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                   tabletLandscape: false,
                                   desktop: false,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 40.0, 0.0),
-                                  child: FlutterFlowAudioPlayer(
-                                    audio: Audio(
-                                      'assets/audios/Dunsin_Oyekan_-_Those_Who_Will_Win_CeeNaija.com_.mp3',
-                                      metas: Metas(
-                                        id: 'Dunsin_Oyekan_-_Those_Who_Will_Win_CeeNaija.com_.mp3-cc03ab8e',
-                                        title: 'Those Who Will Win',
-                                      ),
+                                child: FlutterFlowAudioPlayer(
+                                  audio: Audio(
+                                    'assets/audios/Dunsin_Oyekan_-_Those_Who_Will_Win_CeeNaija.com_.mp3',
+                                    metas: Metas(
+                                      id: 'Dunsin_Oyekan_-_Those_Who_Will_Win_CeeNaija.com_.mp3-cc03ab8e',
+                                      title: 'Those Who Will Win',
                                     ),
-                                    titleTextStyle: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: const Color(0xFFE74B08),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    playbackDurationTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 8.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                    fillColor: const Color(0x00000000),
-                                    playbackButtonColor: const Color(0xFFE74B08),
-                                    activeTrackColor: const Color(0xFFE74B08),
-                                    elevation: 50.0,
-                                    playInBackground: PlayInBackground.enabled,
                                   ),
+                                  titleTextStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        color: const Color(0xFFE74B08),
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  playbackDurationTextStyle:
+                                      FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 8.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                  fillColor: const Color(0x00000000),
+                                  playbackButtonColor: const Color(0xFFE74B08),
+                                  activeTrackColor: const Color(0xFFE74B08),
+                                  inactiveTrackColor:
+                                      FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                  elevation: 50.0,
+                                  playInBackground: PlayInBackground.enabled,
                                 ),
                               ),
                             ),

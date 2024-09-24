@@ -151,8 +151,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 26.0),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'ONBOARDING_CREATE_ACCOUNT_BTN_ON_TAP');
+
+                                  context.pushNamed('Signup');
                                 },
                                 text: 'Create Account',
                                 options: FFButtonOptions(

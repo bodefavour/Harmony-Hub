@@ -27,7 +27,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('APP_OPEN_PAGE_appOpen_ON_INIT_STATE');
 
-      context.pushNamed('OnboardingEdit');
+      context.pushNamed('onboarding');
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
