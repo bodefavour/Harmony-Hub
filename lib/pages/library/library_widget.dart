@@ -1961,7 +1961,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ].divide(const SizedBox(height: 4.0)),
                                 ),
                               ),
                             ],
