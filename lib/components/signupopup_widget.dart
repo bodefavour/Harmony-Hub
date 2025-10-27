@@ -65,8 +65,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
@@ -103,8 +103,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 70.0,
@@ -152,8 +152,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
@@ -208,8 +208,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 20.0,
@@ -234,8 +234,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
@@ -251,7 +251,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                               logFirebaseEvent(
                                   'SIGNUPOPUP_CONTINUE_WITH_GOOGLE_BTN_ON_T');
                               GoRouter.of(context).prepareAuthEvent();
-                              final success = await authManager.signInWithGoogle();
+                              final success =
+                                  await authManager.signInWithGoogle();
                               if (!success) {
                                 return;
                               }
@@ -296,8 +297,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
@@ -315,7 +316,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                                     logFirebaseEvent(
                                         'SIGNUPOPUP_CONTINUE_WITH_APPLE_BTN_ON_TA');
                                     GoRouter.of(context).prepareAuthEvent();
-                                    final success = await authManager.signInWithApple();
+                                    final success =
+                                        await authManager.signInWithApple();
                                     if (!success) {
                                       return;
                                     }
@@ -331,10 +333,12 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                                   options: FFButtonOptions(
                                     width: 250.0,
                                     height: 20.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 4.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 4.0, 0.0),
                                     color: const Color(0xFFE74B08),
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
@@ -361,8 +365,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
@@ -415,8 +419,8 @@ class _SignupopupWidgetState extends State<SignupopupWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          8.0, 8.0, 8.0, 0.0),
                       child: Container(
                         width: 384.0,
                         height: 60.0,
