@@ -14,14 +14,14 @@ class Audio {
   final String path;
   final Metas metas;
   final String audioType;
-  
-  Audio(this.path, {Metas? metas}) 
-    : metas = metas ?? Metas(),
-      audioType = 'file';
-  
+
+  Audio(this.path, {Metas? metas})
+      : metas = metas ?? Metas(),
+        audioType = 'file';
+
   Audio.network(this.path, {Metas? metas})
-    : metas = metas ?? Metas(),
-      audioType = 'network';
+      : metas = metas ?? Metas(),
+        audioType = 'network';
 }
 
 class Metas {
