@@ -31,7 +31,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// Otherwise, this will trigger a refresh and interrupt the action(s).
   bool notifyOnAuthChange = true;
 
-  bool get loading => user == null || showSplashImage;
+  bool get loading => showSplashImage;
   bool get loggedIn => user?.loggedIn ?? false;
   bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
@@ -61,8 +61,11 @@ class AppStateNotifier extends ChangeNotifier {
   }
 
   void stopShowingSplashImage() {
+    print('DEBUG: stopShowingSplashImage called');
     showSplashImage = false;
+    print('DEBUG: showSplashImage is now: $showSplashImage, loading: $loading');
     notifyListeners();
+    print('DEBUG: notifyListeners called');
   }
 }
 
@@ -73,13 +76,37 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => appStateNotifier.loggedIn
           ? const HomePageWidget()
           : const AppOpenWidget(),
+      redirect: (context, state) {
+        final isLoading = appStateNotifier.loading;
+        print('DEBUG: GoRouter redirect - loading: $isLoading, location: ${state.uri}');
+        
+        if (isLoading) {
+          // Show loading/splash screen
+          return null;
+        }
+        
+        // After loading, redirect to appropriate page if still on initial route
+        if (state.uri.path == '/') {
+          final destination = appStateNotifier.loggedIn ? '/homePage' : '/appOpen';
+          print('DEBUG: GoRouter redirecting from / to $destination');
+          return destination;
+        }
+        
+        return null;
+      },
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const HomePageWidget()
-              : const AppOpenWidget(),
+          builder: (context, _) => Container(
+            color: Colors.black,
+            child: Center(
+              child: Image.asset(
+                'assets/images/h-high-resolution-logo.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ),
         FFRoute(
           name: 'appOpen',

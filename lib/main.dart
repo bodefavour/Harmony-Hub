@@ -53,19 +53,28 @@ class _MyAppState extends State<MyApp> {
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
 
+    print('DEBUG: initState - Initial loading: ${_appStateNotifier.loading}');
+    print('DEBUG: initState - Initial loggedIn: ${_appStateNotifier.loggedIn}');
+
     // Initialize with a default user immediately to unblock splash screen
     _appStateNotifier.update(HarmonyHubSupabaseUser(null));
+    print('DEBUG: After update - loading: ${_appStateNotifier.loading}, loggedIn: ${_appStateNotifier.loggedIn}');
 
     // Then listen for actual auth changes
     userStream = harmonyHubSupabaseUserStream()
       ..listen((user) {
+        print('DEBUG: Auth stream received user: ${user.loggedIn}');
         _appStateNotifier.update(user);
       });
 
     // Hide splash screen after brief delay
     Future.delayed(
       const Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
+      () {
+        print('DEBUG: Stopping splash screen - loading before: ${_appStateNotifier.loading}');
+        _appStateNotifier.stopShowingSplashImage();
+        print('DEBUG: Stopping splash screen - loading after: ${_appStateNotifier.loading}');
+      },
     );
   }
 
