@@ -110,7 +110,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Search',
           path: '/search',
           requireAuth: true,
-          builder: (context, params) => const SearchWidget(),
+          builder: (context, params) => const SearchWidgetNew(),
         ),
         FFRoute(
           name: 'album',
@@ -120,9 +120,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'artistProfile',
-          path: '/artistProfile',
+          path: '/artistProfile/:artistId',
           requireAuth: true,
-          builder: (context, params) => const ArtistProfileWidget(),
+          builder: (context, params) => ArtistProfileWidgetNew(
+            artistId: params.getParam('artistId', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'OnboardingEdit',
@@ -145,7 +147,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Library',
           path: '/library',
           requireAuth: true,
-          builder: (context, params) => const LibraryWidget(),
+          builder: (context, params) => const LibraryWidgetNew(),
         ),
         FFRoute(
           name: 'Signup',
