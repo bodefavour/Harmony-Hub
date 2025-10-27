@@ -78,20 +78,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           : const AppOpenWidget(),
       redirect: (context, state) {
         final isLoading = appStateNotifier.loading;
-        print('DEBUG: GoRouter redirect - loading: $isLoading, location: ${state.uri}');
-        
+        print(
+            'DEBUG: GoRouter redirect - loading: $isLoading, location: ${state.uri}');
+
         if (isLoading) {
           // Show loading/splash screen
           return null;
         }
-        
+
         // After loading, redirect to appropriate page if still on initial route
         if (state.uri.path == '/') {
-          final destination = appStateNotifier.loggedIn ? '/homePage' : '/appOpen';
+          final destination =
+              appStateNotifier.loggedIn ? '/homePage' : '/appOpen';
           print('DEBUG: GoRouter redirecting from / to $destination');
           return destination;
         }
-        
+
         return null;
       },
       routes: [
