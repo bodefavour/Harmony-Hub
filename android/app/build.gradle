@@ -2,9 +2,9 @@ plugins {
    id "com.android.application"
    id "kotlin-android"
    id "dev.flutter.flutter-gradle-plugin"
-   id "com.google.gms.google-services"  // Google Services plugin
+   // id "com.google.gms.google-services"  // Google Services plugin - commented out until google-services.json is added
 
-   id "com.google.firebase.crashlytics"
+   // id "com.google.firebase.crashlytics"  // Commented out until google-services.json is added
 }
 
 def localProperties = new Properties()
@@ -54,6 +54,15 @@ android {
         versionName flutterVersionName
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
    signingConfigs {
        release {
            keyAlias keystoreProperties['keyAlias']
@@ -77,5 +86,5 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22"
 }
