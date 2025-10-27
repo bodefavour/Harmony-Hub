@@ -15,7 +15,8 @@ class AppOpenWidget extends StatefulWidget {
   State<AppOpenWidget> createState() => _AppOpenWidgetState();
 }
 
-class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateMixin {
+class _AppOpenWidgetState extends State<AppOpenWidget>
+    with TickerProviderStateMixin {
   late AppOpenModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -82,7 +83,9 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                           color: Colors.white,
                         ),
                       )
-                          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                          .animate(
+                              onPlay: (controller) =>
+                                  controller.repeat(reverse: true))
                           .scale(
                             duration: 2000.ms,
                             begin: const Offset(1, 1),
@@ -94,15 +97,17 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                             duration: 1500.ms,
                             color: Colors.white.withOpacity(0.3),
                           ),
-                      
+
                       const SizedBox(height: AppTheme.space32),
-                      
+
                       // App Name
                       ShaderMask(
-                        shaderCallback: (bounds) => AppTheme.primaryGradient.createShader(bounds),
+                        shaderCallback: (bounds) =>
+                            AppTheme.primaryGradient.createShader(bounds),
                         child: Text(
                           'Harmony Hub',
-                          style: AppTheme.displayLarge(context, isDark: isDark).copyWith(
+                          style: AppTheme.displayLarge(context, isDark: isDark)
+                              .copyWith(
                             fontSize: 48,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
@@ -118,13 +123,14 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                             duration: 600.ms,
                             curve: Curves.easeOut,
                           ),
-                      
+
                       const SizedBox(height: AppTheme.space16),
-                      
+
                       // Tagline
                       Text(
                         'Where music meets your soul',
-                        style: AppTheme.headlineMedium(context, isDark: isDark).copyWith(
+                        style: AppTheme.headlineMedium(context, isDark: isDark)
+                            .copyWith(
                           color: isDark
                               ? AppTheme.textSecondary
                               : AppTheme.textSecondaryLight,
@@ -139,9 +145,9 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                             duration: 600.ms,
                             curve: Curves.easeOut,
                           ),
-                      
+
                       const SizedBox(height: AppTheme.space48),
-                      
+
                       // Feature Pills
                       Wrap(
                         alignment: WrapAlignment.center,
@@ -176,7 +182,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                     ],
                   ),
                 ),
-                
+
                 // Bottom Action Buttons
                 Column(
                   children: [
@@ -190,18 +196,15 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                       },
                       width: double.infinity,
                       useGradient: true,
-                    )
-                        .animate()
-                        .fadeIn(duration: 400.ms, delay: 800.ms)
-                        .slideY(
+                    ).animate().fadeIn(duration: 400.ms, delay: 800.ms).slideY(
                           begin: 0.5,
                           end: 0,
                           duration: 400.ms,
                           curve: Curves.easeOut,
                         ),
-                    
+
                     const SizedBox(height: AppTheme.space16),
-                    
+
                     // Sign In Button
                     ModernButton(
                       text: 'Sign In',
@@ -211,26 +214,21 @@ class _AppOpenWidgetState extends State<AppOpenWidget> with TickerProviderStateM
                       },
                       isOutline: true,
                       width: double.infinity,
-                    )
-                        .animate()
-                        .fadeIn(duration: 400.ms, delay: 900.ms)
-                        .slideY(
+                    ).animate().fadeIn(duration: 400.ms, delay: 900.ms).slideY(
                           begin: 0.5,
                           end: 0,
                           duration: 400.ms,
                           curve: Curves.easeOut,
                         ),
-                    
+
                     const SizedBox(height: AppTheme.space24),
-                    
+
                     // Footer Text
                     Text(
                       'By continuing, you agree to our Terms of Service\nand Privacy Policy',
                       style: AppTheme.caption(context, isDark: isDark),
                       textAlign: TextAlign.center,
-                    )
-                        .animate()
-                        .fadeIn(duration: 400.ms, delay: 1000.ms),
+                    ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
                   ],
                 ),
               ],
@@ -262,9 +260,7 @@ class _FeaturePill extends StatelessWidget {
         vertical: AppTheme.space8,
       ),
       decoration: BoxDecoration(
-        color: isDark
-            ? AppTheme.darkCard.withOpacity(0.5)
-            : AppTheme.lightCard,
+        color: isDark ? AppTheme.darkCard.withOpacity(0.5) : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(AppTheme.radiusFull),
         border: Border.all(
           color: AppTheme.spotifyGreen.withOpacity(0.3),
@@ -283,7 +279,8 @@ class _FeaturePill extends StatelessWidget {
           Text(
             label,
             style: AppTheme.bodySmall(context, isDark: isDark).copyWith(
-              color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color:
+                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
             ),
           ),
         ],

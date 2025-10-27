@@ -28,7 +28,7 @@ class GlassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Container(
       width: width,
       height: height,
@@ -125,9 +125,8 @@ class ModernButton extends StatelessWidget {
                       if (icon != null) ...[
                         Icon(
                           icon,
-                          color: isOutline
-                              ? AppTheme.spotifyGreen
-                              : Colors.white,
+                          color:
+                              isOutline ? AppTheme.spotifyGreen : Colors.white,
                           size: 20,
                         ),
                         const SizedBox(width: AppTheme.space8),
@@ -135,9 +134,8 @@ class ModernButton extends StatelessWidget {
                       Text(
                         text,
                         style: AppTheme.button(context).copyWith(
-                          color: isOutline
-                              ? AppTheme.spotifyGreen
-                              : Colors.white,
+                          color:
+                              isOutline ? AppTheme.spotifyGreen : Colors.white,
                         ),
                       ),
                     ],
@@ -196,9 +194,7 @@ class ModernTextField extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: isDark
-                ? AppTheme.darkCard
-                : AppTheme.lightCard,
+            color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
             borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
             border: Border.all(
               color: isDark
@@ -332,10 +328,7 @@ class ModernCover extends StatelessWidget {
       );
     }
 
-    return cover
-        .animate()
-        .fadeIn(duration: 300.ms)
-        .scale(
+    return cover.animate().fadeIn(duration: 300.ms).scale(
           begin: const Offset(0.9, 0.9),
           end: const Offset(1, 1),
           duration: 400.ms,
@@ -417,9 +410,7 @@ class ShimmerLoader extends StatelessWidget {
         color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
-    )
-        .animate(onPlay: (controller) => controller.repeat())
-        .shimmer(
+    ).animate(onPlay: (controller) => controller.repeat()).shimmer(
           duration: 1500.ms,
           color: Colors.white.withOpacity(0.1),
         );
@@ -456,7 +447,8 @@ class EmptyState extends StatelessWidget {
             Icon(
               icon,
               size: 80,
-              color: isDark ? AppTheme.textTertiary : AppTheme.textTertiaryLight,
+              color:
+                  isDark ? AppTheme.textTertiary : AppTheme.textTertiaryLight,
             ),
             const SizedBox(height: AppTheme.space24),
             Text(

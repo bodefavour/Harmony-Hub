@@ -44,19 +44,19 @@ class _LoginWidgetState extends State<LoginWidget> {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
-    
+
     logFirebaseEvent('LOGIN_email_password_signin');
-    
+
     GoRouter.of(context).prepareAuthEvent();
-    
+
     final user = await authManager.signInWithEmail(
       context,
       _model.emailTextController.text,
       _model.passwordTextController.text,
     );
-    
+
     setState(() => _isLoading = false);
-    
+
     if (user == null) {
       return;
     }
@@ -67,13 +67,13 @@ class _LoginWidgetState extends State<LoginWidget> {
   Future<void> _handleSocialLogin(String provider) async {
     setState(() => _isLoading = true);
     logFirebaseEvent('LOGIN_${provider}_signin');
-    
+
     GoRouter.of(context).prepareAuthEvent();
-    
+
     final user = await authManager.signInWithGoogle(context);
-    
+
     setState(() => _isLoading = false);
-    
+
     if (user == null) {
       return;
     }
@@ -228,16 +228,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                             },
                             child: Text(
                               'Forgot password?',
-                              style: AppTheme.bodyMedium(context, isDark: isDark)
-                                  .copyWith(
+                              style:
+                                  AppTheme.bodyMedium(context, isDark: isDark)
+                                      .copyWith(
                                 color: AppTheme.spotifyGreen,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                        )
-                            .animate()
-                            .fadeIn(duration: 400.ms, delay: 500.ms),
+                        ).animate().fadeIn(duration: 400.ms, delay: 500.ms),
 
                         const SizedBox(height: AppTheme.space32),
 
@@ -290,9 +289,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ],
-                  )
-                      .animate()
-                      .fadeIn(duration: 400.ms, delay: 700.ms),
+                  ).animate().fadeIn(duration: 400.ms, delay: 700.ms),
 
                   const SizedBox(height: AppTheme.space24),
 
@@ -350,9 +347,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ],
                     ),
-                  )
-                      .animate()
-                      .fadeIn(duration: 400.ms, delay: 900.ms),
+                  ).animate().fadeIn(duration: 400.ms, delay: 900.ms),
                 ],
               ),
             ),
@@ -402,9 +397,8 @@ class _SocialLoginButton extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: isDark
-                    ? AppTheme.textPrimary
-                    : AppTheme.textPrimaryLight,
+                color:
+                    isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                 size: 24,
               ),
               const SizedBox(width: AppTheme.space8),

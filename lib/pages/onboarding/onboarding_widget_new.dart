@@ -27,7 +27,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     OnboardingPage(
       icon: Icons.music_note_rounded,
       title: 'Millions of Songs',
-      description: 'Access an endless library of music from around the world. Discover new artists and timeless classics.',
+      description:
+          'Access an endless library of music from around the world. Discover new artists and timeless classics.',
       gradient: const LinearGradient(
         colors: [Color(0xFF1DB954), Color(0xFF1ED760)],
         begin: Alignment.topLeft,
@@ -37,7 +38,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     OnboardingPage(
       icon: Icons.favorite_rounded,
       title: 'Personalized For You',
-      description: 'Get custom playlists and recommendations based on your music taste. Your perfect soundtrack awaits.',
+      description:
+          'Get custom playlists and recommendations based on your music taste. Your perfect soundtrack awaits.',
       gradient: const LinearGradient(
         colors: [Color(0xFF8E44AD), Color(0xFFE91E63)],
         begin: Alignment.topLeft,
@@ -47,7 +49,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     OnboardingPage(
       icon: Icons.offline_bolt_rounded,
       title: 'Listen Offline',
-      description: 'Download your favorite songs and listen without internet. Music everywhere, anytime.',
+      description:
+          'Download your favorite songs and listen without internet. Music everywhere, anytime.',
       gradient: const LinearGradient(
         colors: [Color(0xFF2E77D0), Color(0xFF00BCD4)],
         begin: Alignment.topLeft,
@@ -57,7 +60,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     OnboardingPage(
       icon: Icons.high_quality_rounded,
       title: 'Premium Sound',
-      description: 'Experience crystal-clear audio quality. Feel every beat, every note, as the artist intended.',
+      description:
+          'Experience crystal-clear audio quality. Feel every beat, every note, as the artist intended.',
       gradient: const LinearGradient(
         colors: [Color(0xFFFF6B35), Color(0xFFF7971E)],
         begin: Alignment.topLeft,
@@ -152,7 +156,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       onPressed: _skip,
                       child: Text(
                         'Skip',
-                        style: AppTheme.bodyMedium(context, isDark: isDark).copyWith(
+                        style: AppTheme.bodyMedium(context, isDark: isDark)
+                            .copyWith(
                           color: AppTheme.spotifyGreen,
                           fontWeight: FontWeight.w600,
                         ),
@@ -201,9 +206,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     spacing: 8,
                   ),
                 ),
-              )
-                  .animate()
-                  .fadeIn(duration: 400.ms, delay: 200.ms),
+              ).animate().fadeIn(duration: 400.ms, delay: 200.ms),
 
               // Bottom Buttons
               Padding(

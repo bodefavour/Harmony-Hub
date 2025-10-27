@@ -134,9 +134,7 @@ class _NavItem extends StatelessWidget {
             ],
           ),
         ),
-      )
-          .animate(target: isSelected ? 1 : 0)
-          .scale(
+      ).animate(target: isSelected ? 1 : 0).scale(
             begin: const Offset(1, 1),
             end: const Offset(1.05, 1.05),
             duration: 200.ms,
@@ -238,7 +236,8 @@ class NowPlayingBar extends StatelessWidget {
                 onPressed: onPlayPause,
                 icon: Icon(
                   isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                  color:
+                      isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                 ),
                 iconSize: 32,
               ),
