@@ -1,4 +1,4 @@
-import '/auth/firebase_auth/auth_util.dart';
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -251,9 +251,8 @@ class _SigninWidgetState extends State<SigninWidget> {
                               logFirebaseEvent(
                                   'SIGNIN_CONTINUE_WITH_GOOGLE_BTN_ON_TAP');
                               GoRouter.of(context).prepareAuthEvent();
-                              final user =
-                                  await authManager.signInWithGoogle(context);
-                              if (user == null) {
+                              final success = await authManager.signInWithGoogle();
+                              if (!success) {
                                 return;
                               }
 
@@ -316,9 +315,8 @@ class _SigninWidgetState extends State<SigninWidget> {
                                     logFirebaseEvent(
                                         'SIGNIN_CONTINUE_WITH_APPLE_BTN_ON_TAP');
                                     GoRouter.of(context).prepareAuthEvent();
-                                    final user = await authManager
-                                        .signInWithApple(context);
-                                    if (user == null) {
+                                    final success = await authManager.signInWithApple();
+                                    if (!success) {
                                       return;
                                     }
 

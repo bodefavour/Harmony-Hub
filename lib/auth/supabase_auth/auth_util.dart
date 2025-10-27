@@ -1,6 +1,4 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'supabase_user_provider.dart';
-import '../base_auth_user_provider.dart';
 
 export 'supabase_user_provider.dart';
 
