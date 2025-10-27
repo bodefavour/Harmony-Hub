@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Status of an admin upload
 enum UploadStatus {
   pending,

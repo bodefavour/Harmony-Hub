@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Represents a podcast episode in the Harmony Hub platform
 class Podcast {
   final String id;

@@ -18,7 +18,7 @@ class SearchController extends ChangeNotifier {
   List<Podcast> _searchResultsPodcasts = [];
 
   List<Song> _trendingSongs = [];
-  List<String> _recentSearches = [];
+  final List<String> _recentSearches = [];
 
   bool _isSearching = false;
   bool _isLoadingTrending = false;

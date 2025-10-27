@@ -163,14 +163,14 @@ class ArtistUploadController extends ChangeNotifier {
     try {
       // Validate files
       if (_audioFile != null) {
-        final isValid = await _adminService.validateAudioFile(_audioFile!);
+        final isValid = _adminService.validateAudioFile(_audioFile!);
         if (!isValid) {
           throw Exception('Invalid audio file format or size');
         }
       }
 
       if (_imageFile != null) {
-        final isValid = await _adminService.validateImageFile(_imageFile!);
+        final isValid = _adminService.validateImageFile(_imageFile!);
         if (!isValid) {
           throw Exception('Invalid image file format or size');
         }

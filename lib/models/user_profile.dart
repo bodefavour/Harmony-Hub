@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Represents user preferences for music recommendations
 class UserPreferences {
   final List<String> genres;

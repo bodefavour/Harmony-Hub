@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Represents a music artist in the Harmony Hub platform
 class Artist {
   final String id;

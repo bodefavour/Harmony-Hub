@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'artist.dart';
 import 'album.dart';
 

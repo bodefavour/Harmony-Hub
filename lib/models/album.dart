@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Represents a music album in the Harmony Hub platform
 class Album {
   final String id;

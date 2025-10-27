@@ -9,7 +9,6 @@ import 'auth/supabase_auth/auth_util.dart';
 import 'backend/supabase/supabase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
