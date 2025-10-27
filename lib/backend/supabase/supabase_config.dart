@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Supabase Configuration
-/// 
+///
 /// To set up your Supabase project:
 /// 1. Go to https://supabase.com and create a new project
 /// 2. Copy your project URL and anon key from Project Settings > API
