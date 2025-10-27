@@ -206,6 +206,62 @@ class AppTheme {
     );
   }
 
+  // ============ SIMPLE TEXT STYLES (No Context Required) ============
+  // These are for use in widgets without BuildContext access
+
+  static TextStyle get displayLarge => GoogleFonts.inter(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        letterSpacing: -0.5,
+      );
+
+  static TextStyle get displayMedium => GoogleFonts.inter(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        letterSpacing: -0.5,
+      );
+
+  static TextStyle get displaySmall => GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      );
+
+  static TextStyle get headlineLarge => GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      );
+
+  static TextStyle get headlineMedium => GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      );
+
+  static TextStyle get bodyLarge => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      );
+
+  static TextStyle get bodyMedium => GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+      );
+
+  static TextStyle get bodySmall => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      );
+
+  static TextStyle get caption => GoogleFonts.inter(
+        fontSize: 11,
+        fontWeight: FontWeight.normal,
+      );
+
+  static TextStyle get buttonText => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.5,
+      );
+
   // ============ THEME DATA ============
 
   static ThemeData darkTheme = ThemeData(

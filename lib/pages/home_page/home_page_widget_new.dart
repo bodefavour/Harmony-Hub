@@ -42,7 +42,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+      backgroundColor:
+          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
       body: Column(
         children: [
           // Main Content
@@ -106,17 +107,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   // Greeting
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           _getGreeting(),
-                                          style: AppTheme.bodySmall(context, isDark: isDark),
+                                          style: AppTheme.bodySmall(context,
+                                              isDark: isDark),
                                         ),
                                         Text(
                                           currentUserDisplayName.isNotEmpty
                                               ? currentUserDisplayName
                                               : 'Music Lover',
-                                          style: AppTheme.headlineMedium(context, isDark: isDark),
+                                          style: AppTheme.headlineMedium(
+                                              context,
+                                              isDark: isDark),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -163,17 +168,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                 // Recently Played List
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppTheme.space16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppTheme.space16),
                   sliver: FutureBuilder<List<SongsRow>>(
                     future: SongsTable().queryRows(
-                      queryFn: (q) => q.order('created_at', ascending: false).limit(10),
+                      queryFn: (q) =>
+                          q.order('created_at', ascending: false).limit(10),
                     ),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) => const Padding(
-                              padding: EdgeInsets.only(bottom: AppTheme.space12),
+                              padding:
+                                  EdgeInsets.only(bottom: AppTheme.space12),
                               child: ShimmerLoader(
                                 width: double.infinity,
                                 height: 70,
@@ -185,13 +193,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       }
 
                       final songs = snapshot.data!;
-                      
+
                       if (songs.isEmpty) {
                         return const SliverToBoxAdapter(
                           child: EmptyState(
                             icon: Icons.music_note_outlined,
                             title: 'No songs yet',
-                            message: 'Start exploring and add songs to your library',
+                            message:
+                                'Start exploring and add songs to your library',
                           ),
                         );
                       }
@@ -207,7 +216,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () {
                                 context.pushNamed(
                                   'musicOpen',
-                                  pathParameters: {'songId': song.id.toString()},
+                                  pathParameters: {
+                                    'songId': song.id.toString()
+                                  },
                                   extra: song.toJson(),
                                 );
                               },
@@ -250,7 +261,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                 // Recommended Albums Grid
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppTheme.space16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppTheme.space16),
                   sliver: FutureBuilder<List<AlbumsRow>>(
                     future: AlbumsTable().queryRows(
                       queryFn: (q) => q.limit(6),
@@ -265,7 +277,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             childCount: 6,
                           ),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: AppTheme.space16,
                             crossAxisSpacing: AppTheme.space16,
@@ -303,7 +316,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           },
                           childCount: albums.length,
                         ),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: AppTheme.space16,
                           crossAxisSpacing: AppTheme.space16,
@@ -316,7 +330,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                 // Bottom Spacing
                 const SliverToBoxAdapter(
-                  child: SizedBox(height: AppTheme.space64 + 80), // Extra space for nav bar
+                  child: SizedBox(
+                      height: AppTheme.space64 + 80), // Extra space for nav bar
                 ),
               ],
             ),
@@ -379,9 +394,8 @@ class _SongTile extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: AppTheme.space12),
         padding: const EdgeInsets.all(AppTheme.space12),
         decoration: BoxDecoration(
-          color: isDark
-              ? AppTheme.darkCard.withOpacity(0.5)
-              : AppTheme.lightCard,
+          color:
+              isDark ? AppTheme.darkCard.withOpacity(0.5) : AppTheme.lightCard,
           borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
         ),
         child: Row(
@@ -453,9 +467,8 @@ class _AlbumCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isDark
-              ? AppTheme.darkCard.withOpacity(0.5)
-              : AppTheme.lightCard,
+          color:
+              isDark ? AppTheme.darkCard.withOpacity(0.5) : AppTheme.lightCard,
           borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
         ),
         padding: const EdgeInsets.all(AppTheme.space12),

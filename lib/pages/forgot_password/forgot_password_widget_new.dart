@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
-import '/auth/auth_manager.dart';
+import '/auth/supabase_auth/auth_util.dart';
 
 class ForgotPasswordWidgetNew extends StatefulWidget {
   const ForgotPasswordWidgetNew({super.key});
 
   @override
-  State<ForgotPasswordWidgetNew> createState() => _ForgotPasswordWidgetNewState();
+  State<ForgotPasswordWidgetNew> createState() =>
+      _ForgotPasswordWidgetNewState();
 }
 
 class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
@@ -29,8 +30,10 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
     setState(() => _isLoading = true);
 
     try {
-      await authManager.resetPassword(_emailController.text.trim());
-      
+      await authManager.sendPasswordResetEmail(
+        _emailController.text.trim(),
+      );
+
       if (mounted) {
         setState(() {
           _emailSent = true;
@@ -66,7 +69,8 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
                 ),
         ),
         child: SafeArea(
-          child: _emailSent ? _buildSuccessView(isDark) : _buildFormView(isDark),
+          child:
+              _emailSent ? _buildSuccessView(isDark) : _buildFormView(isDark),
         ),
       ),
     );
@@ -101,7 +105,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
               decoration: BoxDecoration(
                 gradient: AppTheme.primaryGradient,
                 shape: BoxShape.circle,
-                boxShadow: [AppTheme.glowShadow],
+                boxShadow: AppTheme.glowShadow,
               ),
               child: const Icon(
                 Icons.lock_reset,
@@ -144,7 +148,6 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
               controller: _emailController,
               label: 'Email',
               hint: 'Enter your email address',
-              icon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -165,7 +168,10 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
               onPressed: _isLoading ? null : _sendResetEmail,
               isLoading: _isLoading,
               icon: Icons.send,
-            ).animate().fadeIn(delay: 500.ms).scale(begin: const Offset(0.9, 0.9)),
+            )
+                .animate()
+                .fadeIn(delay: 500.ms)
+                .scale(begin: const Offset(0.9, 0.9)),
 
             SizedBox(height: AppTheme.space24),
 
@@ -215,7 +221,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
                 colors: [Color(0xFF00D084), Color(0xFF1DB954)],
               ),
               shape: BoxShape.circle,
-              boxShadow: [AppTheme.glowShadow],
+              boxShadow: AppTheme.glowShadow,
             ),
             child: const Icon(
               Icons.check_circle_outline,
@@ -313,7 +319,10 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
             },
             isOutline: true,
             icon: Icons.refresh,
-          ).animate().fadeIn(delay: 600.ms).scale(begin: const Offset(0.9, 0.9)),
+          )
+              .animate()
+              .fadeIn(delay: 600.ms)
+              .scale(begin: const Offset(0.9, 0.9)),
 
           SizedBox(height: AppTheme.space16),
 
@@ -324,7 +333,10 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
               Navigator.pop(context);
             },
             isOutline: true,
-          ).animate().fadeIn(delay: 700.ms).scale(begin: const Offset(0.9, 0.9)),
+          )
+              .animate()
+              .fadeIn(delay: 700.ms)
+              .scale(begin: const Offset(0.9, 0.9)),
         ],
       ),
     );

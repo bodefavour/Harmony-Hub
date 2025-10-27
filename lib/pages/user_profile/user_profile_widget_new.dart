@@ -23,7 +23,8 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
     final user = authManager.authUser;
 
     return Scaffold(
-      backgroundColor: isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+      backgroundColor:
+          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
       body: CustomScrollView(
         slivers: [
           // App Bar with Profile Header
@@ -41,7 +42,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: AppTheme.space48),
-                      
+
                       // Profile Picture
                       Stack(
                         children: [
@@ -99,10 +100,12 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                             ),
                           ),
                         ],
-                      ).animate().scale(duration: 400.ms, curve: Curves.easeOut),
-                      
+                      )
+                          .animate()
+                          .scale(duration: 400.ms, curve: Curves.easeOut),
+
                       SizedBox(height: AppTheme.space16),
-                      
+
                       // Name
                       Text(
                         user?.displayName ?? 'Music Lover',
@@ -111,9 +114,9 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                           fontWeight: FontWeight.bold,
                         ),
                       ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2),
-                      
+
                       SizedBox(height: AppTheme.space8),
-                      
+
                       // Email
                       Text(
                         user?.email ?? 'user@harmonyhub.com',
@@ -176,7 +179,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                   ).animate().fadeIn(delay: 550.ms),
-                  
+
                   SizedBox(height: AppTheme.space16),
 
                   _buildSettingTile(
@@ -219,7 +222,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                   ).animate().fadeIn(delay: 750.ms),
-                  
+
                   SizedBox(height: AppTheme.space16),
 
                   _buildSettingTile(
@@ -263,7 +266,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                   ).animate().fadeIn(delay: 950.ms),
-                  
+
                   SizedBox(height: AppTheme.space16),
 
                   _buildSettingTile(
@@ -320,7 +323,10 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                     },
                     isOutline: true,
                     icon: Icons.logout,
-                  ).animate().fadeIn(delay: 1200.ms).scale(begin: const Offset(0.9, 0.9)),
+                  )
+                      .animate()
+                      .fadeIn(delay: 1200.ms)
+                      .scale(begin: const Offset(0.9, 0.9)),
 
                   SizedBox(height: AppTheme.space16),
 
@@ -400,9 +406,8 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
     return Container(
       margin: EdgeInsets.only(bottom: AppTheme.space8),
       decoration: BoxDecoration(
-        color: isDark
-            ? AppTheme.darkCard.withOpacity(0.3)
-            : AppTheme.lightSurface,
+        color:
+            isDark ? AppTheme.darkCard.withOpacity(0.3) : AppTheme.lightSurface,
         borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
       ),
       child: ListTile(

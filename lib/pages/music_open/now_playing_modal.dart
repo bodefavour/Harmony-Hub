@@ -51,7 +51,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
       duration: const Duration(seconds: 20),
       vsync: this,
     )..repeat();
-    
+
     _waveController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -192,7 +192,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                                   ],
                                 ),
                               ),
-                            ).animate(onPlay: (controller) => controller.repeat())
+                            )
+                                .animate(
+                                    onPlay: (controller) => controller.repeat())
                                 .scale(
                                   begin: const Offset(0.8, 0.8),
                                   end: const Offset(1.2, 1.2),
@@ -205,21 +207,24 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             width: 300,
                             height: 300,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
+                              borderRadius:
+                                  BorderRadius.circular(AppTheme.radiusLarge),
                               boxShadow: [
                                 AppTheme.elevatedShadow,
                                 AppTheme.glowShadow,
                               ],
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
+                              borderRadius:
+                                  BorderRadius.circular(AppTheme.radiusLarge),
                               child: widget.coverUrl != null
                                   ? Image.network(
                                       widget.coverUrl!,
                                       fit: BoxFit.cover,
                                     )
                                   : Container(
-                                      color: AppTheme.spotifyGreen.withOpacity(0.3),
+                                      color: AppTheme.spotifyGreen
+                                          .withOpacity(0.3),
                                       child: Icon(
                                         Icons.music_note,
                                         size: 120,
@@ -227,7 +232,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                                       ),
                                     ),
                             ),
-                          ).animate().scale(duration: 400.ms, curve: Curves.easeOut),
+                          )
+                              .animate()
+                              .scale(duration: 400.ms, curve: Curves.easeOut),
                         ],
                       ),
                     ),
@@ -271,7 +278,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                           IconButton(
                             icon: Icon(
                               _isLiked ? Icons.favorite : Icons.favorite_border,
-                              color: _isLiked ? AppTheme.spotifyGreen : Colors.grey,
+                              color: _isLiked
+                                  ? AppTheme.spotifyGreen
+                                  : Colors.grey,
                               size: 32,
                             ),
                             onPressed: () {
@@ -298,18 +307,22 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                               activeTrackColor: AppTheme.spotifyGreen,
                               inactiveTrackColor: Colors.grey.withOpacity(0.3),
                               thumbColor: AppTheme.spotifyGreen,
-                              overlayColor: AppTheme.spotifyGreen.withOpacity(0.2),
+                              overlayColor:
+                                  AppTheme.spotifyGreen.withOpacity(0.2),
                             ),
                             child: Slider(
-                              value: widget.currentPosition.inSeconds.toDouble(),
+                              value:
+                                  widget.currentPosition.inSeconds.toDouble(),
                               max: widget.totalDuration.inSeconds.toDouble(),
                               onChanged: (value) {
-                                widget.onSeek?.call(Duration(seconds: value.toInt()));
+                                widget.onSeek
+                                    ?.call(Duration(seconds: value.toInt()));
                               },
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: AppTheme.space8),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppTheme.space8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -341,7 +354,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                           IconButton(
                             icon: Icon(
                               Icons.shuffle,
-                              color: _isShuffled ? AppTheme.spotifyGreen : Colors.grey,
+                              color: _isShuffled
+                                  ? AppTheme.spotifyGreen
+                                  : Colors.grey,
                             ),
                             iconSize: 28,
                             onPressed: () {
@@ -368,7 +383,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             ),
                             child: IconButton(
                               icon: Icon(
-                                widget.isPlaying ? Icons.pause : Icons.play_arrow,
+                                widget.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
                                 size: 40,
                               ),
                               color: Colors.white,
@@ -391,7 +408,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                           IconButton(
                             icon: Icon(
                               _isRepeating ? Icons.repeat_one : Icons.repeat,
-                              color: _isRepeating ? AppTheme.spotifyGreen : Colors.grey,
+                              color: _isRepeating
+                                  ? AppTheme.spotifyGreen
+                                  : Colors.grey,
                             ),
                             iconSize: 28,
                             onPressed: () {

@@ -17,7 +17,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _acceptTerms = false;
@@ -147,10 +147,8 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                       size: 40,
                       color: Colors.white,
                     ),
-                  )
-                      .animate()
-                      .fadeIn(delay: 100.ms, duration: 400.ms)
-                      .scale(begin: const Offset(0.5, 0.5), curve: Curves.easeOut),
+                  ).animate().fadeIn(delay: 100.ms, duration: 400.ms).scale(
+                      begin: const Offset(0.5, 0.5), curve: Curves.easeOut),
 
                   SizedBox(height: AppTheme.space24),
 
@@ -258,7 +256,8 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                         color: Colors.grey,
                       ),
                       onPressed: () {
-                        setState(() => _obscureConfirmPassword = !_obscureConfirmPassword);
+                        setState(() =>
+                            _obscureConfirmPassword = !_obscureConfirmPassword);
                       },
                     ),
                     validator: (value) {
@@ -329,7 +328,10 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     text: 'Sign Up',
                     onPressed: _isLoading ? null : _signUp,
                     isLoading: _isLoading,
-                  ).animate().fadeIn(delay: 900.ms).scale(begin: const Offset(0.9, 0.9)),
+                  )
+                      .animate()
+                      .fadeIn(delay: 900.ms)
+                      .scale(begin: const Offset(0.9, 0.9)),
 
                   SizedBox(height: AppTheme.space24),
 
@@ -342,7 +344,8 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: AppTheme.space16),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: AppTheme.space16),
                         child: Text(
                           'or continue with',
                           style: AppTheme.bodySmall.copyWith(
@@ -375,9 +378,11 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                       Expanded(
                         child: ModernButton(
                           text: 'Apple',
-                          onPressed: _isLoading ? null : () {
-                            // TODO: Implement Apple sign up
-                          },
+                          onPressed: _isLoading
+                              ? null
+                              : () {
+                                  // TODO: Implement Apple sign up
+                                },
                           isOutline: true,
                           icon: Icons.apple,
                         ),
