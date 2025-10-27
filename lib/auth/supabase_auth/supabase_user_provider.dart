@@ -61,19 +61,24 @@ class HarmonyHubSupabaseUser extends BaseAuthUser {
   static BaseAuthUser fromUser(User? user) => HarmonyHubSupabaseUser(user);
 }
 
-Stream<BaseAuthUser> harmonyHubSupabaseUserStream() =>
-    Supabase.instance.client.auth.onAuthStateChange
-        .map<AuthState>((event) => event)
-        .startWith(AuthState(
-          AuthChangeEvent.initialSession,
-          Supabase.instance.client.auth.currentSession,
-        ))
-        .debounce((event) => event.session == null && !loggedIn
-            ? TimerStream(true, const Duration(seconds: 1))
-            : Stream.value(event))
-        .map<BaseAuthUser>(
-      (event) {
-        currentUser = HarmonyHubSupabaseUser(event.session?.user);
-        return currentUser!;
-      },
-    );
+Stream<BaseAuthUser> harmonyHubSupabaseUserStream() {
+  // Create initial user from current session
+  final initialUser = HarmonyHubSupabaseUser(
+    Supabase.instance.client.auth.currentUser,
+  );
+  currentUser = initialUser;
+  
+  // Return stream that starts with initial user then listens for changes
+  final Stream<BaseAuthUser> authStream = Supabase.instance.client.auth.onAuthStateChange
+      .debounce((event) => event.session == null && !loggedIn
+          ? TimerStream(true, const Duration(seconds: 1))
+          : Stream.value(event))
+      .map<BaseAuthUser>(
+    (event) {
+      currentUser = HarmonyHubSupabaseUser(event.session?.user);
+      return currentUser!;
+    },
+  );
+  
+  return Stream.value(initialUser as BaseAuthUser).concatWith([authStream]);
+}
