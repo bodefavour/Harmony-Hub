@@ -184,12 +184,12 @@ class ArtistUploadController extends ChangeNotifier {
       // Upload audio file
       _uploadProgress = 0.1;
       notifyListeners();
-      
+
       final audioPath = await _supabaseService.uploadAudio(
         _audioFile!,
         _audioFileName!,
       );
-      
+
       _uploadProgress = 0.5;
       notifyListeners();
 
@@ -201,7 +201,7 @@ class ArtistUploadController extends ChangeNotifier {
           _imageFileName!,
         );
       }
-      
+
       _uploadProgress = 0.7;
       notifyListeners();
 

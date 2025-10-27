@@ -123,10 +123,12 @@ class HomePageController extends ChangeNotifier {
 
   /// Play daily feed
   Future<void> playDailyFeed() async {
-    if (_dailyFeed == null || _dailyFeed!.songs == null || _dailyFeed!.songs!.isEmpty) {
+    if (_dailyFeed == null ||
+        _dailyFeed!.songs == null ||
+        _dailyFeed!.songs!.isEmpty) {
       return;
     }
-    
+
     try {
       // Play first song from daily feed
       await _audioService.playSong(_dailyFeed!.songs!.first);

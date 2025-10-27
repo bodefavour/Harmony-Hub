@@ -28,7 +28,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'PodcastDetail'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'PodcastDetail'});
   }
 
   @override
@@ -77,7 +78,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
     );
   }
 
-  Widget _buildAppBar(BuildContext context, PodcastDetailController controller, Podcast podcast) {
+  Widget _buildAppBar(BuildContext context, PodcastDetailController controller,
+      Podcast podcast) {
     return SliverAppBar(
       expandedHeight: 350.0,
       floating: false,
@@ -127,7 +129,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
                 ? Image.network(
                     podcast.imageUrl!,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => _buildPlaceholderImage(context),
+                    errorBuilder: (context, error, stackTrace) =>
+                        _buildPlaceholderImage(context),
                   )
                 : _buildPlaceholderImage(context),
             // Gradient overlay
@@ -178,12 +181,15 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
             children: [
               if (podcast.category != null) ...[
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 6.0),
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary.withOpacity(0.1),
+                    color:
+                        FlutterFlowTheme.of(context).primary.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                      color: FlutterFlowTheme.of(context).primary.withOpacity(0.3),
+                      color:
+                          FlutterFlowTheme.of(context).primary.withOpacity(0.3),
                     ),
                   ),
                   child: Text(
@@ -234,7 +240,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
     );
   }
 
-  Widget _buildActionButtons(BuildContext context, PodcastDetailController controller) {
+  Widget _buildActionButtons(
+      BuildContext context, PodcastDetailController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Row(
@@ -242,7 +249,9 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
           Expanded(
             flex: 3,
             child: ElevatedButton.icon(
-              onPressed: controller.isPlaying ? controller.pausePodcast : controller.playPodcast,
+              onPressed: controller.isPlaying
+                  ? controller.pausePodcast
+                  : controller.playPodcast,
               icon: Icon(
                 controller.isPlaying ? Icons.pause : Icons.play_arrow,
                 color: Colors.white,
@@ -384,7 +393,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
     );
   }
 
-  Widget _buildDetailRow(BuildContext context, {
+  Widget _buildDetailRow(
+    BuildContext context, {
     required IconData icon,
     required String label,
     required String value,
@@ -460,7 +470,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
     );
   }
 
-  Widget _buildErrorState(BuildContext context, PodcastDetailController controller) {
+  Widget _buildErrorState(
+      BuildContext context, PodcastDetailController controller) {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
@@ -503,7 +514,8 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
                 onPressed: () => controller.initialize(widget.podcast),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: FlutterFlowTheme.of(context).primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32.0, vertical: 12.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),

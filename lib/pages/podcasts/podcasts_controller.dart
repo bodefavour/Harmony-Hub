@@ -70,7 +70,8 @@ class PodcastsController extends ChangeNotifier {
 
   Future<void> _loadPodcastsByCategory(String category) async {
     try {
-      final podcasts = await _podcastService.getPodcastsByCategory(category, limit: 10);
+      final podcasts =
+          await _podcastService.getPodcastsByCategory(category, limit: 10);
       switch (category) {
         case 'sermons':
           _sermonsPodcasts = podcasts;
@@ -102,7 +103,8 @@ class PodcastsController extends ChangeNotifier {
 
   Future<void> playPodcast(Podcast podcast) async {
     try {
-      final audioUrl = await _supabaseService.getAudioSignedUrl(podcast.audioUrl);
+      final audioUrl =
+          await _supabaseService.getAudioSignedUrl(podcast.audioUrl);
       await _audioService.play(
         url: audioUrl,
         title: podcast.title,

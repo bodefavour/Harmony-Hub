@@ -25,7 +25,8 @@ class PodcastDetailController extends ChangeNotifier {
   String? get error => _error;
   Podcast? get podcast => _podcast;
   bool get isFavorite => _isFavorite;
-  bool get isPlaying => _audioService.isPlaying && _audioService.currentTitle == _podcast?.title;
+  bool get isPlaying =>
+      _audioService.isPlaying && _audioService.currentTitle == _podcast?.title;
 
   Future<void> initialize(Podcast? initialPodcast) async {
     if (initialPodcast != null) {
@@ -75,7 +76,8 @@ class PodcastDetailController extends ChangeNotifier {
     if (_podcast == null) return;
 
     try {
-      final audioUrl = await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
+      final audioUrl =
+          await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
       await _audioService.play(
         url: audioUrl,
         title: _podcast!.title,
@@ -98,7 +100,8 @@ class PodcastDetailController extends ChangeNotifier {
     if (_podcast == null) return;
 
     try {
-      final audioUrl = await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
+      final audioUrl =
+          await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
       await _audioService.download(
         url: audioUrl,
         filename: '${_podcast!.title}.mp3',

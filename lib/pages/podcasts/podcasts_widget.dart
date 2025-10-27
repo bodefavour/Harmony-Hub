@@ -16,7 +16,8 @@ class PodcastsWidget extends StatefulWidget {
   State<PodcastsWidget> createState() => _PodcastsWidgetState();
 }
 
-class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStateMixin {
+class _PodcastsWidgetState extends State<PodcastsWidget>
+    with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -251,7 +252,8 @@ class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStat
     );
   }
 
-  Widget _buildPodcastList(BuildContext context, PodcastsController controller, List<Podcast> podcasts) {
+  Widget _buildPodcastList(BuildContext context, PodcastsController controller,
+      List<Podcast> podcasts) {
     if (podcasts.isEmpty) {
       return Center(
         child: Column(
@@ -289,7 +291,8 @@ class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStat
     );
   }
 
-  Widget _buildPodcastCard(BuildContext context, PodcastsController controller, Podcast podcast) {
+  Widget _buildPodcastCard(
+      BuildContext context, PodcastsController controller, Podcast podcast) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: InkWell(
@@ -326,7 +329,8 @@ class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStat
                           width: 80.0,
                           height: 80.0,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => _buildPlaceholderImage(80.0),
+                          errorBuilder: (context, error, stackTrace) =>
+                              _buildPlaceholderImage(80.0),
                         )
                       : _buildPlaceholderImage(80.0),
                 ),
@@ -366,25 +370,33 @@ class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStat
                           const SizedBox(width: 4.0),
                           Text(
                             _formatDuration(podcast.duration),
-                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                  letterSpacing: 0.0,
-                                ),
+                            style:
+                                FlutterFlowTheme.of(context).bodySmall.override(
+                                      fontFamily: 'Readex Pro',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                    ),
                           ),
                           const SizedBox(width: 16.0),
                           if (podcast.category != null) ...[
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 4.0),
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary.withOpacity(0.1),
+                                color: FlutterFlowTheme.of(context)
+                                    .primary
+                                    .withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Text(
                                 podcast.category!.toUpperCase(),
-                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 10.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -485,7 +497,8 @@ class _PodcastsWidgetState extends State<PodcastsWidget> with TickerProviderStat
               onPressed: controller.refresh,
               style: ElevatedButton.styleFrom(
                 backgroundColor: FlutterFlowTheme.of(context).primary,
-                padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 32.0, vertical: 12.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),

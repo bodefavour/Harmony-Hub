@@ -288,7 +288,8 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            feed.description ?? '${feed.songCount} songs curated for you',
+                            feed.description ??
+                                '${feed.songCount} songs curated for you',
                             style:
                                 FlutterFlowTheme.of(context).bodySmall.override(
                                       fontFamily: 'Readex Pro',
@@ -382,11 +383,13 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
             itemBuilder: (context, index) {
               final mood = moods[index];
               return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                 child: InkWell(
                   onTap: () async {
                     // TODO: Navigate to mood-based playlist
-                    final songs = await _controller.getSongsByMood(mood['value'] as String);
+                    final songs = await _controller
+                        .getSongsByMood(mood['value'] as String);
                     // Show songs or navigate
                   },
                   child: Container(
@@ -410,10 +413,11 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                         const SizedBox(height: 8),
                         Text(
                           mood['label'] as String,
-                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 11,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 11,
+                                  ),
                           textAlign: TextAlign.center,
                         ),
                       ],
