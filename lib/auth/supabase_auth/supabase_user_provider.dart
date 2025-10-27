@@ -63,6 +63,11 @@ class HarmonyHubSupabaseUser extends BaseAuthUser {
 
 Stream<BaseAuthUser> harmonyHubSupabaseUserStream() =>
     Supabase.instance.client.auth.onAuthStateChange
+        .map<AuthState>((event) => event)
+        .startWith(AuthState(
+          AuthChangeEvent.initialSession,
+          Supabase.instance.client.auth.currentSession,
+        ))
         .debounce((event) => event.session == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(event))
