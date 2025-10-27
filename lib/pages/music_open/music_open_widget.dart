@@ -16,7 +16,7 @@ export 'music_open_model.dart';
 class MusicOpenWidget extends StatefulWidget {
   final String? songId;
   final dynamic song;
-  
+
   const MusicOpenWidget({
     super.key,
     this.songId,
@@ -153,7 +153,8 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: Container(
                   width: double.infinity,
                   height: MediaQuery.sizeOf(context).height * 0.4,
@@ -257,7 +258,8 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                   desktop: false,
                                 ),
                                 child: Align(
-                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  alignment:
+                                      const AlignmentDirectional(-1.0, 0.0),
                                   child: FlutterFlowAudioPlayer(
                                     audio: Audio(
                                       'assets/audios/Dunsin_Oyekan_-_Those_Who_Will_Win_CeeNaija.com_.mp3',
@@ -286,7 +288,8 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                     fillColor: const Color(0x00000000),
-                                    playbackButtonColor: const Color(0xFFE74B08),
+                                    playbackButtonColor:
+                                        const Color(0xFFE74B08),
                                     activeTrackColor: const Color(0xFFE74B08),
                                     inactiveTrackColor:
                                         FlutterFlowTheme.of(context)
@@ -434,11 +437,11 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 16.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 16.0, 0.0, 0.0),
                                           child: ClipRRect(
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(36.0),
                                               bottomRight:
                                                   Radius.circular(36.0),
@@ -454,9 +457,8 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 4.0, 0.0, 0.0),
                                           child: RichText(
                                             textScaler: MediaQuery.of(context)
                                                 .textScaler,
@@ -470,8 +472,8 @@ class _MusicOpenWidgetState extends State<MusicOpenWidget> {
                                                       .override(
                                                         fontFamily:
                                                             'Readex Pro',
-                                                        color:
-                                                            const Color(0xFF060303),
+                                                        color: const Color(
+                                                            0xFF060303),
                                                         fontSize: 20.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:

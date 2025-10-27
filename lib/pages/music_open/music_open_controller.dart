@@ -140,11 +140,11 @@ class MusicOpenController extends ChangeNotifier {
 
       // Get download URL from Supabase Storage
       final url = await _supabaseService.getFileUrl(_currentSong!.audioUrl);
-      
+
       // TODO: Implement actual file download
       // For now, just show success message
       print('Download URL: $url');
-      
+
       _isLoading = false;
       notifyListeners();
     } catch (e) {

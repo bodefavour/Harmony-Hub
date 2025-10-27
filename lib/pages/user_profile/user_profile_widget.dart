@@ -265,7 +265,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    logFirebaseEvent('USER_PROFILE_PAGE_admin_dashboard_ON_TAP');
+                    logFirebaseEvent(
+                        'USER_PROFILE_PAGE_admin_dashboard_ON_TAP');
 
                     context.pushNamed('AdminDashboard');
                   },
