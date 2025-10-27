@@ -78,7 +78,7 @@ class Podcast {
     final hours = duration! ~/ 3600;
     final minutes = (duration! % 3600) ~/ 60;
     final seconds = duration! % 60;
-    
+
     if (hours > 0) {
       return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
     } else {
@@ -94,7 +94,7 @@ class Podcast {
     if (publishedAt == null) return 'Unknown';
     final now = DateTime.now();
     final difference = now.difference(publishedAt!);
-    
+
     if (difference.inDays == 0) {
       if (difference.inHours == 0) {
         return '${difference.inMinutes} minutes ago';

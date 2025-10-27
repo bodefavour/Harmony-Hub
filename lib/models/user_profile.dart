@@ -74,7 +74,8 @@ class UserProfile {
       email: json['email'] as String?,
       country: json['country'] as String? ?? 'NG',
       preferences: json['preferences'] != null
-          ? UserPreferences.fromJson(json['preferences'] as Map<String, dynamic>)
+          ? UserPreferences.fromJson(
+              json['preferences'] as Map<String, dynamic>)
           : UserPreferences(),
       isAdmin: json['is_admin'] as bool? ?? false,
       isPremium: json['is_premium'] as bool? ?? false,

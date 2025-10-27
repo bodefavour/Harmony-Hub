@@ -73,7 +73,7 @@ class Playlist {
   String get formattedTotalDuration {
     final hours = totalDuration ~/ 3600;
     final minutes = (totalDuration % 3600) ~/ 60;
-    
+
     if (hours > 0) {
       return '$hours hr ${minutes} min';
     } else {
