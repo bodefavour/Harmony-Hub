@@ -29,6 +29,7 @@ dependencies:
     sdk: flutter
   # assets_audio_player: ^3.1.1  # REMOVED - incompatible with Kotlin 1.9+ and Android SDK 35
   # assets_audio_player_web: ^3.1.1  # REMOVED - incompatible, using just_audio instead
+  flutter_dotenv: ^5.1.0
   audio_session: ^0.2.2
   auto_size_text: ^3.0.0
   cached_network_image: ^3.3.1
@@ -116,6 +117,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/fonts/
     - assets/images/
     - assets/videos/

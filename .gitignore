@@ -1,3 +1,8 @@
 /build/
 /build
 .dart_tool/
+
+# Environment variables - DO NOT commit
+.env
+.env.local
+.env.*.local
