@@ -25,12 +25,9 @@ class SupabaseService {
   /// Get user profile by ID
   Future<UserProfile?> getUserProfile(String userId) async {
     try {
-      final response = await _client
-          .from('users')
-          .select()
-          .eq('id', userId)
-          .single();
-      
+      final response =
+          await _client.from('users').select().eq('id', userId).single();
+
       return UserProfile.fromJson(response);
     } catch (e) {
       print('Error fetching user profile: $e');
@@ -62,26 +59,25 @@ class SupabaseService {
     int offset = 0,
   }) async {
     try {
-      var query = _client
-          .from('songs')
-          .select('*, artist:artists(*), album:albums(*)')
-          .order('created_at', ascending: false)
-          .range(offset, offset + limit - 1);
+      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
 
       if (genre != null) {
-        query = query.eq('genre', genre);
+        queryBuilder = queryBuilder.eq('genre', genre);
       }
       if (artistId != null) {
-        query = query.eq('artist_id', artistId);
+        queryBuilder = queryBuilder.eq('artist_id', artistId);
       }
       if (albumId != null) {
-        query = query.eq('album_id', albumId);
+        queryBuilder = queryBuilder.eq('album_id', albumId);
       }
       if (searchQuery != null && searchQuery.isNotEmpty) {
-        query = query.ilike('title', '%$searchQuery%');
+        queryBuilder = queryBuilder.ilike('title', '%$searchQuery%');
       }
 
-      final response = await query;
+      final response = await queryBuilder
+          .order('created_at', ascending: false)
+          .range(offset, offset + limit - 1);
+      
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching songs: $e');
@@ -97,7 +93,7 @@ class SupabaseService {
           .select('*, artist:artists(*), album:albums(*)')
           .eq('id', songId)
           .single();
-      
+
       return Song.fromJson(response);
     } catch (e) {
       print('Error fetching song: $e');
@@ -108,17 +104,16 @@ class SupabaseService {
   /// Get trending songs (by play count)
   Future<List<Song>> getTrendingSongs({String? genre, int limit = 20}) async {
     try {
-      var query = _client
-          .from('songs')
-          .select('*, artist:artists(*), album:albums(*)')
+      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
+
+      if (genre != null) {
+        queryBuilder = queryBuilder.eq('genre', genre);
+      }
+
+      final response = await queryBuilder
           .order('play_count', ascending: false)
           .limit(limit);
 
-      if (genre != null) {
-        query = query.eq('genre', genre);
-      }
-
-      final response = await query;
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching trending songs: $e');
@@ -129,17 +124,16 @@ class SupabaseService {
   /// Get new releases
   Future<List<Song>> getNewReleases({String? genre, int limit = 20}) async {
     try {
-      var query = _client
-          .from('songs')
-          .select('*, artist:artists(*), album:albums(*)')
+      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
+
+      if (genre != null) {
+        queryBuilder = queryBuilder.eq('genre', genre);
+      }
+
+      final response = await queryBuilder
           .order('created_at', ascending: false)
           .limit(limit);
 
-      if (genre != null) {
-        query = query.eq('genre', genre);
-      }
-
-      final response = await query;
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching new releases: $e');
@@ -179,12 +173,9 @@ class SupabaseService {
   /// Get artist by ID
   Future<Artist?> getArtistById(String artistId) async {
     try {
-      final response = await _client
-          .from('artists')
-          .select()
-          .eq('id', artistId)
-          .single();
-      
+      final response =
+          await _client.from('artists').select().eq('id', artistId).single();
+
       return Artist.fromJson(response);
     } catch (e) {
       print('Error fetching artist: $e');
@@ -199,17 +190,16 @@ class SupabaseService {
   /// Fetch albums with optional artist filter
   Future<List<Album>> fetchAlbums({String? artistId, int limit = 50}) async {
     try {
-      var query = _client
-          .from('albums')
-          .select()
+      var queryBuilder = _client.from('albums').select();
+
+      if (artistId != null) {
+        queryBuilder = queryBuilder.eq('artist_id', artistId);
+      }
+
+      final response = await queryBuilder
           .order('release_date', ascending: false)
           .limit(limit);
 
-      if (artistId != null) {
-        query = query.eq('artist_id', artistId);
-      }
-
-      final response = await query;
       return (response as List).map((json) => Album.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching albums: $e');
@@ -224,17 +214,16 @@ class SupabaseService {
   /// Fetch podcasts with optional category filter
   Future<List<Podcast>> fetchPodcasts({String? category, int limit = 50}) async {
     try {
-      var query = _client
-          .from('podcasts')
-          .select()
+      var queryBuilder = _client.from('podcasts').select();
+
+      if (category != null) {
+        queryBuilder = queryBuilder.eq('category', category);
+      }
+
+      final response = await queryBuilder
           .order('published_at', ascending: false)
           .limit(limit);
 
-      if (category != null) {
-        query = query.eq('category', category);
-      }
-
-      final response = await query;
       return (response as List).map((json) => Podcast.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching podcasts: $e');
@@ -245,12 +234,9 @@ class SupabaseService {
   /// Get podcast by ID
   Future<Podcast?> getPodcastById(String podcastId) async {
     try {
-      final response = await _client
-          .from('podcasts')
-          .select()
-          .eq('id', podcastId)
-          .single();
-      
+      final response =
+          await _client.from('podcasts').select().eq('id', podcastId).single();
+
       return Podcast.fromJson(response);
     } catch (e) {
       print('Error fetching podcast: $e');
@@ -270,7 +256,7 @@ class SupabaseService {
           .map((json) => json['category'] as String)
           .toSet()
           .toList();
-      
+
       categories.sort();
       return categories;
     } catch (e) {
@@ -360,7 +346,8 @@ class SupabaseService {
   }
 
   /// Add song to playlist
-  Future<void> addSongToPlaylist(String playlistId, String songId, int position) async {
+  Future<void> addSongToPlaylist(
+      String playlistId, String songId, int position) async {
     try {
       await _client.from('playlist_items').insert({
         'playlist_id': playlistId,
@@ -506,7 +493,7 @@ class SupabaseService {
       if (response == null) return null;
 
       final feed = DailyFeed.fromJson(response);
-      
+
       // Check if expired
       if (feed.isExpired) return null;
 
@@ -546,7 +533,9 @@ class SupabaseService {
           .eq('status', 'pending')
           .order('created_at', ascending: false);
 
-      return (response as List).map((json) => AdminUpload.fromJson(json)).toList();
+      return (response as List)
+          .map((json) => AdminUpload.fromJson(json))
+          .toList();
     } catch (e) {
       print('Error fetching pending uploads: $e');
       return [];
@@ -562,7 +551,9 @@ class SupabaseService {
           .eq('uploader_id', userId)
           .order('created_at', ascending: false);
 
-      return (response as List).map((json) => AdminUpload.fromJson(json)).toList();
+      return (response as List)
+          .map((json) => AdminUpload.fromJson(json))
+          .toList();
     } catch (e) {
       print('Error fetching user uploads: $e');
       return [];
@@ -614,15 +605,15 @@ class SupabaseService {
     try {
       final bytes = await file.readAsBytes();
       final fileName = path.split('/').last;
-      
+
       await _client.storage.from('songs').uploadBinary(
-        path,
-        bytes,
-        fileOptions: FileOptions(
-          upsert: true,
-          contentType: _getContentType(fileName),
-        ),
-      );
+            path,
+            bytes,
+            fileOptions: FileOptions(
+              upsert: true,
+              contentType: _getContentType(fileName),
+            ),
+          );
 
       return path;
     } catch (e) {
@@ -636,7 +627,7 @@ class SupabaseService {
     try {
       final bucket = path.split('/').first;
       final filePath = path.substring(bucket.length + 1);
-      
+
       final url = await _client.storage
           .from(bucket)
           .createSignedUrl(filePath, expiry.inSeconds);
@@ -660,7 +651,7 @@ class SupabaseService {
     try {
       final bucket = path.split('/').first;
       final filePath = path.substring(bucket.length + 1);
-      
+
       await _client.storage.from(bucket).remove([filePath]);
     } catch (e) {
       print('Error deleting file: $e');
