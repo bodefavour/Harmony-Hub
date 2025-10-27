@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../models/song.dart';
 import '../../services/audio_service.dart';
-import '../../services/favorites_service.dart';
 import '../../services/supabase_service.dart';
 
 class MusicOpenController extends ChangeNotifier {
   final AudioService _audioService;
-  final FavoritesService _favoritesService;
   final SupabaseService _supabaseService;
 
   Song? _currentSong;
   bool _isPlaying = false;
-  bool _isFavorite = false;
   bool _isLoading = false;
   Duration _position = Duration.zero;
   Duration _duration = Duration.zero;
@@ -19,16 +16,13 @@ class MusicOpenController extends ChangeNotifier {
 
   MusicOpenController({
     required AudioService audioService,
-    required FavoritesService favoritesService,
     required SupabaseService supabaseService,
   })  : _audioService = audioService,
-        _favoritesService = favoritesService,
         _supabaseService = supabaseService;
 
   // Getters
   Song? get currentSong => _currentSong;
   bool get isPlaying => _isPlaying;
-  bool get isFavorite => _isFavorite;
   bool get isLoading => _isLoading;
   Duration get position => _position;
   Duration get duration => _duration;
@@ -38,40 +32,35 @@ class MusicOpenController extends ChangeNotifier {
   String get formattedDuration => _formatDuration(_duration);
 
   /// Initialize with a song
-  Future<void> initialize(Song song, {String? userId}) async {
+  Future<void> initialize(Song song) async {
     _currentSong = song;
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      // Check if song is favorited
-      if (userId != null) {
-        _isFavorite = await _favoritesService.isFavorite(userId, song.id);
-      }
-
       // Play the song
       await _audioService.playSong(song);
       _isPlaying = true;
 
-      // Listen to player state
-      _audioService.player.playerStateStream.listen((state) {
-        _isPlaying = state.playing;
-        notifyListeners();
-      });
-
       // Listen to position updates
-      _audioService.player.positionStream.listen((pos) {
+      _audioService.positionStream.listen((pos) {
         _position = pos;
         notifyListeners();
       });
 
       // Listen to duration updates
-      _audioService.player.durationStream.listen((dur) {
+      _audioService.durationStream.listen((dur) {
         if (dur != null) {
           _duration = dur;
           notifyListeners();
         }
+      });
+
+      // Listen to playing state
+      _audioService.playingStream.listen((playing) {
+        _isPlaying = playing;
+        notifyListeners();
       });
 
       _isLoading = false;
@@ -89,7 +78,7 @@ class MusicOpenController extends ChangeNotifier {
       if (_isPlaying) {
         await _audioService.pause();
       } else {
-        await _audioService.play();
+        await _audioService.resume();
       }
     } catch (e) {
       _error = 'Playback error: ${e.toString()}';
@@ -107,44 +96,20 @@ class MusicOpenController extends ChangeNotifier {
     }
   }
 
-  /// Toggle favorite
-  Future<void> toggleFavorite(String userId) async {
-    if (_currentSong == null) return;
-
-    try {
-      if (_isFavorite) {
-        await _favoritesService.removeFavorite(userId, _currentSong!.id);
-        _isFavorite = false;
-      } else {
-        await _favoritesService.addFavorite(
-          userId,
-          _currentSong!.id,
-          'song',
-        );
-        _isFavorite = true;
-      }
-      notifyListeners();
-    } catch (e) {
-      _error = 'Failed to update favorite: ${e.toString()}';
-      notifyListeners();
-    }
-  }
-
   /// Download song
-  Future<void> downloadSong() async {
+  Future<void> downloadSong(String userId) async {
     if (_currentSong == null) return;
 
     try {
       _isLoading = true;
       notifyListeners();
 
-      // Get download URL from Supabase Storage
-      final url = await _supabaseService.getFileUrl(_currentSong!.audioUrl);
-
-      // TODO: Implement actual file download
-      // For now, just show success message
-      print('Download URL: $url');
-
+      final success = await _audioService.downloadSong(_currentSong!, userId);
+      
+      if (!success) {
+        _error = 'Download failed';
+      }
+      
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -152,9 +117,7 @@ class MusicOpenController extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
-  }
-
-  /// Skip to next (placeholder - needs queue implementation)
+  }  /// Skip to next (placeholder - needs queue implementation)
   Future<void> skipNext() async {
     // TODO: Implement queue navigation
     print('Skip to next track');

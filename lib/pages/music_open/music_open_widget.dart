@@ -5,11 +5,6 @@ import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/song.dart';
-import '../../services/audio_service.dart';
-import '../../services/favorites_service.dart';
-import '../../services/supabase_service.dart';
-import 'music_open_controller.dart';
 import 'music_open_model.dart';
 export 'music_open_model.dart';
 
