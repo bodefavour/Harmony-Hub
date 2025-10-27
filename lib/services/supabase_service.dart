@@ -478,6 +478,229 @@ class SupabaseService {
   }
 
   // ============================================
+  // SEARCH OPERATIONS
+  // ============================================
+
+  /// Search for songs
+  Future<List<Song>> searchSongs(String query) async {
+    try {
+      final response = await _client
+          .from('songs')
+          .select('*, artist:artists(*), album:albums(*)')
+          .or('title.ilike.%$query%,artist_name.ilike.%$query%')
+          .limit(50);
+
+      return (response as List)
+          .map((item) => Song.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error searching songs: $e');
+      return [];
+    }
+  }
+
+  /// Search for artists
+  Future<List<Artist>> searchArtists(String query) async {
+    try {
+      final response = await _client
+          .from('artists')
+          .select()
+          .ilike('name', '%$query%')
+          .limit(50);
+
+      return (response as List)
+          .map((item) => Artist.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error searching artists: $e');
+      return [];
+    }
+  }
+
+  /// Search for albums
+  Future<List<Album>> searchAlbums(String query) async {
+    try {
+      final response = await _client
+          .from('albums')
+          .select('*, artist:artists(*)')
+          .or('title.ilike.%$query%,artist_name.ilike.%$query%')
+          .limit(50);
+
+      return (response as List)
+          .map((item) => Album.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error searching albums: $e');
+      return [];
+    }
+  }
+
+  /// Search for podcasts
+  Future<List<Podcast>> searchPodcasts(String query) async {
+    try {
+      final response = await _client
+          .from('podcasts')
+          .select()
+          .or('title.ilike.%$query%,host.ilike.%$query%,description.ilike.%$query%')
+          .limit(50);
+
+      return (response as List)
+          .map((item) => Podcast.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error searching podcasts: $e');
+      return [];
+    }
+  }
+
+  // ============================================
+  // ARTIST OPERATIONS (EXTENDED)
+  // ============================================
+
+  /// Get artist's top songs
+  Future<List<Song>> getArtistTopSongs(String artistId, {int limit = 10}) async {
+    try {
+      final response = await _client
+          .from('songs')
+          .select('*, artist:artists(*), album:albums(*)')
+          .eq('artist_id', artistId)
+          .order('play_count', ascending: false)
+          .limit(limit);
+
+      return (response as List)
+          .map((item) => Song.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error fetching artist top songs: $e');
+      return [];
+    }
+  }
+
+  /// Get artist's albums
+  Future<List<Album>> getArtistAlbums(String artistId) async {
+    try {
+      final response = await _client
+          .from('albums')
+          .select('*, artist:artists(*)')
+          .eq('artist_id', artistId)
+          .order('release_date', ascending: false);
+
+      return (response as List)
+          .map((item) => Album.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error fetching artist albums: $e');
+      return [];
+    }
+  }
+
+  /// Get all artist's songs
+  Future<List<Song>> getArtistSongs(String artistId) async {
+    try {
+      final response = await _client
+          .from('songs')
+          .select('*, artist:artists(*), album:albums(*)')
+          .eq('artist_id', artistId)
+          .order('created_at', ascending: false);
+
+      return (response as List)
+          .map((item) => Song.fromJson(item))
+          .toList();
+    } catch (e) {
+      print('Error fetching artist songs: $e');
+      return [];
+    }
+  }
+
+  /// Check if user is following an artist
+  Future<bool> isFollowingArtist(String userId, String artistId) async {
+    try {
+      final response = await _client
+          .from('user_follows')
+          .select('artist_id')
+          .eq('user_id', userId)
+          .eq('artist_id', artistId)
+          .maybeSingle();
+
+      return response != null;
+    } catch (e) {
+      print('Error checking follow status: $e');
+      return false;
+    }
+  }
+
+  /// Follow an artist
+  Future<void> followArtist(String userId, String artistId) async {
+    try {
+      await _client.from('user_follows').insert({
+        'user_id': userId,
+        'artist_id': artistId,
+        'followed_at': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      print('Error following artist: $e');
+      rethrow;
+    }
+  }
+
+  /// Unfollow an artist
+  Future<void> unfollowArtist(String userId, String artistId) async {
+    try {
+      await _client
+          .from('user_follows')
+          .delete()
+          .eq('user_id', userId)
+          .eq('artist_id', artistId);
+    } catch (e) {
+      print('Error unfollowing artist: $e');
+      rethrow;
+    }
+  }
+
+  // ============================================
+  // USER LIBRARY OPERATIONS (EXTENDED)
+  // ============================================
+
+  /// Get user's recent songs
+  Future<List<Song>> getRecentSongs(String userId, {int limit = 20}) async {
+    try {
+      final response = await _client
+          .from('listening_history')
+          .select('song_id, songs(*, artist:artists(*), album:albums(*))')
+          .eq('user_id', userId)
+          .order('played_at', ascending: false)
+          .limit(limit);
+
+      return (response as List)
+          .map((item) => Song.fromJson(item['songs']))
+          .toList();
+    } catch (e) {
+      print('Error fetching recent songs: $e');
+      return [];
+    }
+  }
+
+  /// Get user's favorite albums
+  Future<List<Album>> getFavoriteAlbums(String userId) async {
+    try {
+      final response = await _client
+          .from('user_favorites')
+          .select('album_id, albums(*, artist:artists(*))')
+          .eq('user_id', userId)
+          .eq('item_type', 'album')
+          .order('created_at', ascending: false);
+
+      return (response as List)
+          .where((item) => item['albums'] != null)
+          .map((item) => Album.fromJson(item['albums']))
+          .toList();
+    } catch (e) {
+      print('Error fetching favorite albums: $e');
+      return [];
+    }
+  }
+
+  // ============================================
   // DAILY FEED OPERATIONS
   // ============================================
 

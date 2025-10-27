@@ -264,6 +264,36 @@ class RecommendationService {
     }
   }
 
+  /// Get songs by genre
+  Future<List<Song>> getSongsByGenre(String genre, {int limit = 50}) async {
+    try {
+      return await _supabaseService.fetchSongs(
+        genre: genre,
+        limit: limit,
+      );
+    } catch (e) {
+      print('Error getting songs by genre: $e');
+      return [];
+    }
+  }
+
+  /// Get recommended songs for user (public method)
+  Future<List<Song>> getRecommendedSongs(String userId, {int limit = 20}) async {
+    try {
+      final userProfile = await _supabaseService.getUserProfile(userId);
+      final preferences = userProfile?.preferences ?? UserPreferences();
+
+      return await _generateRecommendedSongs(
+        userId: userId,
+        preferences: preferences,
+        count: limit,
+      );
+    } catch (e) {
+      print('Error getting recommended songs: $e');
+      return [];
+    }
+  }
+
   // ============================================
   // FUTURE: AI-POWERED RECOMMENDATIONS
   // ============================================
