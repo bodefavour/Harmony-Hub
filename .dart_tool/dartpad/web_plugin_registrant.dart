@@ -6,12 +6,9 @@
 // @dart = 2.13
 // ignore_for_file: type=lint
 
+import 'package:app_links_web/app_links_web.dart';
 import 'package:assets_audio_player_web/web/assets_audio_player_web.dart';
 import 'package:audio_session/audio_session_web.dart';
-import 'package:firebase_analytics_web/firebase_analytics_web.dart';
-import 'package:firebase_auth_web/firebase_auth_web.dart';
-import 'package:firebase_core_web/firebase_core_web.dart';
-import 'package:firebase_performance_web/firebase_performance_web.dart';
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:just_audio_web/just_audio_web.dart';
@@ -22,12 +19,9 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void registerPlugins([final Registrar? pluginRegistrar]) {
   final Registrar registrar = pluginRegistrar ?? webPluginRegistrar;
+  AppLinksPluginWeb.registerWith(registrar);
   AssetsAudioPlayerWebPlugin.registerWith(registrar);
   AudioSessionWeb.registerWith(registrar);
-  FirebaseAnalyticsWeb.registerWith(registrar);
-  FirebaseAuthWeb.registerWith(registrar);
-  FirebaseCoreWeb.registerWith(registrar);
-  FirebasePerformanceWeb.registerWith(registrar);
   FlutterNativeSplashWeb.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
   JustAudioPlugin.registerWith(registrar);

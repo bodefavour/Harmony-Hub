@@ -1,21 +1,16 @@
 # This is a generated file; do not edit or check into version control.
+app_links=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links-6.4.1\\
+app_links_linux=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links_linux-1.0.3\\
+app_links_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links_web-1.0.4\\
 assets_audio_player=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\assets_audio_player-3.1.1\\
 assets_audio_player_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\assets_audio_player_web-3.1.1\\
 audio_session=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\audio_session-0.2.2\\
-firebase_analytics=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_analytics-12.0.3\\
-firebase_analytics_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_analytics_web-0.6.0+3\\
-firebase_auth=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth-6.1.1\\
-firebase_auth_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth_web-6.0.4\\
-firebase_core=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core-4.2.0\\
-firebase_core_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core_web-3.2.0\\
-firebase_crashlytics=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_crashlytics-5.0.3\\
-firebase_performance=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_performance-0.11.1+1\\
-firebase_performance_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_performance_web-0.1.7+20\\
 flutter_native_splash=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_native_splash-2.4.4\\
 google_sign_in=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in-7.1.1\\
 google_sign_in_android=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_android-7.0.3\\
 google_sign_in_ios=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_ios-6.1.0\\
 google_sign_in_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_web-1.0.0\\
+gtk=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\gtk-2.1.0\\
 just_audio=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\just_audio-0.10.5\\
 just_audio_web=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\just_audio_web-0.4.16\\
 path_provider=C:\\Users\\user\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.1.5\\
