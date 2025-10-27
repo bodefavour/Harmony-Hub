@@ -22,7 +22,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ArtistUpload'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ArtistUpload'});
   }
 
   @override
@@ -115,7 +116,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildUploadTypeSelector(BuildContext context, ArtistUploadController controller) {
+  Widget _buildUploadTypeSelector(
+      BuildContext context, ArtistUploadController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,7 +209,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildTitleField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildTitleField(
+      BuildContext context, ArtistUploadController controller) {
     return TextFormField(
       initialValue: controller.title,
       onChanged: controller.setTitle,
@@ -228,12 +231,15 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildArtistNameField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildArtistNameField(
+      BuildContext context, ArtistUploadController controller) {
     return TextFormField(
       initialValue: controller.artistName,
       onChanged: controller.setArtistName,
       decoration: InputDecoration(
-        labelText: controller.uploadType == 'podcast' ? 'Host Name *' : 'Artist Name *',
+        labelText: controller.uploadType == 'podcast'
+            ? 'Host Name *'
+            : 'Artist Name *',
         hintText: 'Enter artist/host name',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -249,7 +255,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildAlbumNameField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildAlbumNameField(
+      BuildContext context, ArtistUploadController controller) {
     return TextFormField(
       initialValue: controller.albumName,
       onChanged: controller.setAlbumName,
@@ -264,7 +271,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildGenreField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildGenreField(
+      BuildContext context, ArtistUploadController controller) {
     return DropdownButtonFormField<String>(
       value: controller.genre,
       decoration: InputDecoration(
@@ -287,7 +295,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildCategoryField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildCategoryField(
+      BuildContext context, ArtistUploadController controller) {
     return DropdownButtonFormField<String>(
       value: controller.category,
       decoration: InputDecoration(
@@ -309,7 +318,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildDescriptionField(BuildContext context, ArtistUploadController controller) {
+  Widget _buildDescriptionField(
+      BuildContext context, ArtistUploadController controller) {
     return TextFormField(
       initialValue: controller.description,
       onChanged: controller.setDescription,
@@ -325,7 +335,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildAudioFilePicker(BuildContext context, ArtistUploadController controller) {
+  Widget _buildAudioFilePicker(
+      BuildContext context, ArtistUploadController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -397,7 +408,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildImageFilePicker(BuildContext context, ArtistUploadController controller) {
+  Widget _buildImageFilePicker(
+      BuildContext context, ArtistUploadController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -474,7 +486,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildSubmitButton(BuildContext context, ArtistUploadController controller) {
+  Widget _buildSubmitButton(
+      BuildContext context, ArtistUploadController controller) {
     return FFButtonWidget(
       onPressed: controller.canSubmit
           ? () async {
@@ -483,7 +496,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
                 if (success && context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Upload submitted successfully! It will be reviewed by our team.'),
+                      content: Text(
+                          'Upload submitted successfully! It will be reviewed by our team.'),
                       backgroundColor: Colors.green,
                     ),
                   );
@@ -506,13 +520,15 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
             ),
         elevation: 3.0,
         borderRadius: BorderRadius.circular(12.0),
-        disabledColor: FlutterFlowTheme.of(context).secondaryText.withOpacity(0.3),
+        disabledColor:
+            FlutterFlowTheme.of(context).secondaryText.withOpacity(0.3),
         disabledTextColor: FlutterFlowTheme.of(context).secondaryText,
       ),
     );
   }
 
-  Widget _buildErrorMessage(BuildContext context, ArtistUploadController controller) {
+  Widget _buildErrorMessage(
+      BuildContext context, ArtistUploadController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Container(
@@ -547,7 +563,8 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     );
   }
 
-  Widget _buildUploadingState(BuildContext context, ArtistUploadController controller) {
+  Widget _buildUploadingState(
+      BuildContext context, ArtistUploadController controller) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),

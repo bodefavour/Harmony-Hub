@@ -9,6 +9,7 @@
 import 'package:app_links_web/app_links_web.dart';
 import 'package:assets_audio_player_web/web/assets_audio_player_web.dart';
 import 'package:audio_session/audio_session_web.dart';
+import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:just_audio_web/just_audio_web.dart';
@@ -22,6 +23,7 @@ void registerPlugins([final Registrar? pluginRegistrar]) {
   AppLinksPluginWeb.registerWith(registrar);
   AssetsAudioPlayerWebPlugin.registerWith(registrar);
   AudioSessionWeb.registerWith(registrar);
+  FilePickerWeb.registerWith(registrar);
   FlutterNativeSplashWeb.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
   JustAudioPlugin.registerWith(registrar);
