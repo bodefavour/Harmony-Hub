@@ -105,11 +105,11 @@ class MusicOpenController extends ChangeNotifier {
       notifyListeners();
 
       final success = await _audioService.downloadSong(_currentSong!, userId);
-      
+
       if (!success) {
         _error = 'Download failed';
       }
-      
+
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -117,7 +117,9 @@ class MusicOpenController extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
-  }  /// Skip to next (placeholder - needs queue implementation)
+  }
+
+  /// Skip to next (placeholder - needs queue implementation)
   Future<void> skipNext() async {
     // TODO: Implement queue navigation
     print('Skip to next track');
