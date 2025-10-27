@@ -26,13 +26,13 @@ class AudioService {
 
   final AudioPlayer _player = AudioPlayer();
   final SupabaseService _supabaseService = SupabaseService();
-  
+
   Song? _currentSong;
   Podcast? _currentPodcast;
-  
+
   final StreamController<PlayerState> _stateController =
       StreamController<PlayerState>.broadcast();
-  
+
   bool _initialized = false;
 
   // ============================================
@@ -46,7 +46,7 @@ class AudioService {
     try {
       final session = await AudioSession.instance;
       await session.configure(const AudioSessionConfiguration.music());
-      
+
       // Listen to audio session interruptions
       session.interruptionEventStream.listen((event) {
         if (event.begin) {

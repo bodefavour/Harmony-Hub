@@ -14,7 +14,8 @@ class PodcastService {
   // ============================================
 
   /// Fetch all podcasts
-  Future<List<Podcast>> fetchPodcasts({String? category, int limit = 50}) async {
+  Future<List<Podcast>> fetchPodcasts(
+      {String? category, int limit = 50}) async {
     try {
       return await _supabaseService.fetchPodcasts(
         category: category,
@@ -40,7 +41,7 @@ class PodcastService {
   Future<List<String>> getCategories() async {
     try {
       final categories = await _supabaseService.getPodcastCategories();
-      
+
       // Add "All" category at the beginning
       return ['All', ...categories];
     } catch (e) {
@@ -90,7 +91,7 @@ class PodcastService {
     // 2. Parse XML
     // 3. Convert to Podcast objects
     // 4. Cache episodes
-    
+
     print('RSS feed parsing not yet implemented');
     return [];
   }
@@ -101,7 +102,7 @@ class PodcastService {
     // 1. Get all podcasts with external_feed URL
     // 2. Fetch and parse each feed
     // 3. Update database with new episodes
-    
+
     print('Feed sync not yet implemented');
   }
 
@@ -113,7 +114,7 @@ class PodcastService {
   Future<bool> isFollowingPodcast(String userId, String podcastId) async {
     // TODO: Implement podcast following/favoriting
     // Similar to song favorites in user_library
-    
+
     print('Podcast following not yet implemented');
     return false;
   }
@@ -122,21 +123,21 @@ class PodcastService {
   Future<void> followPodcast(String userId, String podcastId) async {
     // TODO: Implement podcast following
     // Add to user's followed podcasts
-    
+
     print('Follow podcast not yet implemented');
   }
 
   /// Unfollow a podcast
   Future<void> unfollowPodcast(String userId, String podcastId) async {
     // TODO: Implement podcast unfollowing
-    
+
     print('Unfollow podcast not yet implemented');
   }
 
   /// Get user's followed podcasts
   Future<List<Podcast>> getFollowedPodcasts(String userId) async {
     // TODO: Implement get followed podcasts
-    
+
     print('Get followed podcasts not yet implemented');
     return [];
   }

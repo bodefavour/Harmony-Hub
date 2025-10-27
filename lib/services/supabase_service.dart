@@ -59,7 +59,8 @@ class SupabaseService {
     int offset = 0,
   }) async {
     try {
-      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
+      var queryBuilder =
+          _client.from('songs').select('*, artist:artists(*), album:albums(*)');
 
       if (genre != null) {
         queryBuilder = queryBuilder.eq('genre', genre);
@@ -77,7 +78,7 @@ class SupabaseService {
       final response = await queryBuilder
           .order('created_at', ascending: false)
           .range(offset, offset + limit - 1);
-      
+
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching songs: $e');
@@ -104,15 +105,15 @@ class SupabaseService {
   /// Get trending songs (by play count)
   Future<List<Song>> getTrendingSongs({String? genre, int limit = 20}) async {
     try {
-      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
+      var queryBuilder =
+          _client.from('songs').select('*, artist:artists(*), album:albums(*)');
 
       if (genre != null) {
         queryBuilder = queryBuilder.eq('genre', genre);
       }
 
-      final response = await queryBuilder
-          .order('play_count', ascending: false)
-          .limit(limit);
+      final response =
+          await queryBuilder.order('play_count', ascending: false).limit(limit);
 
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
@@ -124,15 +125,15 @@ class SupabaseService {
   /// Get new releases
   Future<List<Song>> getNewReleases({String? genre, int limit = 20}) async {
     try {
-      var queryBuilder = _client.from('songs').select('*, artist:artists(*), album:albums(*)');
+      var queryBuilder =
+          _client.from('songs').select('*, artist:artists(*), album:albums(*)');
 
       if (genre != null) {
         queryBuilder = queryBuilder.eq('genre', genre);
       }
 
-      final response = await queryBuilder
-          .order('created_at', ascending: false)
-          .limit(limit);
+      final response =
+          await queryBuilder.order('created_at', ascending: false).limit(limit);
 
       return (response as List).map((json) => Song.fromJson(json)).toList();
     } catch (e) {
@@ -212,7 +213,8 @@ class SupabaseService {
   // ============================================
 
   /// Fetch podcasts with optional category filter
-  Future<List<Podcast>> fetchPodcasts({String? category, int limit = 50}) async {
+  Future<List<Podcast>> fetchPodcasts(
+      {String? category, int limit = 50}) async {
     try {
       var queryBuilder = _client.from('podcasts').select();
 

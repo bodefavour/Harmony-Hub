@@ -6,7 +6,8 @@ import 'supabase_service.dart';
 
 /// Service to generate personalized music recommendations
 class RecommendationService {
-  static final RecommendationService _instance = RecommendationService._internal();
+  static final RecommendationService _instance =
+      RecommendationService._internal();
   factory RecommendationService() => _instance;
   RecommendationService._internal();
 
@@ -280,7 +281,7 @@ class RecommendationService {
     // 2. Call serverless function with context
     // 3. Parse AI response and fetch songs
     // 4. Return personalized playlist
-    
+
     print('AI recommendations not yet implemented. Using rule-based fallback.');
     return await getRecommendations(userId, limit: limit);
   }

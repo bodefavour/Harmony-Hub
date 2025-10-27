@@ -120,7 +120,8 @@ class AdminService {
       }
 
       // 3. Move audio file to production path
-      final prodAudioPath = 'songs/${artist.id}/${upload.songTitle.replaceAll(' ', '-').toLowerCase()}.mp3';
+      final prodAudioPath =
+          'songs/${artist.id}/${upload.songTitle.replaceAll(' ', '-').toLowerCase()}.mp3';
       // TODO: Implement file move in Supabase Storage
       // For now, we'll use the upload path directly
 
@@ -219,11 +220,12 @@ class AdminService {
   // ============================================
 
   /// Get existing artist or create new one
-  Future<Artist> _getOrCreateArtist(String artistName, {bool verified = true}) async {
+  Future<Artist> _getOrCreateArtist(String artistName,
+      {bool verified = true}) async {
     try {
       // TODO: Search for existing artist by name
       // For now, create new artist
-      
+
       final artist = Artist(
         id: '', // Will be generated
         name: artistName,
