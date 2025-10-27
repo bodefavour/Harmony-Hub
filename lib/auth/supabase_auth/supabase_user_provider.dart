@@ -67,9 +67,10 @@ Stream<BaseAuthUser> harmonyHubSupabaseUserStream() {
     Supabase.instance.client.auth.currentUser,
   );
   currentUser = initialUser;
-  
+
   // Return stream that starts with initial user then listens for changes
-  final Stream<BaseAuthUser> authStream = Supabase.instance.client.auth.onAuthStateChange
+  final Stream<BaseAuthUser> authStream = Supabase
+      .instance.client.auth.onAuthStateChange
       .debounce((event) => event.session == null && !loggedIn
           ? TimerStream(true, const Duration(seconds: 1))
           : Stream.value(event))
@@ -79,6 +80,6 @@ Stream<BaseAuthUser> harmonyHubSupabaseUserStream() {
       return currentUser!;
     },
   );
-  
+
   return Stream.value(initialUser as BaseAuthUser).concatWith([authStream]);
 }
