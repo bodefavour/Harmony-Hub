@@ -5,7 +5,6 @@ import '../../flutter_flow/flutter_flow_util.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../../services/admin_service.dart';
-import '../../services/supabase_service.dart';
 import 'artist_upload_controller.dart';
 
 class ArtistUploadWidget extends StatefulWidget {
@@ -31,7 +30,6 @@ class _ArtistUploadWidgetState extends State<ArtistUploadWidget> {
     return ChangeNotifierProvider(
       create: (_) => ArtistUploadController(
         adminService: AdminService(),
-        supabaseService: SupabaseService(),
       ),
       child: Consumer<ArtistUploadController>(
         builder: (context, controller, _) {

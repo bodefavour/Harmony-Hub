@@ -99,9 +99,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'musicOpen',
-          path: '/musicOpen',
+          path: '/musicOpen/:songId',
           requireAuth: true,
-          builder: (context, params) => const MusicOpenWidget(),
+          builder: (context, params) => MusicOpenWidget(
+            songId: params.getParam('songId', ParamType.String),
+            song: params.getParam('song', ParamType.JSON),
+          ),
         ),
         FFRoute(
           name: 'Search',

@@ -1991,13 +1991,35 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderWidth: 1.0,
                                       buttonSize: 40.0,
                                       icon: const Icon(
-                                        Icons.photo_filter,
+                                        Icons.podcasts,
                                         color: Color(0xFFE74B08),
                                         size: 20.0,
                                       ),
                                       onPressed: () async {
                                         logFirebaseEvent(
-                                            'HOME_PAGE_PAGE_photo_filter_ICN_ON_TAP');
+                                            'HOME_PAGE_PAGE_podcasts_ICN_ON_TAP');
+
+                                        context.pushNamed('Podcasts');
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 70.0,
+                                    height: 100.0,
+                                    decoration: const BoxDecoration(),
+                                    child: FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 20.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 40.0,
+                                      icon: const Icon(
+                                        Icons.library_music,
+                                        color: Color(0xFFE74B08),
+                                        size: 20.0,
+                                      ),
+                                      onPressed: () async {
+                                        logFirebaseEvent(
+                                            'HOME_PAGE_PAGE_library_ICN_ON_TAP');
 
                                         context.pushNamed('Library');
                                       },
