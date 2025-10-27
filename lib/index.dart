@@ -16,3 +16,10 @@ export '/pages/signup/signup_widget.dart' show SignupWidget;
 export '/pages/verify/verify_widget.dart' show VerifyWidget;
 export '/pages/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
+
+// New feature pages
+export '/pages/podcasts/podcasts_widget.dart' show PodcastsWidget;
+export '/pages/podcasts/podcast_detail_widget.dart' show PodcastDetailWidget;
+export '/pages/artist_upload/artist_upload_widget.dart'
+    show ArtistUploadWidget;
+export '/pages/admin/admin_dashboard_widget.dart' show AdminDashboardWidget;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../models/podcast.dart';
-import '../../services/supabase_service.dart';
 import '../../services/audio_service.dart';
+import '../../services/podcast_service.dart';
 
 class PodcastDetailController extends ChangeNotifier {
-  final SupabaseService _supabaseService;
+  final PodcastService _podcastService;
   final AudioService _audioService;
   final String podcastId;
 
@@ -14,10 +14,10 @@ class PodcastDetailController extends ChangeNotifier {
   bool _isFavorite = false;
 
   PodcastDetailController({
-    required SupabaseService supabaseService,
+    required PodcastService podcastService,
     required AudioService audioService,
     required this.podcastId,
-  })  : _supabaseService = supabaseService,
+  })  : _podcastService = podcastService,
         _audioService = audioService;
 
   // Getters
@@ -25,8 +25,7 @@ class PodcastDetailController extends ChangeNotifier {
   String? get error => _error;
   Podcast? get podcast => _podcast;
   bool get isFavorite => _isFavorite;
-  bool get isPlaying =>
-      _audioService.isPlaying && _audioService.currentTitle == _podcast?.title;
+  bool get isPlaying => _audioService.isPlaying;
 
   Future<void> initialize(Podcast? initialPodcast) async {
     if (initialPodcast != null) {
@@ -41,7 +40,7 @@ class PodcastDetailController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _podcast = await _supabaseService.getPodcast(podcastId);
+      _podcast = await _podcastService.getPodcastById(podcastId);
       await _checkFavoriteStatus();
       _error = null;
     } catch (e) {
@@ -76,14 +75,7 @@ class PodcastDetailController extends ChangeNotifier {
     if (_podcast == null) return;
 
     try {
-      final audioUrl =
-          await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
-      await _audioService.play(
-        url: audioUrl,
-        title: _podcast!.title,
-        artist: _podcast!.artistName ?? 'Unknown Host',
-        artworkUrl: _podcast!.imageUrl,
-      );
+      await _audioService.playPodcast(_podcast!);
       notifyListeners();
     } catch (e) {
       _error = 'Failed to play podcast: ${e.toString()}';
@@ -100,13 +92,9 @@ class PodcastDetailController extends ChangeNotifier {
     if (_podcast == null) return;
 
     try {
-      final audioUrl =
-          await _supabaseService.getAudioSignedUrl(_podcast!.audioUrl);
-      await _audioService.download(
-        url: audioUrl,
-        filename: '${_podcast!.title}.mp3',
-      );
-      // TODO: Show success message
+      // TODO: Implement download via AudioService
+      _error = 'Download feature coming soon!';
+      notifyListeners();
     } catch (e) {
       _error = 'Failed to download podcast: ${e.toString()}';
       notifyListeners();

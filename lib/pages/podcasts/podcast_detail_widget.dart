@@ -4,8 +4,8 @@ import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../models/podcast.dart';
-import '../../services/supabase_service.dart';
 import '../../services/audio_service.dart';
+import '../../services/podcast_service.dart';
 import 'podcast_detail_controller.dart';
 
 class PodcastDetailWidget extends StatefulWidget {
@@ -36,7 +36,7 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => PodcastDetailController(
-        supabaseService: SupabaseService(),
+        podcastService: PodcastService(),
         audioService: AudioService(),
         podcastId: widget.podcastId,
       )..initialize(widget.podcast),
@@ -125,9 +125,9 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
           fit: StackFit.expand,
           children: [
             // Podcast Image with gradient overlay
-            podcast.imageUrl != null
+            podcast.coverImage != null
                 ? Image.network(
-                    podcast.imageUrl!,
+                    podcast.coverImage!,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) =>
                         _buildPlaceholderImage(context),
@@ -169,7 +169,7 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
           ),
           const SizedBox(height: 8.0),
           Text(
-            podcast.artistName ?? 'Unknown Host',
+            podcast.host ?? 'Unknown Host',
             style: FlutterFlowTheme.of(context).bodyLarge.override(
                   fontFamily: 'Readex Pro',
                   color: FlutterFlowTheme.of(context).secondaryText,
@@ -211,7 +211,7 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
               ),
               const SizedBox(width: 4.0),
               Text(
-                _formatDuration(podcast.duration),
+                _formatDuration(podcast.duration ?? 0),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       color: FlutterFlowTheme.of(context).secondaryText,
@@ -226,7 +226,7 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
               ),
               const SizedBox(width: 4.0),
               Text(
-                _formatDate(podcast.releaseDate),
+                _formatDate(podcast.publishedAt),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       color: FlutterFlowTheme.of(context).secondaryText,
@@ -334,7 +334,6 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
                   fontFamily: 'Readex Pro',
                   color: FlutterFlowTheme.of(context).secondaryText,
                   letterSpacing: 0.0,
-                  height: 1.5,
                 ),
           ),
         ],
@@ -361,7 +360,7 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
             context,
             icon: Icons.person,
             label: 'Host',
-            value: podcast.artistName ?? 'Unknown',
+            value: podcast.host ?? 'Unknown',
           ),
           _buildDetailRow(
             context,
@@ -373,21 +372,14 @@ class _PodcastDetailWidgetState extends State<PodcastDetailWidget> {
             context,
             icon: Icons.access_time,
             label: 'Duration',
-            value: _formatDuration(podcast.duration),
+            value: _formatDuration(podcast.duration ?? 0),
           ),
           _buildDetailRow(
             context,
             icon: Icons.calendar_today,
             label: 'Release Date',
-            value: _formatDate(podcast.releaseDate),
+            value: _formatDate(podcast.publishedAt),
           ),
-          if (podcast.episodeNumber != null)
-            _buildDetailRow(
-              context,
-              icon: Icons.numbers,
-              label: 'Episode',
-              value: podcast.episodeNumber.toString(),
-            ),
         ],
       ),
     );

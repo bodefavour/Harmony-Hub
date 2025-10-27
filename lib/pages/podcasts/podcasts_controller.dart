@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../models/podcast.dart';
 import '../../services/podcast_service.dart';
-import '../../services/supabase_service.dart';
 import '../../services/audio_service.dart';
 
 class PodcastsController extends ChangeNotifier {
   final PodcastService _podcastService;
-  final SupabaseService _supabaseService;
   final AudioService _audioService;
 
   bool _isLoading = false;
@@ -21,10 +19,8 @@ class PodcastsController extends ChangeNotifier {
 
   PodcastsController({
     required PodcastService podcastService,
-    required SupabaseService supabaseService,
     required AudioService audioService,
   })  : _podcastService = podcastService,
-        _supabaseService = supabaseService,
         _audioService = audioService;
 
   // Getters
@@ -62,7 +58,7 @@ class PodcastsController extends ChangeNotifier {
 
   Future<void> _loadAllPodcasts() async {
     try {
-      _allPodcasts = await _podcastService.getAllPodcasts(limit: 20);
+      _allPodcasts = await _podcastService.fetchPodcasts(limit: 20);
     } catch (e) {
       print('Error loading all podcasts: $e');
     }
@@ -95,7 +91,7 @@ class PodcastsController extends ChangeNotifier {
     // TODO: Implement history tracking
     // For now, just show random podcasts
     try {
-      _recentlyPlayed = await _podcastService.getAllPodcasts(limit: 5);
+      _recentlyPlayed = await _podcastService.fetchPodcasts(limit: 5);
     } catch (e) {
       print('Error loading recently played: $e');
     }
@@ -103,14 +99,7 @@ class PodcastsController extends ChangeNotifier {
 
   Future<void> playPodcast(Podcast podcast) async {
     try {
-      final audioUrl =
-          await _supabaseService.getAudioSignedUrl(podcast.audioUrl);
-      await _audioService.play(
-        url: audioUrl,
-        title: podcast.title,
-        artist: podcast.artistName ?? 'Unknown Host',
-        artworkUrl: podcast.imageUrl,
-      );
+      await _audioService.playPodcast(podcast);
     } catch (e) {
       _error = 'Failed to play podcast: ${e.toString()}';
       notifyListeners();
@@ -128,7 +117,14 @@ class PodcastsController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _allPodcasts = await _podcastService.searchPodcasts(query);
+      // Use fetchPodcasts as a basic search - in production would use full-text search
+      _allPodcasts = await _podcastService.fetchPodcasts(limit: 50);
+      // Filter locally by title or host
+      _allPodcasts = _allPodcasts
+          .where((p) =>
+              p.title.toLowerCase().contains(query.toLowerCase()) ||
+              (p.host?.toLowerCase().contains(query.toLowerCase()) ?? false))
+          .toList();
       _error = null;
     } catch (e) {
       _error = 'Search failed: ${e.toString()}';

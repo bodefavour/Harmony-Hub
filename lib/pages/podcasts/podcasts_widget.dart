@@ -5,7 +5,6 @@ import '../../flutter_flow/flutter_flow_util.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../models/podcast.dart';
 import '../../services/podcast_service.dart';
-import '../../services/supabase_service.dart';
 import '../../services/audio_service.dart';
 import 'podcasts_controller.dart';
 
@@ -42,8 +41,7 @@ class _PodcastsWidgetState extends State<PodcastsWidget>
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => PodcastsController(
-        podcastService: PodcastService(SupabaseService()),
-        supabaseService: SupabaseService(),
+        podcastService: PodcastService(),
         audioService: AudioService(),
       )..initialize(),
       child: Consumer<PodcastsController>(
@@ -323,9 +321,9 @@ class _PodcastsWidgetState extends State<PodcastsWidget>
                 // Podcast Image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: podcast.imageUrl != null
+                  child: podcast.coverImage != null
                       ? Image.network(
-                          podcast.imageUrl!,
+                          podcast.coverImage!,
                           width: 80.0,
                           height: 80.0,
                           fit: BoxFit.cover,
@@ -352,7 +350,7 @@ class _PodcastsWidgetState extends State<PodcastsWidget>
                       ),
                       const SizedBox(height: 4.0),
                       Text(
-                        podcast.artistName ?? 'Unknown Host',
+                        podcast.host ?? 'Unknown Host',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -369,7 +367,7 @@ class _PodcastsWidgetState extends State<PodcastsWidget>
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            _formatDuration(podcast.duration),
+                            _formatDuration(podcast.duration ?? 0),
                             style:
                                 FlutterFlowTheme.of(context).bodySmall.override(
                                       fontFamily: 'Readex Pro',

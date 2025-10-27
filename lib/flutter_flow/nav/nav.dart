@@ -156,6 +156,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'forgotPassword',
           path: '/forgotPassword',
           builder: (context, params) => const ForgotPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'Podcasts',
+          path: '/podcasts',
+          requireAuth: true,
+          builder: (context, params) => const PodcastsWidget(),
+        ),
+        FFRoute(
+          name: 'PodcastDetail',
+          path: '/podcastDetail/:podcastId',
+          requireAuth: true,
+          builder: (context, params) => PodcastDetailWidget(
+            podcastId: params.getParam('podcastId', ParamType.String)!,
+            podcast: params.getParam('podcast', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'ArtistUpload',
+          path: '/artistUpload',
+          requireAuth: true,
+          builder: (context, params) => const ArtistUploadWidget(),
+        ),
+        FFRoute(
+          name: 'AdminDashboard',
+          path: '/adminDashboard',
+          requireAuth: true,
+          builder: (context, params) => const AdminDashboardWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
