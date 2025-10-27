@@ -11,7 +11,7 @@ class AdminDashboardController extends ChangeNotifier {
   List<AdminUpload> _pendingUploads = [];
   List<AdminUpload> _approvedUploads = [];
   List<AdminUpload> _rejectedUploads = [];
-  
+
   String _selectedTab = 'pending'; // pending, approved, rejected
 
   AdminDashboardController({
@@ -73,9 +73,8 @@ class AdminDashboardController extends ChangeNotifier {
     try {
       // Get all uploads and filter approved ones
       final allPending = await _adminService.getPendingUploads();
-      _approvedUploads = allPending
-          .where((u) => u.status == UploadStatus.approved)
-          .toList();
+      _approvedUploads =
+          allPending.where((u) => u.status == UploadStatus.approved).toList();
     } catch (e) {
       print('Error loading approved uploads: $e');
     }
@@ -85,9 +84,8 @@ class AdminDashboardController extends ChangeNotifier {
     try {
       // Get all uploads and filter rejected ones
       final allPending = await _adminService.getPendingUploads();
-      _rejectedUploads = allPending
-          .where((u) => u.status == UploadStatus.rejected)
-          .toList();
+      _rejectedUploads =
+          allPending.where((u) => u.status == UploadStatus.rejected).toList();
     } catch (e) {
       print('Error loading rejected uploads: $e');
     }
@@ -101,18 +99,20 @@ class AdminDashboardController extends ChangeNotifier {
   Future<bool> approveUpload(String uploadId, String adminId) async {
     try {
       final success = await _adminService.approveUpload(uploadId, adminId);
-      
+
       if (success) {
         // Move from pending to approved
         final upload = _pendingUploads.firstWhere((u) => u.id == uploadId);
         _pendingUploads.removeWhere((u) => u.id == uploadId);
-        _approvedUploads.insert(0, upload.copyWith(
-          status: UploadStatus.approved,
-          reviewedBy: adminId,
-          reviewedAt: DateTime.now(),
-        ));
+        _approvedUploads.insert(
+            0,
+            upload.copyWith(
+              status: UploadStatus.approved,
+              reviewedBy: adminId,
+              reviewedAt: DateTime.now(),
+            ));
       }
-      
+
       notifyListeners();
       return success;
     } catch (e) {
@@ -122,22 +122,26 @@ class AdminDashboardController extends ChangeNotifier {
     }
   }
 
-  Future<bool> rejectUpload(String uploadId, String adminId, {required String reason}) async {
+  Future<bool> rejectUpload(String uploadId, String adminId,
+      {required String reason}) async {
     try {
-      final success = await _adminService.rejectUpload(uploadId, adminId, reason);
-      
+      final success =
+          await _adminService.rejectUpload(uploadId, adminId, reason);
+
       if (success) {
         // Move from pending to rejected
         final upload = _pendingUploads.firstWhere((u) => u.id == uploadId);
         _pendingUploads.removeWhere((u) => u.id == uploadId);
-        _rejectedUploads.insert(0, upload.copyWith(
-          status: UploadStatus.rejected,
-          reviewedBy: adminId,
-          reviewedAt: DateTime.now(),
-          rejectionReason: reason,
-        ));
+        _rejectedUploads.insert(
+            0,
+            upload.copyWith(
+              status: UploadStatus.rejected,
+              reviewedBy: adminId,
+              reviewedAt: DateTime.now(),
+              rejectionReason: reason,
+            ));
       }
-      
+
       notifyListeners();
       return success;
     } catch (e) {

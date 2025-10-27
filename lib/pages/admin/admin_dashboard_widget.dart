@@ -15,7 +15,8 @@ class AdminDashboardWidget extends StatefulWidget {
   State<AdminDashboardWidget> createState() => _AdminDashboardWidgetState();
 }
 
-class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with TickerProviderStateMixin {
+class _AdminDashboardWidgetState extends State<AdminDashboardWidget>
+    with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TabController _tabController;
   final String adminId = 'admin-user-id'; // TODO: Get from auth
@@ -24,7 +25,8 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'AdminDashboard'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AdminDashboard'});
   }
 
   @override
@@ -101,7 +103,8 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
     );
   }
 
-  PreferredSizeWidget _buildTabBar(BuildContext context, AdminDashboardController controller) {
+  PreferredSizeWidget _buildTabBar(
+      BuildContext context, AdminDashboardController controller) {
     return TabBar(
       controller: _tabController,
       labelColor: Colors.white,
@@ -136,13 +139,16 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
     );
   }
 
-  Widget _buildContent(BuildContext context, AdminDashboardController controller) {
+  Widget _buildContent(
+      BuildContext context, AdminDashboardController controller) {
     return TabBarView(
       controller: _tabController,
       children: [
         _buildUploadList(context, controller, controller.pendingUploads, true),
-        _buildUploadList(context, controller, controller.approvedUploads, false),
-        _buildUploadList(context, controller, controller.rejectedUploads, false),
+        _buildUploadList(
+            context, controller, controller.approvedUploads, false),
+        _buildUploadList(
+            context, controller, controller.rejectedUploads, false),
       ],
     );
   }
@@ -217,7 +223,8 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                       width: 60.0,
                       height: 60.0,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => _buildPlaceholderImage(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          _buildPlaceholderImage(),
                     ),
                   )
                 else
@@ -231,11 +238,12 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                         upload.songTitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: FlutterFlowTheme.of(context).titleMedium.override(
-                              fontFamily: 'Readex Pro',
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                       const SizedBox(height: 4.0),
                       Text(
@@ -250,9 +258,12 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                         const SizedBox(height: 4.0),
                         Text(
                           'Album: ${upload.albumTitle}',
-                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                          style: FlutterFlowTheme.of(context)
+                              .bodySmall
+                              .override(
                                 fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).secondaryText,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
                               ),
                         ),
@@ -315,17 +326,19 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                 children: [
                   Expanded(
                     child: FFButtonWidget(
-                      onPressed: () => _showApproveDialog(context, controller, upload.id),
+                      onPressed: () =>
+                          _showApproveDialog(context, controller, upload.id),
                       text: 'Approve',
                       icon: const Icon(Icons.check_circle, size: 20.0),
                       options: FFButtonOptions(
                         height: 44.0,
                         color: Colors.green,
-                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                            ),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -333,17 +346,19 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: FFButtonWidget(
-                      onPressed: () => _showRejectDialog(context, controller, upload.id),
+                      onPressed: () =>
+                          _showRejectDialog(context, controller, upload.id),
                       text: 'Reject',
                       icon: const Icon(Icons.cancel, size: 20.0),
                       options: FFButtonOptions(
                         height: 44.0,
                         color: FlutterFlowTheme.of(context).error,
-                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                            ),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -472,7 +487,8 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
     );
   }
 
-  Widget _buildErrorState(BuildContext context, AdminDashboardController controller) {
+  Widget _buildErrorState(
+      BuildContext context, AdminDashboardController controller) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -516,12 +532,14 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
     );
   }
 
-  void _showApproveDialog(BuildContext context, AdminDashboardController controller, String uploadId) {
+  void _showApproveDialog(BuildContext context,
+      AdminDashboardController controller, String uploadId) {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Approve Upload'),
-        content: const Text('Are you sure you want to approve this upload? It will be published to the platform.'),
+        content: const Text(
+            'Are you sure you want to approve this upload? It will be published to the platform.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
@@ -550,9 +568,10 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
     );
   }
 
-  void _showRejectDialog(BuildContext context, AdminDashboardController controller, String uploadId) {
+  void _showRejectDialog(BuildContext context,
+      AdminDashboardController controller, String uploadId) {
     final reasonController = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -585,14 +604,14 @@ class _AdminDashboardWidgetState extends State<AdminDashboardWidget> with Ticker
                 );
                 return;
               }
-              
+
               Navigator.of(dialogContext).pop();
               final success = await controller.rejectUpload(
                 uploadId,
                 adminId,
                 reason: reasonController.text,
               );
-              
+
               if (success && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
