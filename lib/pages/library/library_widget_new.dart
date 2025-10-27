@@ -125,14 +125,17 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Recent Songs Section
-            if (controller.hasRecentSongs) _buildRecentSection(context, controller),
-            
+            if (controller.hasRecentSongs)
+              _buildRecentSection(context, controller),
+
             // Favorites Section
-            if (controller.hasFavoriteSongs) _buildFavoritesSection(context, controller),
-            
+            if (controller.hasFavoriteSongs)
+              _buildFavoritesSection(context, controller),
+
             // Albums Section
-            if (controller.hasFavoriteAlbums) _buildAlbumsSection(context, controller),
-            
+            if (controller.hasFavoriteAlbums)
+              _buildAlbumsSection(context, controller),
+
             // Playlists Section
             _buildPlaylistsSection(context, controller),
 
@@ -150,7 +153,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     );
   }
 
-  Widget _buildRecentSection(BuildContext context, LibraryController controller) {
+  Widget _buildRecentSection(
+      BuildContext context, LibraryController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
       child: Column(
@@ -205,17 +209,19 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                             width: 50,
                             height: 50,
                             color: const Color(0xFFE74B08),
-                            child: const Icon(Icons.music_note, color: Colors.white),
+                            child: const Icon(Icons.music_note,
+                                color: Colors.white),
                           ),
                         ),
                       ),
                       title: Text(
                         song.title,
-                        style: FlutterFlowTheme.of(context).titleMedium.override(
-                              fontFamily: 'Readex Pro',
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                       subtitle: Text(
                         song.artistName ?? 'Unknown Artist',
@@ -250,7 +256,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     );
   }
 
-  Widget _buildFavoritesSection(BuildContext context, LibraryController controller) {
+  Widget _buildFavoritesSection(
+      BuildContext context, LibraryController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Column(
@@ -385,7 +392,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     );
   }
 
-  Widget _buildAlbumsSection(BuildContext context, LibraryController controller) {
+  Widget _buildAlbumsSection(
+      BuildContext context, LibraryController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Column(
@@ -477,7 +485,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  album.releaseDate?.year.toString() ?? 'Unknown',
+                                  album.releaseDate?.year.toString() ??
+                                      'Unknown',
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
@@ -503,7 +512,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     );
   }
 
-  Widget _buildPlaylistsSection(BuildContext context, LibraryController controller) {
+  Widget _buildPlaylistsSection(
+      BuildContext context, LibraryController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Column(
@@ -587,24 +597,22 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                         ),
                         title: Text(
                           playlist.title,
-                          style: FlutterFlowTheme.of(context)
-                              .titleMedium
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
                         subtitle: Text(
                           playlist.description ?? 'No description',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: FlutterFlowTheme.of(context)
-                              .bodySmall
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                letterSpacing: 0.0,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0.0,
+                                  ),
                         ),
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
@@ -674,7 +682,8 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     );
   }
 
-  void _showCreatePlaylistDialog(BuildContext context, LibraryController controller) {
+  void _showCreatePlaylistDialog(
+      BuildContext context, LibraryController controller) {
     final nameController = TextEditingController();
     final descController = TextEditingController();
     final formKey = GlobalKey<FormState>();
@@ -775,8 +784,7 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                             ? 'Playlist created successfully!'
                             : 'Failed to create playlist',
                       ),
-                      backgroundColor:
-                          success ? Colors.green : Colors.red,
+                      backgroundColor: success ? Colors.green : Colors.red,
                       duration: const Duration(seconds: 2),
                     ),
                   );

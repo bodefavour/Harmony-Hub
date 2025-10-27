@@ -27,7 +27,8 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ArtistProfile'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ArtistProfile'});
   }
 
   @override
@@ -61,7 +62,8 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
     );
   }
 
-  Widget _buildArtistBody(BuildContext context, ArtistProfileController controller) {
+  Widget _buildArtistBody(
+      BuildContext context, ArtistProfileController controller) {
     if (controller.isLoading) {
       return const Center(
         child: CircularProgressIndicator(
@@ -191,8 +193,10 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
                       Row(
                         children: [
                           FFButtonWidget(
-                            onPressed: () => controller.toggleFollow(currentUserUid),
-                            text: controller.isFollowing ? 'Following' : 'Follow',
+                            onPressed: () =>
+                                controller.toggleFollow(currentUserUid),
+                            text:
+                                controller.isFollowing ? 'Following' : 'Follow',
                             icon: Icon(
                               controller.isFollowing ? Icons.check : Icons.add,
                               size: 20,
@@ -204,11 +208,12 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
                               color: controller.isFollowing
                                   ? Colors.grey[800]
                                   : const Color(0xFFE74B08),
-                              textStyle:
-                                  FlutterFlowTheme.of(context).titleSmall.override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Colors.white,
-                                      ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                  ),
                               elevation: 2,
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -290,7 +295,8 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
     );
   }
 
-  Widget _buildTopSongsSection(BuildContext context, ArtistProfileController controller) {
+  Widget _buildTopSongsSection(
+      BuildContext context, ArtistProfileController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Column(
@@ -400,7 +406,8 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
     );
   }
 
-  Widget _buildAlbumsSection(BuildContext context, ArtistProfileController controller) {
+  Widget _buildAlbumsSection(
+      BuildContext context, ArtistProfileController controller) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Column(
@@ -492,7 +499,8 @@ class _ArtistProfileWidgetNewState extends State<ArtistProfileWidgetNew> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  album.releaseDate?.year.toString() ?? 'Unknown',
+                                  album.releaseDate?.year.toString() ??
+                                      'Unknown',
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(

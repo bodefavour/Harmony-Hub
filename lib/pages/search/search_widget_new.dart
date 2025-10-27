@@ -74,7 +74,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildSearchBody(BuildContext context, search.SearchController controller) {
+  Widget _buildSearchBody(
+      BuildContext context, search.SearchController controller) {
     return Column(
       children: [
         // Search Bar
@@ -104,7 +105,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE74B08), width: 2),
+                borderSide:
+                    const BorderSide(color: Color(0xFFE74B08), width: 2),
               ),
             ),
             onChanged: (query) {
@@ -124,7 +126,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
           child: controller.isSearching
               ? const Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE74B08)),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFFE74B08)),
                   ),
                 )
               : _searchController.text.isEmpty
@@ -135,7 +138,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildTrendingSection(BuildContext context, search.SearchController controller) {
+  Widget _buildTrendingSection(
+      BuildContext context, search.SearchController controller) {
     if (controller.isLoadingTrending) {
       return const Center(
         child: CircularProgressIndicator(
@@ -207,7 +211,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                           width: 50,
                           height: 50,
                           color: const Color(0xFFE74B08),
-                          child: const Icon(Icons.music_note, color: Colors.white),
+                          child:
+                              const Icon(Icons.music_note, color: Colors.white),
                         ),
                       ),
                     ),
@@ -242,7 +247,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildSearchResults(BuildContext context, search.SearchController controller) {
+  Widget _buildSearchResults(
+      BuildContext context, search.SearchController controller) {
     if (!controller.hasSearchResults) {
       return Center(
         child: Column(
@@ -299,7 +305,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildSongsList(BuildContext context, search.SearchController controller) {
+  Widget _buildSongsList(
+      BuildContext context, search.SearchController controller) {
     if (controller.searchResultsSongs.isEmpty) {
       return _buildEmptyTabState('No songs found');
     }
@@ -374,7 +381,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildArtistsList(BuildContext context, search.SearchController controller) {
+  Widget _buildArtistsList(
+      BuildContext context, search.SearchController controller) {
     if (controller.searchResultsArtists.isEmpty) {
       return _buildEmptyTabState('No artists found');
     }
@@ -431,7 +439,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildAlbumsList(BuildContext context, search.SearchController controller) {
+  Widget _buildAlbumsList(
+      BuildContext context, search.SearchController controller) {
     if (controller.searchResultsAlbums.isEmpty) {
       return _buildEmptyTabState('No albums found');
     }
@@ -499,9 +508,7 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                         album.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: FlutterFlowTheme.of(context)
-                            .bodyMedium
-                            .override(
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               fontWeight: FontWeight.w600,
                             ),
@@ -526,7 +533,8 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
     );
   }
 
-  Widget _buildPodcastsList(BuildContext context, search.SearchController controller) {
+  Widget _buildPodcastsList(
+      BuildContext context, search.SearchController controller) {
     if (controller.searchResultsPodcasts.isEmpty) {
       return _buildEmptyTabState('No podcasts found');
     }
