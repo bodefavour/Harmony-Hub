@@ -52,16 +52,16 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    
+
     // Initialize with a default user immediately to unblock splash screen
     _appStateNotifier.update(HarmonyHubSupabaseUser(null));
-    
+
     // Then listen for actual auth changes
     userStream = harmonyHubSupabaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
-      
+
     // Hide splash screen after brief delay
     Future.delayed(
       const Duration(milliseconds: 1000),
