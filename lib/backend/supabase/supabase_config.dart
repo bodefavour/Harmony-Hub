@@ -12,10 +12,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 ///    SUPABASE_ANON_KEY=your_key_here
 /// 5. Set up your database schema in the Supabase dashboard
 
-String get supabaseUrl => 
+String get supabaseUrl =>
     dotenv.env['SUPABASE_URL'] ?? 'YOUR_SUPABASE_URL_HERE';
 
-String get supabaseAnonKey => 
+String get supabaseAnonKey =>
     dotenv.env['SUPABASE_ANON_KEY'] ?? 'YOUR_SUPABASE_ANON_KEY_HERE';
 
 Future<void> initSupabase() async {

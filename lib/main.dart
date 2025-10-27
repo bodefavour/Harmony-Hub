@@ -15,10 +15,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
-  
+
   // Load environment variables
   await dotenv.load(fileName: ".env");
-  
+
   await initSupabase();
 
   await FlutterFlowTheme.initialize();
