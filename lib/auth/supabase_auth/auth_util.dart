@@ -91,6 +91,22 @@ class SupabaseAuthManager {
     }
   }
 
+  /// Send email verification (resend)
+  Future<void> sendEmailVerification() async {
+    try {
+      final user = currentUser;
+      if (user?.email != null) {
+        await Supabase.instance.client.auth.resend(
+          type: OtpType.signup,
+          email: user!.email!,
+        );
+      }
+    } catch (e) {
+      print('Error sending email verification: $e');
+      rethrow;
+    }
+  }
+
   /// Sign out
   Future<void> signOut() async {
     await Supabase.instance.client.auth.signOut();

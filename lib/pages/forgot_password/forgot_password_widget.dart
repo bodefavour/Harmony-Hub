@@ -1,4 +1,4 @@
-import '/auth/firebase_auth/auth_util.dart';
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -292,9 +292,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                     );
                                     return;
                                   }
-                                  await authManager.resetPassword(
-                                    email: _model.emailTextController.text,
-                                    context: context,
+                                  await authManager.sendPasswordResetEmail(
+                                    _model.emailTextController.text,
                                   );
                                 },
                                 text: 'Continue',
