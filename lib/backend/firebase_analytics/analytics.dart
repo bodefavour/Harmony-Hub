@@ -19,17 +19,20 @@ void logFirebaseEvent(String eventName, {Map<String?, dynamic>? parameters}) {
 
   // FB Analytics allows num values but others need to be converted to strings
   // and cannot be more than 100 characters.
+  final finalParams = <String, Object>{};
   for (final entry in params.entries) {
-    if (entry.value is! num) {
+    if (entry.value is num) {
+      finalParams[entry.key] = entry.value as Object;
+    } else {
       var valStr = entry.value.toString();
       if (valStr.length > kMaxParameterLength) {
         valStr = valStr.substring(0, min(valStr.length, kMaxParameterLength));
       }
-      params[entry.key] = valStr;
+      finalParams[entry.key] = valStr;
     }
   }
 
-  FirebaseAnalytics.instance.logEvent(name: eventName, parameters: params);
+  FirebaseAnalytics.instance.logEvent(name: eventName, parameters: finalParams);
 }
 
 void logFirebaseAuthEvent(User? user, String method) {

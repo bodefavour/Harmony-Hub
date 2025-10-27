@@ -28,9 +28,10 @@ class HarmonyHubFirebaseUser extends BaseAuthUser {
   @override
   Future? updateEmail(String email) async {
     try {
-      await user?.updateEmail(email);
-    } catch (_) {
       await user?.verifyBeforeUpdateEmail(email);
+    } catch (e) {
+      // If verifyBeforeUpdateEmail fails, the user might need to re-authenticate
+      rethrow;
     }
   }
 
