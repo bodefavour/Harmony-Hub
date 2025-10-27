@@ -16,10 +16,10 @@ class SearchController extends ChangeNotifier {
   List<Artist> _searchResultsArtists = [];
   List<Album> _searchResultsAlbums = [];
   List<Podcast> _searchResultsPodcasts = [];
-  
+
   List<Song> _trendingSongs = [];
   List<String> _recentSearches = [];
-  
+
   bool _isSearching = false;
   bool _isLoadingTrending = false;
   String _searchQuery = '';
@@ -40,7 +40,7 @@ class SearchController extends ChangeNotifier {
   List<Podcast> get searchResultsPodcasts => _searchResultsPodcasts;
   List<Song> get trendingSongs => _trendingSongs;
   List<String> get recentSearches => _recentSearches;
-  
+
   bool get isSearching => _isSearching;
   bool get isLoadingTrending => _isLoadingTrending;
   String get searchQuery => _searchQuery;
@@ -157,11 +157,12 @@ class SearchController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _searchResultsSongs = await _recommendationService.getSongsByGenre(genre, limit: 50);
+      _searchResultsSongs =
+          await _recommendationService.getSongsByGenre(genre, limit: 50);
       _searchResultsArtists = [];
       _searchResultsAlbums = [];
       _searchResultsPodcasts = [];
-      
+
       _isSearching = false;
       notifyListeners();
     } catch (e) {
@@ -178,11 +179,12 @@ class SearchController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _searchResultsSongs = await _recommendationService.getRecommendedSongs(userId);
+      _searchResultsSongs =
+          await _recommendationService.getRecommendedSongs(userId);
       _searchResultsArtists = [];
       _searchResultsAlbums = [];
       _searchResultsPodcasts = [];
-      
+
       _isSearching = false;
       notifyListeners();
     } catch (e) {

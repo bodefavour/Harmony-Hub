@@ -490,9 +490,7 @@ class SupabaseService {
           .or('title.ilike.%$query%,artist_name.ilike.%$query%')
           .limit(50);
 
-      return (response as List)
-          .map((item) => Song.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Song.fromJson(item)).toList();
     } catch (e) {
       print('Error searching songs: $e');
       return [];
@@ -508,9 +506,7 @@ class SupabaseService {
           .ilike('name', '%$query%')
           .limit(50);
 
-      return (response as List)
-          .map((item) => Artist.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Artist.fromJson(item)).toList();
     } catch (e) {
       print('Error searching artists: $e');
       return [];
@@ -526,9 +522,7 @@ class SupabaseService {
           .or('title.ilike.%$query%,artist_name.ilike.%$query%')
           .limit(50);
 
-      return (response as List)
-          .map((item) => Album.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Album.fromJson(item)).toList();
     } catch (e) {
       print('Error searching albums: $e');
       return [];
@@ -544,9 +538,7 @@ class SupabaseService {
           .or('title.ilike.%$query%,host.ilike.%$query%,description.ilike.%$query%')
           .limit(50);
 
-      return (response as List)
-          .map((item) => Podcast.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Podcast.fromJson(item)).toList();
     } catch (e) {
       print('Error searching podcasts: $e');
       return [];
@@ -558,7 +550,8 @@ class SupabaseService {
   // ============================================
 
   /// Get artist's top songs
-  Future<List<Song>> getArtistTopSongs(String artistId, {int limit = 10}) async {
+  Future<List<Song>> getArtistTopSongs(String artistId,
+      {int limit = 10}) async {
     try {
       final response = await _client
           .from('songs')
@@ -567,9 +560,7 @@ class SupabaseService {
           .order('play_count', ascending: false)
           .limit(limit);
 
-      return (response as List)
-          .map((item) => Song.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Song.fromJson(item)).toList();
     } catch (e) {
       print('Error fetching artist top songs: $e');
       return [];
@@ -585,9 +576,7 @@ class SupabaseService {
           .eq('artist_id', artistId)
           .order('release_date', ascending: false);
 
-      return (response as List)
-          .map((item) => Album.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Album.fromJson(item)).toList();
     } catch (e) {
       print('Error fetching artist albums: $e');
       return [];
@@ -603,9 +592,7 @@ class SupabaseService {
           .eq('artist_id', artistId)
           .order('created_at', ascending: false);
 
-      return (response as List)
-          .map((item) => Song.fromJson(item))
-          .toList();
+      return (response as List).map((item) => Song.fromJson(item)).toList();
     } catch (e) {
       print('Error fetching artist songs: $e');
       return [];

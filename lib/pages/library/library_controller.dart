@@ -13,7 +13,7 @@ class LibraryController extends ChangeNotifier {
   List<Song> _favoriteSongs = [];
   List<Album> _favoriteAlbums = [];
   List<Playlist> _playlists = [];
-  
+
   bool _isLoading = false;
   String? _error;
 
@@ -111,7 +111,8 @@ class LibraryController extends ChangeNotifier {
   }
 
   /// Create a new playlist
-  Future<bool> createPlaylist(String userId, String name, {String? description}) async {
+  Future<bool> createPlaylist(String userId, String name,
+      {String? description}) async {
     try {
       _isLoading = true;
       notifyListeners();
@@ -126,7 +127,7 @@ class LibraryController extends ChangeNotifier {
       );
 
       final created = await _supabaseService.createPlaylist(playlist);
-      
+
       if (created != null) {
         _playlists.insert(0, created);
       }

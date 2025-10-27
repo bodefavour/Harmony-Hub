@@ -13,7 +13,7 @@ class ArtistProfileController extends ChangeNotifier {
   List<Song> _topSongs = [];
   List<Album> _albums = [];
   List<Song> _allSongs = [];
-  
+
   bool _isLoading = false;
   bool _isFollowing = false;
   String? _error;
@@ -64,7 +64,8 @@ class ArtistProfileController extends ChangeNotifier {
 
       // Check if user is following (if userId provided)
       if (userId != null && _artist != null) {
-        _isFollowing = await _supabaseService.isFollowingArtist(userId, artistId);
+        _isFollowing =
+            await _supabaseService.isFollowingArtist(userId, artistId);
       }
 
       _isLoading = false;
@@ -93,7 +94,7 @@ class ArtistProfileController extends ChangeNotifier {
     try {
       // Play first song
       await _audioService.playSong(_topSongs.first);
-      
+
       // TODO: Add remaining songs to queue
       // This requires queue implementation in AudioService
     } catch (e) {

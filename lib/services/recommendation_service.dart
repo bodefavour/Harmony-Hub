@@ -278,7 +278,8 @@ class RecommendationService {
   }
 
   /// Get recommended songs for user (public method)
-  Future<List<Song>> getRecommendedSongs(String userId, {int limit = 20}) async {
+  Future<List<Song>> getRecommendedSongs(String userId,
+      {int limit = 20}) async {
     try {
       final userProfile = await _supabaseService.getUserProfile(userId);
       final preferences = userProfile?.preferences ?? UserPreferences();
