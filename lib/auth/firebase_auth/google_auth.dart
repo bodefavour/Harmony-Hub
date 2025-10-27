@@ -11,7 +11,8 @@ Future<UserCredential?> googleSignInFunc() async {
   }
 
   await signOutWithGoogle().catchError((_) => null);
-  final googleUser = await _googleSignIn.attemptLightweightAuthentication() ?? await _googleSignIn.authenticate(scopeHint: ['profile', 'email']);
+  final googleUser = await _googleSignIn.attemptLightweightAuthentication() ??
+      await _googleSignIn.authenticate(scopeHint: ['profile', 'email']);
   final auth = await googleUser.authentication;
   final credential = GoogleAuthProvider.credential(idToken: auth.idToken);
   return FirebaseAuth.instance.signInWithCredential(credential);
