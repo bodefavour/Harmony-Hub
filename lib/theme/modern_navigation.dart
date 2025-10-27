@@ -121,7 +121,7 @@ class _NavItem extends StatelessWidget {
               const SizedBox(height: 4),
               AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 300),
-                style: AppTheme.caption(context, isDark: isDark).copyWith(
+                style: AppTheme.caption.copyWith(
                   color: isSelected
                       ? AppTheme.spotifyGreen
                       : isDark
@@ -218,13 +218,17 @@ class NowPlayingBar extends StatelessWidget {
                   children: [
                     Text(
                       songTitle,
-                      style: AppTheme.bodyLarge(context, isDark: isDark),
+                      style: AppTheme.bodyLarge.copyWith(
+                        color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       artistName,
-                      style: AppTheme.bodySmall(context, isDark: isDark),
+                      style: AppTheme.bodySmall.copyWith(
+                        color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

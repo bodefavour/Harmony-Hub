@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
-import '/auth/auth_manager.dart';
+import '/auth/supabase_auth/auth_util.dart';
 
 class UserProfileWidgetNew extends StatefulWidget {
   const UserProfileWidgetNew({super.key});
@@ -20,7 +20,6 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final user = authManager.authUser;
 
     return Scaffold(
       backgroundColor:
@@ -55,12 +54,12 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                                 color: Colors.white,
                                 width: 4,
                               ),
-                              boxShadow: [AppTheme.elevatedShadow],
+                              boxShadow: AppTheme.elevatedShadow,
                             ),
                             child: ClipOval(
-                              child: user?.photoURL != null
+                              child: currentUserPhoto != null
                                   ? Image.network(
-                                      user!.photoURL!,
+                                      currentUserPhoto!,
                                       fit: BoxFit.cover,
                                     )
                                   : Container(
@@ -108,7 +107,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
 
                       // Name
                       Text(
-                        user?.displayName ?? 'Music Lover',
+                        currentUserDisplayName ?? 'Music Lover',
                         style: AppTheme.displayMedium.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -119,7 +118,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
 
                       // Email
                       Text(
-                        user?.email ?? 'user@harmonyhub.com',
+                        currentUserEmail,
                         style: AppTheme.bodyLarge.copyWith(
                           color: Colors.white.withOpacity(0.9),
                         ),
@@ -314,9 +313,8 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                     onPressed: () async {
                       await authManager.signOut();
                       if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          '/login',
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          'login',
                           (route) => false,
                         );
                       }

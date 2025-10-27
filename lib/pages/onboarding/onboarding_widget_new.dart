@@ -156,8 +156,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       onPressed: _skip,
                       child: Text(
                         'Skip',
-                        style: AppTheme.bodyMedium(context, isDark: isDark)
-                            .copyWith(
+                        style: AppTheme.bodyMedium.copyWith(
                           color: AppTheme.spotifyGreen,
                           fontWeight: FontWeight.w600,
                         ),
@@ -298,8 +297,9 @@ class _OnboardingCard extends StatelessWidget {
           // Title
           Text(
             page.title,
-            style: AppTheme.displayMedium(context, isDark: isDark).copyWith(
+            style: AppTheme.displayMedium.copyWith(
               fontWeight: FontWeight.w900,
+              color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
             ),
             textAlign: TextAlign.center,
           )
@@ -314,7 +314,7 @@ class _OnboardingCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppTheme.space24),
             child: Text(
               page.description,
-              style: AppTheme.bodyLarge(context, isDark: isDark).copyWith(
+              style: AppTheme.bodyLarge.copyWith(
                 color: isDark
                     ? AppTheme.textSecondary
                     : AppTheme.textSecondaryLight,

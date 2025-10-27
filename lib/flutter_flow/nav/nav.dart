@@ -170,7 +170,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'userProfile',
           path: '/userProfile',
           requireAuth: true,
-          builder: (context, params) => const UserProfileWidget(),
+          builder: (context, params) => const UserProfileWidgetNew(),
         ),
         FFRoute(
           name: 'Library',
@@ -181,7 +181,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Signup',
           path: '/signup',
-          builder: (context, params) => const SignupWidget(),
+          builder: (context, params) => const SignupWidgetNew(),
         ),
         FFRoute(
           name: 'Verify',
@@ -191,7 +191,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'forgotPassword',
           path: '/forgotPassword',
-          builder: (context, params) => const ForgotPasswordWidget(),
+          builder: (context, params) => const ForgotPasswordWidgetNew(),
         ),
         FFRoute(
           name: 'Podcasts',

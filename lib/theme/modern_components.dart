@@ -133,9 +133,10 @@ class ModernButton extends StatelessWidget {
                       ],
                       Text(
                         text,
-                        style: AppTheme.button(context).copyWith(
+                        style: AppTheme.bodyLarge.copyWith(
                           color:
                               isOutline ? AppTheme.spotifyGreen : Colors.white,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -188,7 +189,9 @@ class ModernTextField extends StatelessWidget {
         if (label != null) ...[
           Text(
             label!,
-            style: AppTheme.bodyMedium(context, isDark: isDark),
+            style: AppTheme.bodyMedium.copyWith(
+              color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+            ),
           ),
           const SizedBox(height: AppTheme.space8),
         ],
@@ -209,10 +212,14 @@ class ModernTextField extends StatelessWidget {
             validator: validator,
             onChanged: onChanged,
             maxLines: maxLines,
-            style: AppTheme.bodyLarge(context, isDark: isDark),
+            style: AppTheme.bodyLarge.copyWith(
+              color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+            ),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: AppTheme.bodyMedium(context, isDark: isDark),
+              hintStyle: AppTheme.bodyMedium.copyWith(
+                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              ),
               prefixIcon: prefixIcon != null
                   ? Icon(
                       prefixIcon,
@@ -361,7 +368,9 @@ class SectionHeader extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTheme.headlineLarge(context, isDark: isDark),
+            style: AppTheme.headlineLarge.copyWith(
+              color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+            ),
           ),
           if (showSeeAll && onSeeAll != null)
             TextButton(
@@ -374,7 +383,7 @@ class SectionHeader extends StatelessWidget {
               ),
               child: Text(
                 'See all',
-                style: AppTheme.bodyMedium(context, isDark: isDark).copyWith(
+                style: AppTheme.bodyMedium.copyWith(
                   color: AppTheme.spotifyGreen,
                   fontWeight: FontWeight.w600,
                 ),
@@ -453,13 +462,17 @@ class EmptyState extends StatelessWidget {
             const SizedBox(height: AppTheme.space24),
             Text(
               title,
-              style: AppTheme.headlineLarge(context, isDark: isDark),
+              style: AppTheme.headlineLarge.copyWith(
+                color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppTheme.space8),
             Text(
               message,
-              style: AppTheme.bodyMedium(context, isDark: isDark),
+              style: AppTheme.bodyMedium.copyWith(
+                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              ),
               textAlign: TextAlign.center,
             ),
             if (actionText != null && onAction != null) ...[

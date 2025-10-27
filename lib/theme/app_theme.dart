@@ -122,7 +122,10 @@ class AppTheme {
       ];
 
   // ============ TEXT STYLES ============
+  // Note: Using getters for simplicity in new components
+  // Original context-based methods commented out - can be restored if needed
 
+  /*
   static TextStyle displayLarge(BuildContext context, {bool isDark = true}) {
     return GoogleFonts.inter(
       fontSize: 32,
@@ -205,9 +208,9 @@ class AppTheme {
       letterSpacing: 0.5,
     );
   }
+  */
 
-  // ============ SIMPLE TEXT STYLES (No Context Required) ============
-  // These are for use in widgets without BuildContext access
+  // ============ TEXT STYLE GETTERS (Simplified) ============
 
   static TextStyle get displayLarge => GoogleFonts.inter(
         fontSize: 32,

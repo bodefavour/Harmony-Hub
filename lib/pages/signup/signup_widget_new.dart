@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
-import '/auth/auth_manager.dart';
+import '/auth/supabase_auth/auth_util.dart';
 
 class SignupWidgetNew extends StatefulWidget {
   const SignupWidgetNew({super.key});
@@ -46,10 +46,9 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
     setState(() => _isLoading = true);
 
     try {
-      final user = await authManager.signInWithEmail(
-        context,
-        _emailController.text.trim(),
-        _passwordController.text,
+      final user = await authManager.signUpWithEmail(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
       );
 
       if (user != null && mounted) {
@@ -75,8 +74,8 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
   Future<void> _signUpWithGoogle() async {
     setState(() => _isLoading = true);
     try {
-      final user = await authManager.signInWithGoogle(context);
-      if (user != null && mounted) {
+      final success = await authManager.signInWithGoogle();
+      if (success && mounted) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           '/home',
@@ -140,7 +139,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     decoration: BoxDecoration(
                       gradient: AppTheme.primaryGradient,
                       shape: BoxShape.circle,
-                      boxShadow: [AppTheme.glowShadow],
+                      boxShadow: AppTheme.glowShadow,
                     ),
                     child: const Icon(
                       Icons.music_note,
@@ -179,7 +178,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     controller: _nameController,
                     label: 'Full Name',
                     hint: 'Enter your full name',
-                    icon: Icons.person_outline,
+                    prefixIcon: Icons.person_outline,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your name';
@@ -195,7 +194,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     controller: _emailController,
                     label: 'Email',
                     hint: 'Enter your email',
-                    icon: Icons.email_outlined,
+                    prefixIcon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -215,7 +214,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     controller: _passwordController,
                     label: 'Password',
                     hint: 'Create a password',
-                    icon: Icons.lock_outline,
+                    prefixIcon: Icons.lock_outline,
                     obscureText: _obscurePassword,
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -246,7 +245,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                     controller: _confirmPasswordController,
                     label: 'Confirm Password',
                     hint: 'Re-enter your password',
-                    icon: Icons.lock_outline,
+                    prefixIcon: Icons.lock_outline,
                     obscureText: _obscureConfirmPassword,
                     suffixIcon: IconButton(
                       icon: Icon(

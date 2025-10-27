@@ -210,8 +210,8 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                               borderRadius:
                                   BorderRadius.circular(AppTheme.radiusLarge),
                               boxShadow: [
-                                AppTheme.elevatedShadow,
-                                AppTheme.glowShadow,
+                                ...AppTheme.elevatedShadow,
+                                ...AppTheme.glowShadow,
                               ],
                             ),
                             child: ClipRRect(
@@ -379,7 +379,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               gradient: AppTheme.primaryGradient,
-                              boxShadow: [AppTheme.glowShadow],
+                              boxShadow: AppTheme.glowShadow,
                             ),
                             child: IconButton(
                               icon: Icon(
