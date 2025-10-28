@@ -34,7 +34,7 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
       children: [
         // Main app content
         widget.child,
-        
+
         // Mini player overlay at bottom
         Positioned(
           left: 0,
@@ -45,7 +45,7 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
             builder: (context, snapshot) {
               final playerState = snapshot.data ?? PlayerState.idle;
               final currentSong = _audioService.currentSong;
-              
+
               // Only show mini player when there's a current song
               if (currentSong == null ||
                   playerState == PlayerState.idle ||
@@ -65,10 +65,13 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
                       return StreamBuilder<Duration?>(
                         stream: _audioService.durationStream,
                         builder: (context, durationSnapshot) {
-                          final position = positionSnapshot.data ?? Duration.zero;
-                          final duration = durationSnapshot.data ?? Duration.zero;
+                          final position =
+                              positionSnapshot.data ?? Duration.zero;
+                          final duration =
+                              durationSnapshot.data ?? Duration.zero;
                           final progress = duration.inMilliseconds > 0
-                              ? position.inMilliseconds / duration.inMilliseconds
+                              ? position.inMilliseconds /
+                                  duration.inMilliseconds
                               : 0.0;
 
                           return LinearProgressIndicator(
@@ -82,7 +85,7 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
                       );
                     },
                   ),
-                  
+
                   // Now Playing Bar
                   NowPlayingBar(
                     songTitle: currentSong.title,
@@ -105,7 +108,7 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
                       }
                     },
                   ),
-                  
+
                   // Bottom padding for navigation bar
                   const SizedBox(height: 80),
                 ],

@@ -41,33 +41,33 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
             return GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
-              key: scaffoldKey,
-              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              body: _buildLibraryBody(context, controller),
-              bottomNavigationBar: ModernBottomNav(
-                currentIndex: _currentNavIndex,
-                onTap: (index) {
-                  setState(() => _currentNavIndex = index);
-                  switch (index) {
-                    case 0:
-                      context.pushReplacementNamed('homePage');
-                      break;
-                    case 1:
-                      context.pushReplacementNamed('Search');
-                      break;
-                    case 2:
-                      // Already on Library
-                      break;
-                    case 3:
-                      context.pushReplacementNamed('userProfile');
-                      break;
-                  }
-                },
+                key: scaffoldKey,
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                body: _buildLibraryBody(context, controller),
+                bottomNavigationBar: ModernBottomNav(
+                  currentIndex: _currentNavIndex,
+                  onTap: (index) {
+                    setState(() => _currentNavIndex = index);
+                    switch (index) {
+                      case 0:
+                        context.pushReplacementNamed('homePage');
+                        break;
+                      case 1:
+                        context.pushReplacementNamed('Search');
+                        break;
+                      case 2:
+                        // Already on Library
+                        break;
+                      case 3:
+                        context.pushReplacementNamed('userProfile');
+                        break;
+                    }
+                  },
+                ),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          },
+        ),
       ),
     );
   }
