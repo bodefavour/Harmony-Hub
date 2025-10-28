@@ -1,5 +1,4 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
@@ -112,16 +111,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       children: [
                                         Text(
                                           _getGreeting(),
-                                          style: AppTheme.bodySmall(context,
-                                              isDark: isDark),
+                                          style: AppTheme.bodySmall.copyWith(
+                                            color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                                          ),
                                         ),
                                         Text(
-                                          currentUserDisplayName.isNotEmpty
-                                              ? currentUserDisplayName
+                                          (currentUserDisplayName?.isNotEmpty ?? false)
+                                              ? currentUserDisplayName!
                                               : 'Music Lover',
-                                          style: AppTheme.headlineMedium(
-                                              context,
-                                              isDark: isDark),
+                                          style: AppTheme.headlineMedium.copyWith(
+                                            color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                                          ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),

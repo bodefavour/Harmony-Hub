@@ -106,8 +106,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                             AppTheme.primaryGradient.createShader(bounds),
                         child: Text(
                           'Harmony Hub',
-                          style: AppTheme.displayLarge(context, isDark: isDark)
-                              .copyWith(
+                          style: AppTheme.displayLarge.copyWith(
                             fontSize: 48,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
@@ -129,8 +128,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                       // Tagline
                       Text(
                         'Where music meets your soul',
-                        style: AppTheme.headlineMedium(context, isDark: isDark)
-                            .copyWith(
+                        style: AppTheme.headlineMedium.copyWith(
                           color: isDark
                               ? AppTheme.textSecondary
                               : AppTheme.textSecondaryLight,
@@ -226,7 +224,9 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                     // Footer Text
                     Text(
                       'By continuing, you agree to our Terms of Service\nand Privacy Policy',
-                      style: AppTheme.caption(context, isDark: isDark),
+                      style: AppTheme.caption.copyWith(
+                        color: isDark ? AppTheme.textTertiary : AppTheme.textTertiaryLight,
+                      ),
                       textAlign: TextAlign.center,
                     ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
                   ],
@@ -278,7 +278,7 @@ class _FeaturePill extends StatelessWidget {
           const SizedBox(width: AppTheme.space8),
           Text(
             label,
-            style: AppTheme.bodySmall(context, isDark: isDark).copyWith(
+            style: AppTheme.bodySmall.copyWith(
               color:
                   isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
             ),
