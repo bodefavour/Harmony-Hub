@@ -278,7 +278,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         child: Text(
                           'or continue with',
                           style: AppTheme.bodySmall.copyWith(
-                            color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                            color: isDark
+                                ? AppTheme.textSecondary
+                                : AppTheme.textSecondaryLight,
                           ),
                         ),
                       ),
@@ -332,7 +334,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         Text(
                           'Don\'t have an account? ',
                           style: AppTheme.bodyMedium.copyWith(
-                            color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                            color: isDark
+                                ? AppTheme.textPrimary
+                                : AppTheme.textPrimaryLight,
                           ),
                         ),
                         GestureDetector(
@@ -407,7 +411,8 @@ class _SocialLoginButton extends StatelessWidget {
               Text(
                 label,
                 style: AppTheme.bodyMedium.copyWith(
-                  color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                  color:
+                      isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                   fontWeight: FontWeight.w600,
                 ),
               ),
