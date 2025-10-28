@@ -34,7 +34,7 @@ class ModernBottomNav extends StatelessWidget {
           height: 70,
           padding: const EdgeInsets.symmetric(
             horizontal: AppTheme.space8,
-            vertical: AppTheme.space8,
+            vertical: AppTheme.space4, // Reduced from space8 to space4
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -95,7 +95,7 @@ class _NavItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(vertical: AppTheme.space8),
+          padding: const EdgeInsets.symmetric(vertical: AppTheme.space4), // Reduced from space8
           decoration: BoxDecoration(
             color: isSelected
                 ? AppTheme.harmonyOrange.withOpacity(0.1)
@@ -104,21 +104,18 @@ class _NavItem extends StatelessWidget {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                child: Icon(
-                  icon,
-                  color: isSelected
-                      ? AppTheme.harmonyOrange
-                      : isDark
-                          ? AppTheme.textSecondary
-                          : AppTheme.textSecondaryLight,
-                  size: isSelected ? 26 : 24,
-                ),
+              Icon(
+                icon,
+                color: isSelected
+                    ? AppTheme.harmonyOrange
+                    : isDark
+                        ? AppTheme.textSecondary
+                        : AppTheme.textSecondaryLight,
+                size: isSelected ? 24 : 22, // Reduced icon size slightly
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2), // Reduced from 4 to 2
               AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 300),
                 style: AppTheme.caption.copyWith(
