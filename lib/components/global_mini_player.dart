@@ -120,8 +120,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                           }
                         },
                       ),
-                    ],
-                  ),
+                  ],
                 )
                     .animate()
                     .slideY(
