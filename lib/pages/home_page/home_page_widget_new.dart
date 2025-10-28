@@ -5,15 +5,12 @@ import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
 import '/services/supabase_service.dart';
 import '/services/recommendation_service.dart';
-import '/services/audio_service.dart';
 import '/models/album.dart';
 import '/models/daily_feed.dart';
 import '/components/global_mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
-import 'home_page_controller.dart';
 export 'home_page_model.dart';
 
 /// Modern Home Page - Spotify/Apple Music inspired
