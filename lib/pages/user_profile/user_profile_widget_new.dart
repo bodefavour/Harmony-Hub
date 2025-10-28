@@ -345,21 +345,21 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                 ),
               ),
             ),
-          ],
-        ),
-        bottomNavigationBar: ModernBottomNav(
-          currentIndex: 3, // Profile tab
-          onTap: (index) {
-            if (index == 0) Navigator.pushReplacementNamed(context, '/home');
-            if (index == 1) Navigator.pushReplacementNamed(context, '/search');
-            if (index == 2) Navigator.pushReplacementNamed(context, '/library');
-          },
-        ),
+        ],
       ),
+      bottomNavigationBar: ModernBottomNav(
+        currentIndex: 3, // Profile tab
+        onTap: (index) {
+          if (index == 0) Navigator.pushReplacementNamed(context, '/home');
+          if (index == 1) Navigator.pushReplacementNamed(context, '/search');
+          if (index == 2) Navigator.pushReplacementNamed(context, '/library');
+        },
+      ),
+      persistentFooterButtons: const [
+        MiniPlayerWidget(),
+      ],
     );
-  }
-
-  Widget _buildStatCard({
+  }  Widget _buildStatCard({
     required IconData icon,
     required String title,
     required String value,

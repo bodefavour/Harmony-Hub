@@ -10,6 +10,7 @@ import 'auth/supabase_auth/auth_util.dart';
 import 'backend/supabase/supabase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import '/components/global_mini_player.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -111,6 +112,12 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       routerConfig: _router,
+      builder: (context, child) {
+        // Wrap the entire app with global mini player overlay
+        return GlobalMiniPlayerOverlay(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }
