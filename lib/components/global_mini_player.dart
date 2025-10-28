@@ -82,8 +82,9 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
             builder: (context, currentRoute, _) {
               // Check if we're on the music open page FIRST
               final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
-              
-              print('DEBUG MINI PLAYER CHECK: route="$currentRoute", hide=$isOnMusicOpenPage');
+
+              print(
+                  'DEBUG MINI PLAYER CHECK: route="$currentRoute", hide=$isOnMusicOpenPage');
 
               // Hide mini player on music open page
               if (isOnMusicOpenPage) {
@@ -103,101 +104,107 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                     return const SizedBox.shrink();
                   }
 
-              // Check if we're on the music open page
-              // Get current route from the router
-              final currentRoute = widget
-                  .router.routerDelegate.currentConfiguration.uri
-                  .toString();
-              final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
+                  // Check if we're on the music open page
+                  // Get current route from the router
+                  final currentRoute = widget
+                      .router.routerDelegate.currentConfiguration.uri
+                      .toString();
+                  final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
 
-              print(
-                  'DEBUG MINI PLAYER: currentRoute: "$currentRoute", hide: $isOnMusicOpenPage');
+                  print(
+                      'DEBUG MINI PLAYER: currentRoute: "$currentRoute", hide: $isOnMusicOpenPage');
 
-              // Hide mini player on music open page
-              if (isOnMusicOpenPage) {
-                return const SizedBox.shrink();
-              }
+                  // Hide mini player on music open page
+                  if (isOnMusicOpenPage) {
+                    return const SizedBox.shrink();
+                  }
 
-              final isPlaying = playerState == PlayerState.playing;
+                  final isPlaying = playerState == PlayerState.playing;
 
-              return ClipRect(
-                child: Material(
-                  color: Colors.transparent,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Progress indicator - only show if we have a valid duration
-                      StreamBuilder<Duration?>(
-                        stream: _audioService.durationStream,
-                        builder: (context, durationSnapshot) {
-                          final duration = durationSnapshot.data;
-                          if (duration == null ||
-                              duration.inMilliseconds <= 0) {
-                            return const SizedBox.shrink();
-                          }
+                  return ClipRect(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Progress indicator - only show if we have a valid duration
+                          StreamBuilder<Duration?>(
+                            stream: _audioService.durationStream,
+                            builder: (context, durationSnapshot) {
+                              final duration = durationSnapshot.data;
+                              if (duration == null ||
+                                  duration.inMilliseconds <= 0) {
+                                return const SizedBox.shrink();
+                              }
 
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: AppTheme.space12),
-                            child: StreamBuilder<Duration>(
-                              stream: _audioService.positionStream,
-                              builder: (context, positionSnapshot) {
-                                final position =
-                                    positionSnapshot.data ?? Duration.zero;
-                                final progress = duration.inMilliseconds > 0
-                                    ? position.inMilliseconds /
-                                        duration.inMilliseconds
-                                    : 0.0;
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: AppTheme.space12),
+                                child: StreamBuilder<Duration>(
+                                  stream: _audioService.positionStream,
+                                  builder: (context, positionSnapshot) {
+                                    final position =
+                                        positionSnapshot.data ?? Duration.zero;
+                                    final progress = duration.inMilliseconds > 0
+                                        ? position.inMilliseconds /
+                                            duration.inMilliseconds
+                                        : 0.0;
 
-                                return LinearProgressIndicator(
-                                  value: progress,
-                                  backgroundColor: Colors.grey.withOpacity(0.2),
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                          AppTheme.harmonyOrange),
-                                  minHeight: 3,
+                                    return LinearProgressIndicator(
+                                      value: progress,
+                                      backgroundColor:
+                                          Colors.grey.withOpacity(0.2),
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
+                                              AppTheme.harmonyOrange),
+                                      minHeight: 3,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+
+                          // Now Playing Bar
+                          NowPlayingBar(
+                            songTitle: currentSong.title,
+                            artistName:
+                                currentSong.artistName ?? 'Unknown Artist',
+                            coverUrl: currentSong.album?.coverImage,
+                            isPlaying: isPlaying,
+                            onTap: () {
+                              // Navigate to full music player
+                              // Use the router's pushNamed with required songId parameter
+                              try {
+                                widget.router.pushNamed(
+                                  'musicOpen',
+                                  pathParameters: {'songId': currentSong.id},
                                 );
-                              },
-                            ),
-                          );
-                        },
+                                print(
+                                    'DEBUG: Navigation to musicOpen successful');
+                              } catch (e) {
+                                print('Navigation error: $e');
+                              }
+                            },
+                            onPlayPause: () {
+                              if (isPlaying) {
+                                _audioService.pause();
+                              } else {
+                                _audioService.resume();
+                              }
+                            },
+                          ),
+                        ],
                       ),
-
-                      // Now Playing Bar
-                      NowPlayingBar(
-                        songTitle: currentSong.title,
-                        artistName: currentSong.artistName ?? 'Unknown Artist',
-                        coverUrl: currentSong.album?.coverImage,
-                        isPlaying: isPlaying,
-                        onTap: () {
-                          // Navigate to full music player
-                          // Use the router's pushNamed with required songId parameter
-                          try {
-                            widget.router.pushNamed(
-                              'musicOpen',
-                              pathParameters: {'songId': currentSong.id},
-                            );
-                            print('DEBUG: Navigation to musicOpen successful');
-                          } catch (e) {
-                            print('Navigation error: $e');
-                          }
-                        },
-                        onPlayPause: () {
-                          if (isPlaying) {
-                            _audioService.pause();
-                          } else {
-                            _audioService.resume();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              )
-                  .animate()
-                  .slideY(
-                      begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
-                  .fadeIn(duration: 200.ms);
+                    ),
+                  )
+                      .animate()
+                      .slideY(
+                          begin: 1,
+                          end: 0,
+                          duration: 300.ms,
+                          curve: Curves.easeOut)
+                      .fadeIn(duration: 200.ms);
                 },
               ); // End of StreamBuilder
             },
