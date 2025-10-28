@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '/theme/app_theme.dart';
+import '/services/modal_visibility_notifier.dart';
 
 class NowPlayingModal extends StatefulWidget {
   const NowPlayingModal({
@@ -43,10 +44,14 @@ class _NowPlayingModalState extends State<NowPlayingModal>
   bool _isShuffled = false;
   bool _isRepeating = false;
   double _volume = 0.7;
+  final ModalVisibilityNotifier _modalNotifier = ModalVisibilityNotifier();
 
   @override
   void initState() {
     super.initState();
+    // Notify that modal is visible
+    _modalNotifier.showModal();
+    
     _coverController = AnimationController(
       duration: const Duration(seconds: 20),
       vsync: this,
@@ -60,6 +65,9 @@ class _NowPlayingModalState extends State<NowPlayingModal>
 
   @override
   void dispose() {
+    // Notify that modal is hidden
+    _modalNotifier.hideModal();
+    
     _coverController.dispose();
     _waveController.dispose();
     super.dispose();

@@ -86,11 +86,21 @@ class AudioService {
       _currentSong = song;
       _currentPodcast = null;
 
-      // Get signed URL for the audio file
-      final url = await _supabaseService.createSignedUrl(
-        song.storagePath,
-        const Duration(hours: 1),
-      );
+      // Check if storage path is already a URL or a Supabase storage path
+      String url;
+      if (song.storagePath.startsWith('http://') || 
+          song.storagePath.startsWith('https://')) {
+        // It's already a direct URL, use it as is
+        url = song.storagePath;
+        print('Using direct URL: $url');
+      } else {
+        // It's a Supabase storage path, create signed URL
+        url = await _supabaseService.createSignedUrl(
+          song.storagePath,
+          const Duration(hours: 1),
+        );
+        print('Created signed URL for: ${song.storagePath}');
+      }
 
       await _player.setUrl(url);
       await _player.play();
@@ -117,11 +127,21 @@ class AudioService {
         throw Exception('Podcast has no storage path');
       }
 
-      // Get signed URL for the audio file
-      final url = await _supabaseService.createSignedUrl(
-        podcast.storagePath!,
-        const Duration(hours: 2),
-      );
+      // Check if storage path is already a URL or a Supabase storage path
+      String url;
+      if (podcast.storagePath!.startsWith('http://') || 
+          podcast.storagePath!.startsWith('https://')) {
+        // It's already a direct URL, use it as is
+        url = podcast.storagePath!;
+        print('Using direct URL: $url');
+      } else {
+        // It's a Supabase storage path, create signed URL
+        url = await _supabaseService.createSignedUrl(
+          podcast.storagePath!,
+          const Duration(hours: 2),
+        );
+        print('Created signed URL for: ${podcast.storagePath}');
+      }
 
       await _player.setUrl(url);
       await _player.play();

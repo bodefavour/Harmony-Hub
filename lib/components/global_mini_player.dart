@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import '../services/audio_service.dart';
+import '../services/modal_visibility_notifier.dart';
 import '../theme/app_theme.dart';
 import '../theme/modern_navigation.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -25,41 +26,36 @@ class GlobalMiniPlayerOverlay extends StatefulWidget {
 
 class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   final AudioService _audioService = AudioService();
-  final ValueNotifier<String> _currentRouteNotifier = ValueNotifier<String>('');
+  final ModalVisibilityNotifier _modalNotifier = ModalVisibilityNotifier();
+  String _lastRoute = '';
 
   @override
   void initState() {
     super.initState();
     // Don't initialize AudioService here - it's already initialized elsewhere
     // Calling initialize() multiple times causes GlobalKey conflicts
-
-    // Update route on init
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _updateRoute();
-    });
+    
+    // Listen to router changes
+    widget.router.routerDelegate.addListener(_onRouteChanged);
   }
 
-  @override
-  void didUpdateWidget(GlobalMiniPlayerOverlay oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Widget rebuilds when route changes, so we can detect it here
-    if (oldWidget.child != widget.child) {
-      _updateRoute();
-    }
-  }
-
-  void _updateRoute() {
-    final newRoute =
-        widget.router.routerDelegate.currentConfiguration.uri.toString();
-    if (_currentRouteNotifier.value != newRoute) {
-      _currentRouteNotifier.value = newRoute;
-      print('DEBUG ROUTE UPDATED: $newRoute');
+  void _onRouteChanged() {
+    // Only rebuild if route actually changed
+    final currentRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+    if (mounted && currentRoute != _lastRoute) {
+      _lastRoute = currentRoute;
+      // Schedule rebuild for next frame to avoid setState during build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
     }
   }
 
   @override
   void dispose() {
-    _currentRouteNotifier.dispose();
+    widget.router.routerDelegate.removeListener(_onRouteChanged);
     super.dispose();
   }
 
@@ -77,20 +73,10 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
           right: 0,
           bottom:
               84, // Position above bottom nav - increased to prevent overflow
-          child: ValueListenableBuilder<String>(
-            valueListenable: _currentRouteNotifier,
-            builder: (context, currentRoute, _) {
-              // Check if we're on the music open page FIRST
-              final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
-
-              print(
-                  'DEBUG MINI PLAYER CHECK: route="$currentRoute", hide=$isOnMusicOpenPage');
-
-              // Hide mini player on music open page
-              if (isOnMusicOpenPage) {
-                return const SizedBox.shrink();
-              }
-
+          child: ListenableBuilder(
+            listenable: _modalNotifier,
+            builder: (context, _) {
+              // Rebuild whenever modal state changes
               return StreamBuilder<PlayerState>(
                 stream: _audioService.playerStateStream,
                 builder: (context, snapshot) {
@@ -104,18 +90,16 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                     return const SizedBox.shrink();
                   }
 
-                  // Check if we're on the music open page
-                  // Get current route from the router
-                  final currentRoute = widget
-                      .router.routerDelegate.currentConfiguration.uri
-                      .toString();
+                  // Get current route and modal state
+                  final currentRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+                  final isModalVisible = _modalNotifier.isModalVisible;
                   final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
 
                   print(
-                      'DEBUG MINI PLAYER: currentRoute: "$currentRoute", hide: $isOnMusicOpenPage');
+                      'DEBUG MINI PLAYER: currentRoute: "$currentRoute", hide music page: $isOnMusicOpenPage, modal visible: $isModalVisible');
 
-                  // Hide mini player on music open page
-                  if (isOnMusicOpenPage) {
+                  // Hide mini player on music open page OR when a modal is visible
+                  if (isOnMusicOpenPage || isModalVisible) {
                     return const SizedBox.shrink();
                   }
 
@@ -173,8 +157,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                             coverUrl: currentSong.album?.coverImage,
                             isPlaying: isPlaying,
                             onTap: () {
-                              // Navigate to full music player
-                              // Use the router's pushNamed with required songId parameter
+                              // Navigate to full music player OR show modal
+                              // For now, navigate to the page
                               try {
                                 widget.router.pushNamed(
                                   'musicOpen',
@@ -208,7 +192,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                 },
               ); // End of StreamBuilder
             },
-          ), // End of ValueListenableBuilder
+          ), // End of ListenableBuilder
         ),
       ],
     );

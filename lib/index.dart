@@ -28,3 +28,8 @@ export '/pages/podcasts/podcasts_widget.dart' show PodcastsWidget;
 export '/pages/podcasts/podcast_detail_widget.dart' show PodcastDetailWidget;
 export '/pages/artist_upload/artist_upload_widget.dart' show ArtistUploadWidget;
 export '/pages/admin/admin_dashboard_widget.dart' show AdminDashboardWidget;
+
+// Services and helpers
+export '/services/modal_helper.dart' show showManagedModalBottomSheet;
+export '/services/modal_visibility_notifier.dart' show ModalVisibilityNotifier;
+export '/utils/show_now_playing_modal.dart' show showNowPlayingModal;

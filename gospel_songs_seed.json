@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Way Maker",
+    "artist": "Sinach",
+    "album": "Way Maker",
+    "duration": 331,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27365e3d6414dd58e5e6c2e4f3a"
+  },
+  {
+    "title": "Awesome God",
+    "artist": "Sinach",
+    "album": "I Know Who I Am",
+    "duration": 298,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d8e8e5e8e8e8e8e8e8e8e8e8"
+  },
+  {
+    "title": "There Is Power",
+    "artist": "Sinach",
+    "album": "There's an Overflow",
+    "duration": 312,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f8f8f8f8f8f8f8f8f8f8f8f8"
+  },
+  {
+    "title": "Goodness of God",
+    "artist": "Bethel Music",
+    "album": "Victory",
+    "duration": 365,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a1a1a1a1a1a1a1a1a1a1a1a1"
+  },
+  {
+    "title": "Oceans (Where Feet May Fail)",
+    "artist": "Hillsong United",
+    "album": "Zion",
+    "duration": 528,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b2b2b2b2b2b2b2b2b2b2b2b2"
+  },
+  {
+    "title": "What a Beautiful Name",
+    "artist": "Hillsong Worship",
+    "album": "Let There Be Light",
+    "duration": 244,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c3c3c3c3c3c3c3c3c3c3c3c3"
+  },
+  {
+    "title": "Reckless Love",
+    "artist": "Cory Asbury",
+    "album": "Reckless Love",
+    "duration": 312,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d4d4d4d4d4d4d4d4d4d4d4d4"
+  },
+  {
+    "title": "Surrounded (Fight My Battles)",
+    "artist": "Michael W. Smith",
+    "album": "Surrounded",
+    "duration": 355,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273e5e5e5e5e5e5e5e5e5e5e5e5"
+  },
+  {
+    "title": "Build My Life",
+    "artist": "Passion",
+    "album": "Whole Heart",
+    "duration": 279,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f6f6f6f6f6f6f6f6f6f6f6f6"
+  },
+  {
+    "title": "The Blessing",
+    "artist": "Elevation Worship",
+    "album": "Graves Into Gardens",
+    "duration": 775,
+    "genre": "Gospel",
+    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273g7g7g7g7g7g7g7g7g7g7g7g7"
+  }
+]
