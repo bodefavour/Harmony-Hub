@@ -4,6 +4,7 @@ import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
 import '/services/supabase_service.dart';
+import '/services/recommendation_service.dart';
 import '/models/song.dart';
 import '/models/album.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               slivers: [
                 // App Bar
                 SliverAppBar(
-                  expandedHeight: 120,
+                  expandedHeight: 80,
                   floating: false,
                   pinned: true,
                   backgroundColor: Colors.transparent,
@@ -163,7 +164,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      const SizedBox(height: AppTheme.space24),
+                      const SizedBox(height: AppTheme.space12),
                       SectionHeader(
                         title: 'Recently Played',
                         onSeeAll: () {

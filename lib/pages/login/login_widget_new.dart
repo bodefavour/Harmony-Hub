@@ -324,7 +324,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       .fadeIn(duration: 400.ms, delay: 800.ms)
                       .slideY(begin: 0.2, end: 0, duration: 400.ms),
 
-                  const SizedBox(height: AppTheme.space48),
+                  const SizedBox(height: AppTheme.space24),
 
                   // Sign Up Link
                   Center(
