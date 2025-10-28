@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../services/audio_service.dart';
 import '../theme/app_theme.dart';
 import '../theme/modern_navigation.dart';
@@ -90,7 +89,7 @@ class _GlobalMiniPlayerState extends State<GlobalMiniPlayer> {
                   NowPlayingBar(
                     songTitle: currentSong.title,
                     artistName: currentSong.artistName ?? 'Unknown Artist',
-                    coverUrl: currentSong.coverImage,
+                    coverUrl: currentSong.album?.coverImage,
                     isPlaying: isPlaying,
                     onTap: () {
                       // Navigate to full music player

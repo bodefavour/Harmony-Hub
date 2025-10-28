@@ -7,6 +7,7 @@ import '/services/supabase_service.dart';
 import '/services/audio_service.dart';
 import '/services/recommendation_service.dart';
 import '/theme/modern_navigation.dart';
+import '/components/global_mini_player.dart';
 import 'search_controller.dart' as search;
 
 class SearchWidgetNew extends StatefulWidget {
@@ -39,16 +40,17 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => search.SearchController(
-        supabaseService: SupabaseService(),
-        audioService: AudioService(),
-        recommendationService: RecommendationService(),
-      )..initialize(),
-      child: Consumer<search.SearchController>(
-        builder: (context, controller, _) {
-          return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
+    return GlobalMiniPlayer(
+      child: ChangeNotifierProvider(
+        create: (_) => search.SearchController(
+          supabaseService: SupabaseService(),
+          audioService: AudioService(),
+          recommendationService: RecommendationService(),
+        )..initialize(),
+        child: Consumer<search.SearchController>(
+          builder: (context, controller, _) {
+            return GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -76,6 +78,7 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
             ),
           );
         },
+      ),
       ),
     );
   }
