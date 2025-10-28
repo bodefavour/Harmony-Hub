@@ -25,326 +25,324 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
     return Scaffold(
       backgroundColor:
           isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
-        body: CustomScrollView(
-          slivers: [
-            // App Bar with Profile Header
-            SliverAppBar(
-              expandedHeight: 280,
-              pinned: true,
-              backgroundColor:
-                  isDark ? AppTheme.darkCard : AppTheme.lightSurface,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  decoration: BoxDecoration(
-                    gradient: AppTheme.primaryGradient,
-                  ),
-                  child: SafeArea(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: AppTheme.space48),
+      body: CustomScrollView(
+        slivers: [
+          // App Bar with Profile Header
+          SliverAppBar(
+            expandedHeight: 280,
+            pinned: true,
+            backgroundColor: isDark ? AppTheme.darkCard : AppTheme.lightSurface,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: AppTheme.primaryGradient,
+                ),
+                child: SafeArea(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: AppTheme.space48),
 
-                        // Profile Picture
-                        Stack(
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 4,
-                                ),
-                                boxShadow: AppTheme.elevatedShadow,
+                      // Profile Picture
+                      Stack(
+                        children: [
+                          Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 4,
                               ),
-                              child: ClipOval(
-                                child: currentUserPhoto != null
-                                    ? Image.network(
-                                        currentUserPhoto!,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Container(
-                                        color: Colors.white,
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 60,
-                                          color: AppTheme.harmonyOrange,
-                                        ),
-                                      ),
-                              ),
+                              boxShadow: AppTheme.elevatedShadow,
                             ),
-                            Positioned(
-                              right: 0,
-                              bottom: 0,
-                              child: GestureDetector(
-                                onTap: () {
-                                  // TODO: Change profile picture
-                                },
-                                child: Container(
-                                  width: 36,
-                                  height: 36,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.harmonyOrange,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
+                            child: ClipOval(
+                              child: currentUserPhoto != null
+                                  ? Image.network(
+                                      currentUserPhoto!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
                                       color: Colors.white,
-                                      width: 2,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 60,
+                                        color: AppTheme.harmonyOrange,
+                                      ),
                                     ),
-                                  ),
-                                  child: const Icon(
-                                    Icons.camera_alt,
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: GestureDetector(
+                              onTap: () {
+                                // TODO: Change profile picture
+                              },
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.harmonyOrange,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
                                     color: Colors.white,
-                                    size: 18,
+                                    width: 2,
                                   ),
+                                ),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.white,
+                                  size: 18,
                                 ),
                               ),
                             ),
-                          ],
-                        )
-                            .animate()
-                            .scale(duration: 400.ms, curve: Curves.easeOut),
-
-                        SizedBox(height: AppTheme.space16),
-
-                        // Name
-                        Text(
-                          currentUserDisplayName ?? 'Music Lover',
-                          style: AppTheme.displayMedium.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
                           ),
-                        ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2),
+                        ],
+                      )
+                          .animate()
+                          .scale(duration: 400.ms, curve: Curves.easeOut),
 
-                        SizedBox(height: AppTheme.space8),
+                      SizedBox(height: AppTheme.space16),
 
-                        // Email
-                        Text(
-                          currentUserEmail,
-                          style: AppTheme.bodyLarge.copyWith(
-                            color: Colors.white.withOpacity(0.9),
-                          ),
-                        ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2),
-                      ],
-                    ),
+                      // Name
+                      Text(
+                        currentUserDisplayName ?? 'Music Lover',
+                        style: AppTheme.displayMedium.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2),
+
+                      SizedBox(height: AppTheme.space8),
+
+                      // Email
+                      Text(
+                        currentUserEmail,
+                        style: AppTheme.bodyLarge.copyWith(
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                      ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2),
+                    ],
                   ),
                 ),
               ),
             ),
+          ),
 
-            // Content
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(AppTheme.space16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Stats Cards
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildStatCard(
-                            icon: Icons.music_note,
-                            title: 'Songs',
-                            value: '342',
-                            isDark: isDark,
-                          ).animate().fadeIn(delay: 400.ms).slideX(begin: -0.1),
-                        ),
-                        SizedBox(width: AppTheme.space12),
-                        Expanded(
-                          child: _buildStatCard(
-                            icon: Icons.playlist_play,
-                            title: 'Playlists',
-                            value: '12',
-                            isDark: isDark,
-                          ).animate().fadeIn(delay: 450.ms).slideX(begin: -0.1),
-                        ),
-                        SizedBox(width: AppTheme.space12),
-                        Expanded(
-                          child: _buildStatCard(
-                            icon: Icons.favorite,
-                            title: 'Liked',
-                            value: '89',
-                            isDark: isDark,
-                          ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
-                        ),
-                      ],
+          // Content
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(AppTheme.space16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Stats Cards
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.music_note,
+                          title: 'Songs',
+                          value: '342',
+                          isDark: isDark,
+                        ).animate().fadeIn(delay: 400.ms).slideX(begin: -0.1),
+                      ),
+                      SizedBox(width: AppTheme.space12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.playlist_play,
+                          title: 'Playlists',
+                          value: '12',
+                          isDark: isDark,
+                        ).animate().fadeIn(delay: 450.ms).slideX(begin: -0.1),
+                      ),
+                      SizedBox(width: AppTheme.space12),
+                      Expanded(
+                        child: _buildStatCard(
+                          icon: Icons.favorite,
+                          title: 'Liked',
+                          value: '89',
+                          isDark: isDark,
+                        ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: AppTheme.space32),
+
+                  // Account Section
+                  Text(
+                    'Account',
+                    style: AppTheme.headlineLarge.copyWith(
+                      color: isDark ? Colors.white : Colors.black,
                     ),
+                  ).animate().fadeIn(delay: 550.ms),
 
-                    SizedBox(height: AppTheme.space32),
+                  SizedBox(height: AppTheme.space16),
 
-                    // Account Section
-                    Text(
-                      'Account',
-                      style: AppTheme.headlineLarge.copyWith(
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ).animate().fadeIn(delay: 550.ms),
+                  _buildSettingTile(
+                    icon: Icons.person_outline,
+                    title: 'Edit Profile',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Navigate to edit profile
+                    },
+                  ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
 
-                    SizedBox(height: AppTheme.space16),
+                  _buildSettingTile(
+                    icon: Icons.lock_outline,
+                    title: 'Change Password',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Navigate to change password
+                    },
+                  ).animate().fadeIn(delay: 650.ms).slideX(begin: -0.1),
 
-                    _buildSettingTile(
-                      icon: Icons.person_outline,
-                      title: 'Edit Profile',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Navigate to edit profile
+                  _buildSettingTile(
+                    icon: Icons.notifications_outlined,
+                    title: 'Notifications',
+                    isDark: isDark,
+                    trailing: Switch(
+                      value: _notificationsEnabled,
+                      onChanged: (value) {
+                        setState(() => _notificationsEnabled = value);
                       },
-                    ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
+                      activeColor: AppTheme.harmonyOrange,
+                    ),
+                  ).animate().fadeIn(delay: 700.ms).slideX(begin: -0.1),
 
-                    _buildSettingTile(
-                      icon: Icons.lock_outline,
-                      title: 'Change Password',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Navigate to change password
+                  SizedBox(height: AppTheme.space32),
+
+                  // Preferences Section
+                  Text(
+                    'Preferences',
+                    style: AppTheme.headlineLarge.copyWith(
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
+                  ).animate().fadeIn(delay: 750.ms),
+
+                  SizedBox(height: AppTheme.space16),
+
+                  _buildSettingTile(
+                    icon: Icons.dark_mode_outlined,
+                    title: 'Dark Mode',
+                    isDark: isDark,
+                    trailing: Switch(
+                      value: _darkModeEnabled,
+                      onChanged: (value) {
+                        setState(() => _darkModeEnabled = value);
+                        // TODO: Toggle theme
                       },
-                    ).animate().fadeIn(delay: 650.ms).slideX(begin: -0.1),
+                      activeColor: AppTheme.harmonyOrange,
+                    ),
+                  ).animate().fadeIn(delay: 800.ms).slideX(begin: -0.1),
 
-                    _buildSettingTile(
-                      icon: Icons.notifications_outlined,
-                      title: 'Notifications',
-                      isDark: isDark,
-                      trailing: Switch(
-                        value: _notificationsEnabled,
-                        onChanged: (value) {
-                          setState(() => _notificationsEnabled = value);
-                        },
-                        activeColor: AppTheme.harmonyOrange,
-                      ),
-                    ).animate().fadeIn(delay: 700.ms).slideX(begin: -0.1),
+                  _buildSettingTile(
+                    icon: Icons.high_quality_outlined,
+                    title: 'Audio Quality',
+                    subtitle: _audioQuality,
+                    isDark: isDark,
+                    onTap: () => _showAudioQualitySheet(context, isDark),
+                  ).animate().fadeIn(delay: 850.ms).slideX(begin: -0.1),
 
-                    SizedBox(height: AppTheme.space32),
+                  _buildSettingTile(
+                    icon: Icons.language_outlined,
+                    title: 'Language',
+                    subtitle: 'English',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Show language options
+                    },
+                  ).animate().fadeIn(delay: 900.ms).slideX(begin: -0.1),
 
-                    // Preferences Section
-                    Text(
-                      'Preferences',
-                      style: AppTheme.headlineLarge.copyWith(
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ).animate().fadeIn(delay: 750.ms),
+                  SizedBox(height: AppTheme.space32),
 
-                    SizedBox(height: AppTheme.space16),
+                  // About Section
+                  Text(
+                    'About',
+                    style: AppTheme.headlineLarge.copyWith(
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
+                  ).animate().fadeIn(delay: 950.ms),
 
-                    _buildSettingTile(
-                      icon: Icons.dark_mode_outlined,
-                      title: 'Dark Mode',
-                      isDark: isDark,
-                      trailing: Switch(
-                        value: _darkModeEnabled,
-                        onChanged: (value) {
-                          setState(() => _darkModeEnabled = value);
-                          // TODO: Toggle theme
-                        },
-                        activeColor: AppTheme.harmonyOrange,
-                      ),
-                    ).animate().fadeIn(delay: 800.ms).slideX(begin: -0.1),
+                  SizedBox(height: AppTheme.space16),
 
-                    _buildSettingTile(
-                      icon: Icons.high_quality_outlined,
-                      title: 'Audio Quality',
-                      subtitle: _audioQuality,
-                      isDark: isDark,
-                      onTap: () => _showAudioQualitySheet(context, isDark),
-                    ).animate().fadeIn(delay: 850.ms).slideX(begin: -0.1),
+                  _buildSettingTile(
+                    icon: Icons.help_outline,
+                    title: 'Help & Support',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Navigate to help
+                    },
+                  ).animate().fadeIn(delay: 1000.ms).slideX(begin: -0.1),
 
-                    _buildSettingTile(
-                      icon: Icons.language_outlined,
-                      title: 'Language',
-                      subtitle: 'English',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Show language options
-                      },
-                    ).animate().fadeIn(delay: 900.ms).slideX(begin: -0.1),
+                  _buildSettingTile(
+                    icon: Icons.info_outline,
+                    title: 'About Harmony Hub',
+                    subtitle: 'Version 1.0.0',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Show about dialog
+                    },
+                  ).animate().fadeIn(delay: 1050.ms).slideX(begin: -0.1),
 
-                    SizedBox(height: AppTheme.space32),
+                  _buildSettingTile(
+                    icon: Icons.privacy_tip_outlined,
+                    title: 'Privacy Policy',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Show privacy policy
+                    },
+                  ).animate().fadeIn(delay: 1100.ms).slideX(begin: -0.1),
 
-                    // About Section
-                    Text(
-                      'About',
-                      style: AppTheme.headlineLarge.copyWith(
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ).animate().fadeIn(delay: 950.ms),
+                  _buildSettingTile(
+                    icon: Icons.description_outlined,
+                    title: 'Terms of Service',
+                    isDark: isDark,
+                    onTap: () {
+                      // TODO: Show terms
+                    },
+                  ).animate().fadeIn(delay: 1150.ms).slideX(begin: -0.1),
 
-                    SizedBox(height: AppTheme.space16),
+                  SizedBox(height: AppTheme.space32),
 
-                    _buildSettingTile(
-                      icon: Icons.help_outline,
-                      title: 'Help & Support',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Navigate to help
-                      },
-                    ).animate().fadeIn(delay: 1000.ms).slideX(begin: -0.1),
+                  // Logout Button
+                  ModernButton(
+                    text: 'Sign Out',
+                    onPressed: () async {
+                      await authManager.signOut();
+                      if (context.mounted) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          'login',
+                          (route) => false,
+                        );
+                      }
+                    },
+                    isOutline: true,
+                    icon: Icons.logout,
+                  )
+                      .animate()
+                      .fadeIn(delay: 1200.ms)
+                      .scale(begin: const Offset(0.9, 0.9)),
 
-                    _buildSettingTile(
-                      icon: Icons.info_outline,
-                      title: 'About Harmony Hub',
-                      subtitle: 'Version 1.0.0',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Show about dialog
-                      },
-                    ).animate().fadeIn(delay: 1050.ms).slideX(begin: -0.1),
+                  SizedBox(height: AppTheme.space16),
 
-                    _buildSettingTile(
-                      icon: Icons.privacy_tip_outlined,
-                      title: 'Privacy Policy',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Show privacy policy
-                      },
-                    ).animate().fadeIn(delay: 1100.ms).slideX(begin: -0.1),
+                  // Delete Account Button
+                  TextButton(
+                    onPressed: () => _showDeleteAccountDialog(context, isDark),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.red,
+                    ),
+                    child: const Text('Delete Account'),
+                  ).animate().fadeIn(delay: 1250.ms),
 
-                    _buildSettingTile(
-                      icon: Icons.description_outlined,
-                      title: 'Terms of Service',
-                      isDark: isDark,
-                      onTap: () {
-                        // TODO: Show terms
-                      },
-                    ).animate().fadeIn(delay: 1150.ms).slideX(begin: -0.1),
-
-                    SizedBox(height: AppTheme.space32),
-
-                    // Logout Button
-                    ModernButton(
-                      text: 'Sign Out',
-                      onPressed: () async {
-                        await authManager.signOut();
-                        if (context.mounted) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            'login',
-                            (route) => false,
-                          );
-                        }
-                      },
-                      isOutline: true,
-                      icon: Icons.logout,
-                    )
-                        .animate()
-                        .fadeIn(delay: 1200.ms)
-                        .scale(begin: const Offset(0.9, 0.9)),
-
-                    SizedBox(height: AppTheme.space16),
-
-                    // Delete Account Button
-                    TextButton(
-                      onPressed: () =>
-                          _showDeleteAccountDialog(context, isDark),
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.red,
-                      ),
-                      child: const Text('Delete Account'),
-                    ).animate().fadeIn(delay: 1250.ms),
-
-                    SizedBox(height: AppTheme.space48),
-                  ],
-                ),
+                  SizedBox(height: AppTheme.space48),
+                ],
               ),
             ),
+          ),
         ],
       ),
       bottomNavigationBar: ModernBottomNav(
@@ -359,7 +357,9 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
         MiniPlayerWidget(),
       ],
     );
-  }  Widget _buildStatCard({
+  }
+
+  Widget _buildStatCard({
     required IconData icon,
     required String title,
     required String value,
