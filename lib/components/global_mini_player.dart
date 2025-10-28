@@ -31,7 +31,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   void initState() {
     super.initState();
     _audioService.initialize();
-
+    
     // Listen to router location changes
     widget.router.routerDelegate.addListener(_onRouteChanged);
   }
@@ -45,9 +45,12 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   void _onRouteChanged() {
     // Update current route when router changes
     final location = widget.router.routerDelegate.currentConfiguration;
-    setState(() {
-      _currentRoute = location.uri.toString();
-    });
+    if (mounted) {
+      setState(() {
+        _currentRoute = location.uri.toString();
+        print('DEBUG: Route changed to: $_currentRoute'); // Debug log
+      });
+    }
   }
 
   @override
@@ -72,7 +75,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
         Positioned(
           left: 0,
           right: 0,
-          bottom: 80, // Position above bottom nav (80px height)
+          bottom: 84, // Position above bottom nav - increased to prevent overflow
           child: StreamBuilder<PlayerState>(
             stream: _audioService.playerStateStream,
             builder: (context, snapshot) {
@@ -87,11 +90,13 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
               }
 
               // Check if we're on the music open page
-              // Use widget.child's runtimeType as a more reliable check
-              final childType = widget.child.runtimeType.toString();
-              final isOnMusicOpenPage = childType.contains('MusicOpen') ||
-                  _currentRoute.toLowerCase().contains('musicopen') ||
-                  _currentRoute.toLowerCase().contains('/music');
+              // The route path is /musicOpen/:songId
+              final isOnMusicOpenPage = 
+                  _currentRoute.contains('/musicOpen/') ||
+                  _currentRoute.contains('/musicOpen') ||
+                  _currentRoute == 'musicOpen';
+
+              print('DEBUG: Current route: $_currentRoute, isOnMusicOpenPage: $isOnMusicOpenPage');
 
               // Hide mini player on music open page
               if (isOnMusicOpenPage) {
@@ -130,8 +135,9 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                               return LinearProgressIndicator(
                                 value: progress,
                                 backgroundColor: Colors.grey.withOpacity(0.2),
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                    AppTheme.harmonyOrange),
+                                valueColor:
+                                    const AlwaysStoppedAnimation<Color>(
+                                        AppTheme.harmonyOrange),
                                 minHeight: 3,
                               );
                             },
@@ -147,13 +153,16 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                       coverUrl: currentSong.album?.coverImage,
                       isPlaying: isPlaying,
                       onTap: () {
-                        // Navigate to full music player using the passed router
+                        // Navigate to full music player
+                        // Use the router's pushNamed with required songId parameter
                         try {
                           widget.router.pushNamed(
                             'musicOpen',
-                            pathParameters: {'songId': currentSong.id},
-                            extra: currentSong.toJson(),
+                            pathParameters: {
+                              'songId': currentSong.id
+                            },
                           );
+                          print('DEBUG: Navigation to musicOpen successful');
                         } catch (e) {
                           print('Navigation error: $e');
                         }
@@ -171,7 +180,10 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
               )
                   .animate()
                   .slideY(
-                      begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
+                      begin: 1,
+                      end: 0,
+                      duration: 300.ms,
+                      curve: Curves.easeOut)
                   .fadeIn(duration: 200.ms);
             },
           ),
