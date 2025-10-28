@@ -130,7 +130,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'musicOpen',
           path: '/musicOpen/:songId',
           requireAuth: true,
-          builder: (context, params) => MusicOpenWidget(
+          builder: (context, params) => MusicOpenWidgetNew(
             songId: params.getParam('songId', ParamType.String),
             song: params.getParam('song', ParamType.JSON),
           ),
@@ -143,9 +143,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'album',
-          path: '/album',
+          path: '/album/:albumId',
           requireAuth: true,
-          builder: (context, params) => const AlbumWidget(),
+          builder: (context, params) => AlbumWidgetNew(
+            albumId: params.getParam('albumId', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'artistProfile',

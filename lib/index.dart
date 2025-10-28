@@ -3,9 +3,11 @@ export '/pages/app_open/app_open_widget.dart' show AppOpenWidget;
 export '/pages/login/login_widget_new.dart' show LoginWidget;
 export '/pages/home_page/home_page_widget_new.dart' show HomePageWidget;
 export '/pages/music_open/music_open_widget.dart' show MusicOpenWidget;
+export '/pages/music_open/music_open_widget_new.dart' show MusicOpenWidgetNew;
 export '/pages/music_open/now_playing_modal.dart' show NowPlayingModal;
 export '/pages/search/search_widget_new.dart' show SearchWidgetNew;
 export '/pages/album/album_widget.dart' show AlbumWidget;
+export '/pages/album/album_widget_new.dart' show AlbumWidgetNew;
 export '/pages/artist_profile/artist_profile_widget.dart'
     show ArtistProfileWidget;
 export '/pages/artist_profile/artist_profile_widget_new.dart'

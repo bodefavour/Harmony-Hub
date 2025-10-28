@@ -107,59 +107,59 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              hintText: 'Search songs, artists, albums, podcasts...',
-              hintStyle: TextStyle(color: Colors.grey[400]),
-              prefixIcon: const Icon(Icons.search, color: Color(0xFFE74B08)),
-              suffixIcon: _searchController.text.isNotEmpty
-                  ? IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        _searchController.clear();
-                        controller.clearSearch();
-                        setState(() {});
-                      },
-                    )
-                  : null,
-              filled: true,
-              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search songs, artists, albums, podcasts...',
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                prefixIcon: const Icon(Icons.search, color: Color(0xFFE74B08)),
+                suffixIcon: _searchController.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          _searchController.clear();
+                          controller.clearSearch();
+                          setState(() {});
+                        },
+                      )
+                    : null,
+                filled: true,
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide:
+                      const BorderSide(color: Color(0xFFE74B08), width: 2),
+                ),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide:
-                    const BorderSide(color: Color(0xFFE74B08), width: 2),
-              ),
+              onChanged: (query) {
+                setState(() {});
+                // Debounce search
+                Future.delayed(const Duration(milliseconds: 500), () {
+                  if (query == _searchController.text && query.isNotEmpty) {
+                    controller.search(query);
+                  }
+                });
+              },
             ),
-            onChanged: (query) {
-              setState(() {});
-              // Debounce search
-              Future.delayed(const Duration(milliseconds: 500), () {
-                if (query == _searchController.text && query.isNotEmpty) {
-                  controller.search(query);
-                }
-              });
-            },
           ),
-        ),
 
-        // Content
-        Expanded(
-          child: controller.isSearching
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xFFE74B08)),
-                  ),
-                )
-              : _searchController.text.isEmpty
-                  ? _buildTrendingSection(context, controller)
-                  : _buildSearchResults(context, controller),
-        ),
-      ],
+          // Content
+          Expanded(
+            child: controller.isSearching
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xFFE74B08)),
+                    ),
+                  )
+                : _searchController.text.isEmpty
+                    ? _buildTrendingSection(context, controller)
+                    : _buildSearchResults(context, controller),
+          ),
+        ],
       ),
     );
   }

@@ -149,28 +149,28 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
               if (controller.hasRecentSongs)
                 _buildRecentSection(context, controller),
 
-            // Favorites Section
-            if (controller.hasFavoriteSongs)
-              _buildFavoritesSection(context, controller),
+              // Favorites Section
+              if (controller.hasFavoriteSongs)
+                _buildFavoritesSection(context, controller),
 
-            // Albums Section
-            if (controller.hasFavoriteAlbums)
-              _buildAlbumsSection(context, controller),
+              // Albums Section
+              if (controller.hasFavoriteAlbums)
+                _buildAlbumsSection(context, controller),
 
-            // Playlists Section
-            _buildPlaylistsSection(context, controller),
+              // Playlists Section
+              _buildPlaylistsSection(context, controller),
 
-            // Empty state
-            if (!controller.hasRecentSongs &&
-                !controller.hasFavoriteSongs &&
-                !controller.hasFavoriteAlbums &&
-                !controller.hasPlaylists)
-              _buildEmptyState(context),
+              // Empty state
+              if (!controller.hasRecentSongs &&
+                  !controller.hasFavoriteSongs &&
+                  !controller.hasFavoriteAlbums &&
+                  !controller.hasPlaylists)
+                _buildEmptyState(context),
 
-            const SizedBox(height: 80), // Bottom padding for nav bar
-          ],
+              const SizedBox(height: 80), // Bottom padding for nav bar
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

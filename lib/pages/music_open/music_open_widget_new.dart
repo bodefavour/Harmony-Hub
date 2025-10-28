@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
-import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/theme/app_theme.dart';
-import '/theme/modern_components.dart';
 import '/models/song.dart';
 import '/services/supabase_service.dart';
-import '/services/audio_service.dart';
 import 'music_open_model.dart';
 export 'music_open_model.dart';
 
@@ -104,10 +100,25 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
                 ),
               ),
               const SizedBox(height: 24),
-              ModernButton(
-                text: 'Go Back',
+              ElevatedButton(
                 onPressed: () => context.safePop(),
-                variant: ModernButtonVariant.secondary,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.harmonyOrange,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                  ),
+                ),
+                child: Text(
+                  'Go Back',
+                  style: AppTheme.bodyLarge.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -131,12 +142,8 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
                   end: Alignment.bottomCenter,
                   colors: [
                     AppTheme.harmonyOrange.withOpacity(0.3),
-                    isDark
-                        ? AppTheme.darkBackground
-                        : AppTheme.lightBackground,
-                    isDark
-                        ? AppTheme.darkBackground
-                        : AppTheme.lightBackground,
+                    isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+                    isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
                   ],
                   stops: const [0.0, 0.3, 1.0],
                 ),
@@ -198,7 +205,8 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
           Text(
             'Now Playing',
             style: AppTheme.bodyMedium.copyWith(
-              color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color:
+                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -374,8 +382,7 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppTheme.space8),
+            padding: const EdgeInsets.symmetric(horizontal: AppTheme.space8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -419,7 +426,8 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
             icon: Icon(
               Icons.shuffle,
               size: 28,
-              color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color:
+                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
             ),
           ),
           IconButton(
@@ -479,7 +487,8 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
             icon: Icon(
               Icons.repeat,
               size: 28,
-              color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color:
+                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
             ),
           ),
         ],
@@ -664,8 +673,7 @@ class _ActionButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 24,
-              color:
-                  isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+              color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
             ),
           ),
           const SizedBox(height: AppTheme.space8),
