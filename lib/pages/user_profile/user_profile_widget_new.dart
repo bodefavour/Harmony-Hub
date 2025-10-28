@@ -22,10 +22,9 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return GlobalMiniPlayer(
-      child: Scaffold(
-        backgroundColor:
-            isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+    return Scaffold(
+      backgroundColor:
+          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
         body: CustomScrollView(
           slivers: [
             // App Bar with Profile Header
