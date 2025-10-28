@@ -5,7 +5,6 @@ import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
 import '/services/supabase_service.dart';
 import '/services/recommendation_service.dart';
-import '/models/song.dart';
 import '/models/album.dart';
 import '/models/daily_feed.dart';
 import 'package:flutter/material.dart';
@@ -236,9 +235,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       const Spacer(),
-                                      Text(
-                                        _getTimeBasedEmoji(),
-                                        style: const TextStyle(fontSize: 24),
+                                      Icon(
+                                        _getTimeBasedIcon(),
+                                        size: 28,
+                                        color: AppTheme.harmonyOrange,
                                       ),
                                     ],
                                   ),
@@ -308,94 +308,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       const SizedBox(height: AppTheme.space24),
                     ],
-                  ),
-                ),
-
-                // Recently Played Section
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: AppTheme.space12),
-                      SectionHeader(
-                        title: 'Recently Played',
-                        onSeeAll: () {
-                          // TODO: Navigate to recently played
-                        },
-                      ),
-                      const SizedBox(height: AppTheme.space16),
-                    ],
-                  ),
-                ),
-
-                // Recently Played List
-                SliverPadding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppTheme.space16),
-                  sliver: FutureBuilder<List<Song>>(
-                    future: SupabaseService().fetchSongs(limit: 10),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) => const Padding(
-                              padding:
-                                  EdgeInsets.only(bottom: AppTheme.space12),
-                              child: ShimmerLoader(
-                                width: double.infinity,
-                                height: 70,
-                              ),
-                            ),
-                            childCount: 5,
-                          ),
-                        );
-                      }
-
-                      final songs = snapshot.data!;
-
-                      if (songs.isEmpty) {
-                        return const SliverToBoxAdapter(
-                          child: EmptyState(
-                            icon: Icons.music_note_outlined,
-                            title: 'No songs yet',
-                            message:
-                                'Start exploring and add songs to your library',
-                          ),
-                        );
-                      }
-
-                      return SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            final song = songs[index];
-                            return _SongTile(
-                              title: song.title,
-                              artist: song.artistName ?? 'Unknown Artist',
-                              coverUrl: song.album?.coverImage,
-                              onTap: () {
-                                context.pushNamed(
-                                  'musicOpen',
-                                  pathParameters: {'songId': song.id},
-                                  extra: song.toJson(),
-                                );
-                              },
-                              isDark: isDark,
-                            )
-                                .animate()
-                                .fadeIn(
-                                  duration: 300.ms,
-                                  delay: (index * 50).ms,
-                                )
-                                .slideX(
-                                  begin: 0.2,
-                                  end: 0,
-                                  duration: 400.ms,
-                                  delay: (index * 50).ms,
-                                );
-                          },
-                          childCount: songs.length,
-                        ),
-                      );
-                    },
                   ),
                 ),
 
@@ -502,13 +414,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               // Already on home
               break;
             case 1:
-              context.pushNamed('Search');
+              context.pushReplacementNamed('Search');
               break;
             case 2:
-              context.pushNamed('Library');
+              context.pushReplacementNamed('Library');
               break;
             case 3:
-              context.pushNamed('userProfile');
+              context.pushReplacementNamed('userProfile');
               break;
           }
         },
@@ -523,95 +435,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return 'Good evening';
   }
 
-  String _getTimeBasedEmoji() {
+  IconData _getTimeBasedIcon() {
     final hour = DateTime.now().hour;
-    if (hour >= 4 && hour < 12) return '🌅'; // Morning
-    if (hour >= 12 && hour < 17) return '☀️'; // Afternoon
-    if (hour >= 17 && hour < 21) return '🌆'; // Evening
-    return '🌙'; // Night
-  }
-}
-
-/// Song Tile Widget
-class _SongTile extends StatelessWidget {
-  final String title;
-  final String artist;
-  final String? coverUrl;
-  final VoidCallback onTap;
-  final bool isDark;
-
-  const _SongTile({
-    required this.title,
-    required this.artist,
-    this.coverUrl,
-    required this.onTap,
-    required this.isDark,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: AppTheme.space12),
-        padding: const EdgeInsets.all(AppTheme.space12),
-        decoration: BoxDecoration(
-          color:
-              isDark ? AppTheme.darkCard.withOpacity(0.5) : AppTheme.lightCard,
-          borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        ),
-        child: Row(
-          children: [
-            // Cover Image
-            ModernCover(
-              imageUrl: coverUrl ?? '',
-              size: 50,
-            ),
-            const SizedBox(width: AppTheme.space12),
-            // Song Info
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppTheme.bodyLarge.copyWith(
-                      color: isDark
-                          ? AppTheme.textPrimary
-                          : AppTheme.textPrimaryLight,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    artist,
-                    style: AppTheme.bodySmall.copyWith(
-                      color: isDark
-                          ? AppTheme.textSecondary
-                          : AppTheme.textSecondaryLight,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            // More Options
-            IconButton(
-              onPressed: () {
-                // TODO: Show options menu
-              },
-              icon: Icon(
-                Icons.more_vert,
-                color: isDark
-                    ? AppTheme.textSecondary
-                    : AppTheme.textSecondaryLight,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    if (hour >= 4 && hour < 12) return Icons.wb_sunny; // Morning
+    if (hour >= 12 && hour < 17) return Icons.sunny; // Afternoon
+    if (hour >= 17 && hour < 21) return Icons.wb_twilight; // Evening
+    return Icons.nightlight_round; // Night
   }
 }
 
@@ -650,7 +479,7 @@ class _AlbumCard extends StatelessWidget {
               child: ModernCover(
                 imageUrl: coverUrl ?? '',
                 size: double.infinity,
-                showPlayButton: true,
+                showPlayButton: false,
               ),
             ),
             const SizedBox(height: AppTheme.space8),

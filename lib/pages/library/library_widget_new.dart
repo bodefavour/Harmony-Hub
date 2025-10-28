@@ -41,22 +41,6 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: const Color(0xFFE74B08),
-                automaticallyImplyLeading: false,
-                title: Text(
-                  'My Library',
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
-                        color: Colors.white,
-                        fontSize: 28.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                centerTitle: false,
-                elevation: 2.0,
-              ),
               body: _buildLibraryBody(context, controller),
               bottomNavigationBar: ModernBottomNav(
                 currentIndex: _currentNavIndex,
@@ -64,16 +48,16 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                   setState(() => _currentNavIndex = index);
                   switch (index) {
                     case 0:
-                      context.pushNamed('homePage');
+                      context.pushReplacementNamed('homePage');
                       break;
                     case 1:
-                      context.pushNamed('Search');
+                      context.pushReplacementNamed('Search');
                       break;
                     case 2:
                       // Already on Library
                       break;
                     case 3:
-                      context.pushNamed('userProfile');
+                      context.pushReplacementNamed('userProfile');
                       break;
                   }
                 },
@@ -138,17 +122,32 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
     }
 
     // Show library content
-    return RefreshIndicator(
-      onRefresh: () => controller.refresh(currentUserUid),
-      color: const Color(0xFFE74B08),
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Recent Songs Section
-            if (controller.hasRecentSongs)
-              _buildRecentSection(context, controller),
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: () => controller.refresh(currentUserUid),
+        color: const Color(0xFFE74B08),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Page Title
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                child: Text(
+                  'My Library',
+                  style: FlutterFlowTheme.of(context).headlineLarge.override(
+                        fontFamily: 'Outfit',
+                        color: const Color(0xFFE74B08),
+                        fontSize: 32.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              // Recent Songs Section
+              if (controller.hasRecentSongs)
+                _buildRecentSection(context, controller),
 
             // Favorites Section
             if (controller.hasFavoriteSongs)
@@ -171,6 +170,7 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
             const SizedBox(height: 80), // Bottom padding for nav bar
           ],
         ),
+      ),
       ),
     );
   }

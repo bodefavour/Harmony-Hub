@@ -52,22 +52,6 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: const Color(0xFFE74B08),
-                automaticallyImplyLeading: false,
-                title: Text(
-                  'Search',
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
-                        color: Colors.white,
-                        fontSize: 28.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                centerTitle: false,
-                elevation: 2.0,
-              ),
               body: _buildSearchBody(context, controller),
               bottomNavigationBar: ModernBottomNav(
                 currentIndex: _currentNavIndex,
@@ -75,16 +59,16 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                   setState(() => _currentNavIndex = index);
                   switch (index) {
                     case 0:
-                      context.pushNamed('homePage');
+                      context.pushReplacementNamed('homePage');
                       break;
                     case 1:
                       // Already on Search
                       break;
                     case 2:
-                      context.pushNamed('Library');
+                      context.pushReplacementNamed('Library');
                       break;
                     case 3:
-                      context.pushNamed('userProfile');
+                      context.pushReplacementNamed('userProfile');
                       break;
                   }
                 },
@@ -98,12 +82,31 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
 
   Widget _buildSearchBody(
       BuildContext context, search.SearchController controller) {
-    return Column(
-      children: [
-        // Search Bar
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
+    return SafeArea(
+      child: Column(
+        children: [
+          // Page Title
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Row(
+              children: [
+                Text(
+                  'Search',
+                  style: FlutterFlowTheme.of(context).headlineLarge.override(
+                        fontFamily: 'Outfit',
+                        color: const Color(0xFFE74B08),
+                        fontSize: 32.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
             controller: _searchController,
             decoration: InputDecoration(
               hintText: 'Search songs, artists, albums, podcasts...',
@@ -157,6 +160,7 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                   : _buildSearchResults(context, controller),
         ),
       ],
+      ),
     );
   }
 
