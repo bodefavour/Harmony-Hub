@@ -218,7 +218,9 @@ class ModernTextField extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: AppTheme.bodyMedium.copyWith(
-                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                color: isDark
+                    ? AppTheme.textSecondary
+                    : AppTheme.textSecondaryLight,
               ),
               prefixIcon: prefixIcon != null
                   ? Icon(
@@ -463,7 +465,8 @@ class EmptyState extends StatelessWidget {
             Text(
               title,
               style: AppTheme.headlineLarge.copyWith(
-                color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                color:
+                    isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
               ),
               textAlign: TextAlign.center,
             ),
@@ -471,7 +474,9 @@ class EmptyState extends StatelessWidget {
             Text(
               message,
               style: AppTheme.bodyMedium.copyWith(
-                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                color: isDark
+                    ? AppTheme.textSecondary
+                    : AppTheme.textSecondaryLight,
               ),
               textAlign: TextAlign.center,
             ),

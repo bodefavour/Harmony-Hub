@@ -74,10 +74,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     setState(() => _isLoading = false);
 
-    if (user == null) {
-      return;
-    }
-
     context.goNamedAuth('homePage', context.mounted);
   }
 

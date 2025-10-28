@@ -219,7 +219,9 @@ class NowPlayingBar extends StatelessWidget {
                     Text(
                       songTitle,
                       style: AppTheme.bodyLarge.copyWith(
-                        color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                        color: isDark
+                            ? AppTheme.textPrimary
+                            : AppTheme.textPrimaryLight,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -227,7 +229,9 @@ class NowPlayingBar extends StatelessWidget {
                     Text(
                       artistName,
                       style: AppTheme.bodySmall.copyWith(
-                        color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                        color: isDark
+                            ? AppTheme.textSecondary
+                            : AppTheme.textSecondaryLight,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'song.dart';
 
 /// Represents a user playlist in the Harmony Hub platform
