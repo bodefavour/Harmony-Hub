@@ -87,9 +87,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                               child: LinearProgressIndicator(
                                 value: progress,
                                 backgroundColor: Colors.grey.withOpacity(0.2),
-                                valueColor:
-                                    const AlwaysStoppedAnimation<Color>(
-                                        AppTheme.harmonyOrange),
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    AppTheme.harmonyOrange),
                                 minHeight: 3,
                               ),
                             );
@@ -100,26 +99,26 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
 
                     // Now Playing Bar
                     NowPlayingBar(
-                        songTitle: currentSong.title,
-                        artistName: currentSong.artistName ?? 'Unknown Artist',
-                        coverUrl: currentSong.album?.coverImage,
-                        isPlaying: isPlaying,
-                        onTap: () {
-                          // Navigate to full music player
-                          context.pushNamed(
-                            'musicOpen',
-                            pathParameters: {'songId': currentSong.id},
-                            extra: currentSong.toJson(),
-                          );
-                        },
-                        onPlayPause: () {
-                          if (isPlaying) {
-                            _audioService.pause();
-                          } else {
-                            _audioService.resume();
-                          }
-                        },
-                      ),
+                      songTitle: currentSong.title,
+                      artistName: currentSong.artistName ?? 'Unknown Artist',
+                      coverUrl: currentSong.album?.coverImage,
+                      isPlaying: isPlaying,
+                      onTap: () {
+                        // Navigate to full music player
+                        context.pushNamed(
+                          'musicOpen',
+                          pathParameters: {'songId': currentSong.id},
+                          extra: currentSong.toJson(),
+                        );
+                      },
+                      onPlayPause: () {
+                        if (isPlaying) {
+                          _audioService.pause();
+                        } else {
+                          _audioService.resume();
+                        }
+                      },
+                    ),
                   ],
                 )
                     .animate()
