@@ -29,7 +29,7 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
   late MusicOpenModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final AudioService _audioService = AudioService();
-  
+
   Song? currentSong;
   bool isLoading = true;
   bool isPlaying = false;
@@ -37,7 +37,7 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
   bool showLyrics = false;
   double currentPosition = 0.0;
   double totalDuration = 300.0;
-  
+
   StreamSubscription? _positionSubscription;
   StreamSubscription? _durationSubscription;
   StreamSubscription? _playerStateSubscription;
@@ -97,7 +97,8 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
         setState(() => isLoading = false);
         // Set playlist with all songs, starting at this one
         final startIndex = songs.indexWhere((s) => s.id == widget.songId);
-        _audioService.setPlaylist(songs, startIndex: startIndex >= 0 ? startIndex : 0);
+        _audioService.setPlaylist(songs,
+            startIndex: startIndex >= 0 ? startIndex : 0);
         // Auto-play the song
         await _audioService.playSong(currentSong!);
       }
@@ -481,7 +482,9 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
               size: 28,
               color: _audioService.isShuffleEnabled
                   ? AppTheme.harmonyOrange
-                  : (isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight),
+                  : (isDark
+                      ? AppTheme.textSecondary
+                      : AppTheme.textSecondaryLight),
             ),
           ),
           IconButton(
@@ -546,7 +549,9 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
               size: 28,
               color: _audioService.isRepeatEnabled
                   ? AppTheme.harmonyOrange
-                  : (isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight),
+                  : (isDark
+                      ? AppTheme.textSecondary
+                      : AppTheme.textSecondaryLight),
             ),
           ),
         ],

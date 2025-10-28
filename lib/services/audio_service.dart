@@ -397,13 +397,14 @@ class AudioService {
   /// Shuffle the playlist
   void _shufflePlaylist() {
     if (_playlist.isEmpty) return;
-    
+
     // Keep current song at current position
-    final currentSong = _currentIndex < _playlist.length ? _playlist[_currentIndex] : null;
-    
+    final currentSong =
+        _currentIndex < _playlist.length ? _playlist[_currentIndex] : null;
+
     // Shuffle the list
     _playlist.shuffle();
-    
+
     // Move current song to the front if it exists
     if (currentSong != null) {
       _playlist.remove(currentSong);
