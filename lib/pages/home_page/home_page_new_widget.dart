@@ -556,7 +556,10 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
       child: InkWell(
         onTap: () {
-          context.pushNamed('album'); // Navigate to album detail
+          context.pushNamed(
+            'album',
+            pathParameters: {'albumId': album.id},
+          );
         },
         child: Container(
           width: 140,
