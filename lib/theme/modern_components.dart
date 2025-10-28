@@ -100,8 +100,8 @@ class ModernButton extends StatelessWidget {
             : null,
         borderRadius: BorderRadius.circular(AppTheme.radiusFull),
         border: Border.all(
-          color: isOutline 
-              ? AppTheme.harmonyOrange 
+          color: isOutline
+              ? AppTheme.harmonyOrange
               : (onPressed != null ? Colors.transparent : Colors.grey),
           width: 2,
         ),

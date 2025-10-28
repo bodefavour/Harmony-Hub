@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Modern Design System inspired by Spotify & Apple Music  
+/// Modern Design System inspired by Spotify & Apple Music
 /// Features: Glassmorphism, Smooth animations, Beautiful gradients
 
 class AppTheme {
