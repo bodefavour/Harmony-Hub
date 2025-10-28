@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/services/supabase_service.dart';
 import '/services/audio_service.dart';
 import '/theme/modern_navigation.dart';
+import '/components/global_mini_player.dart';
 import 'library_controller.dart';
 
 class LibraryWidgetNew extends StatefulWidget {
@@ -29,16 +30,17 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LibraryController(
-        supabaseService: SupabaseService(),
-        audioService: AudioService(),
-      )..initialize(currentUserUid),
-      child: Consumer<LibraryController>(
-        builder: (context, controller, _) {
-          return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Scaffold(
+    return GlobalMiniPlayer(
+      child: ChangeNotifierProvider(
+        create: (_) => LibraryController(
+          supabaseService: SupabaseService(),
+          audioService: AudioService(),
+        )..initialize(currentUserUid),
+        child: Consumer<LibraryController>(
+          builder: (context, controller, _) {
+            return GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               body: _buildLibraryBody(context, controller),
@@ -65,6 +67,7 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
             ),
           );
         },
+      ),
       ),
     );
   }

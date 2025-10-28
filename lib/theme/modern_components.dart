@@ -73,6 +73,7 @@ class ModernButton extends StatelessWidget {
   final double? width;
   final double height;
   final bool useGradient;
+  final bool isCompact;
 
   const ModernButton({
     super.key,
@@ -84,13 +85,18 @@ class ModernButton extends StatelessWidget {
     this.width,
     this.height = 56,
     this.useGradient = true,
+    this.isCompact = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final buttonHeight = isCompact ? 44.0 : height;
+    final iconSize = isCompact ? 18.0 : 20.0;
+    final horizontalPadding = isCompact ? AppTheme.space12 : AppTheme.space16;
+
     return Container(
       width: width,
-      height: height,
+      height: buttonHeight,
       decoration: BoxDecoration(
         gradient: !isOutline && useGradient && onPressed != null
             ? AppTheme.primaryGradient
@@ -103,7 +109,7 @@ class ModernButton extends StatelessWidget {
           color: isOutline
               ? AppTheme.harmonyOrange
               : (onPressed != null ? Colors.transparent : Colors.grey),
-          width: 2,
+          width: isOutline ? 2 : 0,
         ),
         boxShadow: !isOutline && onPressed != null ? AppTheme.glowShadow : null,
       ),
@@ -112,38 +118,51 @@ class ModernButton extends StatelessWidget {
         child: InkWell(
           onTap: isLoading ? null : onPressed,
           borderRadius: BorderRadius.circular(AppTheme.radiusFull),
-          child: Center(
-            child: isLoading
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                      strokeWidth: 2,
-                    ),
-                  )
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (icon != null) ...[
-                        Icon(
-                          icon,
-                          color:
-                              isOutline ? AppTheme.harmonyOrange : Colors.white,
-                          size: 20,
-                        ),
-                        const SizedBox(width: AppTheme.space8),
-                      ],
-                      Text(
-                        text,
-                        style: AppTheme.bodyLarge.copyWith(
-                          color:
-                              isOutline ? AppTheme.harmonyOrange : Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Center(
+              child: isLoading
+                  ? SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                            isOutline ? AppTheme.harmonyOrange : Colors.white),
+                        strokeWidth: 2,
                       ),
-                    ],
-                  ),
+                    )
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (icon != null) ...[
+                          Icon(
+                            icon,
+                            color: isOutline
+                                ? AppTheme.harmonyOrange
+                                : Colors.white,
+                            size: iconSize,
+                          ),
+                          const SizedBox(width: AppTheme.space4),
+                        ],
+                        Flexible(
+                          child: Text(
+                            text,
+                            style: (isCompact
+                                    ? AppTheme.bodyMedium
+                                    : AppTheme.bodyLarge)
+                                .copyWith(
+                              color: isOutline
+                                  ? AppTheme.harmonyOrange
+                                  : Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),

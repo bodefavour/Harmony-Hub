@@ -5,8 +5,10 @@ import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
 import '/services/supabase_service.dart';
 import '/services/recommendation_service.dart';
+import '/services/audio_service.dart';
 import '/models/album.dart';
 import '/models/daily_feed.dart';
+import '/components/global_mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -45,10 +47,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor:
-          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+    return GlobalMiniPlayer(
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor:
+            isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
       body: Column(
         children: [
           // Main Content
@@ -294,6 +297,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                         },
                                         icon: Icons.play_arrow_rounded,
+                                        isCompact: true,
+                                        useGradient: true,
                                       ),
                                     ],
                                   ),
@@ -424,6 +429,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               break;
           }
         },
+      ),
       ),
     );
   }
