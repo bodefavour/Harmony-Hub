@@ -115,6 +115,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         // Wrap the entire app with global mini player overlay
         return GlobalMiniPlayerOverlay(
+          router: _router,
           child: child ?? const SizedBox.shrink(),
         );
       },

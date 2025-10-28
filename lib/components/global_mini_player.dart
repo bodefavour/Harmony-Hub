@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import '../services/audio_service.dart';
 import '../theme/app_theme.dart';
 import '../theme/modern_navigation.dart';
@@ -9,10 +10,12 @@ import '../flutter_flow/flutter_flow_util.dart';
 /// Shows mini player persistently across all pages
 class GlobalMiniPlayerOverlay extends StatefulWidget {
   final Widget child;
+  final GoRouter router;
 
   const GlobalMiniPlayerOverlay({
     super.key,
     required this.child,
+    required this.router,
   });
 
   @override
@@ -22,77 +25,118 @@ class GlobalMiniPlayerOverlay extends StatefulWidget {
 
 class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   final AudioService _audioService = AudioService();
+  String _currentRoute = '';
 
   @override
   void initState() {
     super.initState();
     _audioService.initialize();
+    
+    // Listen to router location changes
+    widget.router.routerDelegate.addListener(_onRouteChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.router.routerDelegate.removeListener(_onRouteChanged);
+    super.dispose();
+  }
+
+  void _onRouteChanged() {
+    // Update current route when router changes
+    final location = widget.router.routerDelegate.currentConfiguration;
+    setState(() {
+      _currentRoute = location.uri.toString();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Update current route whenever dependencies change
+    final route = ModalRoute.of(context);
+    if (route != null && route.settings.name != null) {
+      _currentRoute = route.settings.name!;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Get current route to hide mini player on music open page
-    final currentRoute = ModalRoute.of(context)?.settings.name ?? '';
-    final isOnMusicOpenPage = currentRoute.contains('musicOpen') ||
-        currentRoute.contains('music_open');
-
     return Stack(
+      fit: StackFit.expand,
       children: [
         // Main app content
         widget.child,
 
-        // Mini player overlay at bottom (hide on music open page)
-        if (!isOnMusicOpenPage)
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 80, // Position above bottom nav (80px height)
-            child: StreamBuilder<PlayerState>(
-              stream: _audioService.playerStateStream,
-              builder: (context, snapshot) {
-                final playerState = snapshot.data ?? PlayerState.idle;
-                final currentSong = _audioService.currentSong;
+        // Mini player overlay at bottom
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 80, // Position above bottom nav (80px height)
+          child: StreamBuilder<PlayerState>(
+            stream: _audioService.playerStateStream,
+            builder: (context, snapshot) {
+              final playerState = snapshot.data ?? PlayerState.idle;
+              final currentSong = _audioService.currentSong;
 
-                // Only show mini player when there's a current song
-                if (currentSong == null ||
-                    playerState == PlayerState.idle ||
-                    playerState == PlayerState.error) {
-                  return const SizedBox.shrink();
-                }
+              // Only show mini player when there's a current song
+              if (currentSong == null ||
+                  playerState == PlayerState.idle ||
+                  playerState == PlayerState.error) {
+                return const SizedBox.shrink();
+              }
 
-                final isPlaying = playerState == PlayerState.playing;
+              // Check if we're on the music open page
+              // Use widget.child's runtimeType as a more reliable check
+              final childType = widget.child.runtimeType.toString();
+              final isOnMusicOpenPage = childType.contains('MusicOpen') ||
+                  _currentRoute.toLowerCase().contains('musicopen') ||
+                  _currentRoute.toLowerCase().contains('/music');
 
-                return Column(
+              // Hide mini player on music open page
+              if (isOnMusicOpenPage) {
+                return const SizedBox.shrink();
+              }
+
+              final isPlaying = playerState == PlayerState.playing;
+
+              return Material(
+                color: Colors.transparent,
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Progress indicator
-                    StreamBuilder<Duration>(
-                      stream: _audioService.positionStream,
-                      builder: (context, positionSnapshot) {
-                        return StreamBuilder<Duration?>(
-                          stream: _audioService.durationStream,
-                          builder: (context, durationSnapshot) {
-                            final position =
-                                positionSnapshot.data ?? Duration.zero;
-                            final duration =
-                                durationSnapshot.data ?? Duration.zero;
-                            final progress = duration.inMilliseconds > 0
-                                ? position.inMilliseconds /
-                                    duration.inMilliseconds
-                                : 0.0;
+                    // Progress indicator - only show if we have a valid duration
+                    StreamBuilder<Duration?>(
+                      stream: _audioService.durationStream,
+                      builder: (context, durationSnapshot) {
+                        final duration = durationSnapshot.data;
+                        if (duration == null || duration.inMilliseconds <= 0) {
+                          return const SizedBox.shrink();
+                        }
 
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: AppTheme.space12),
-                              child: LinearProgressIndicator(
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: AppTheme.space12),
+                          child: StreamBuilder<Duration>(
+                            stream: _audioService.positionStream,
+                            builder: (context, positionSnapshot) {
+                              final position =
+                                  positionSnapshot.data ?? Duration.zero;
+                              final progress = duration.inMilliseconds > 0
+                                  ? position.inMilliseconds /
+                                      duration.inMilliseconds
+                                  : 0.0;
+
+                              return LinearProgressIndicator(
                                 value: progress,
                                 backgroundColor: Colors.grey.withOpacity(0.2),
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                    AppTheme.harmonyOrange),
+                                valueColor:
+                                    const AlwaysStoppedAnimation<Color>(
+                                        AppTheme.harmonyOrange),
                                 minHeight: 3,
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
@@ -104,12 +148,16 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                       coverUrl: currentSong.album?.coverImage,
                       isPlaying: isPlaying,
                       onTap: () {
-                        // Navigate to full music player
-                        context.pushNamed(
-                          'musicOpen',
-                          pathParameters: {'songId': currentSong.id},
-                          extra: currentSong.toJson(),
-                        );
+                        // Navigate to full music player using the passed router
+                        try {
+                          widget.router.pushNamed(
+                            'musicOpen',
+                            pathParameters: {'songId': currentSong.id},
+                            extra: currentSong.toJson(),
+                          );
+                        } catch (e) {
+                          print('Navigation error: $e');
+                        }
                       },
                       onPlayPause: () {
                         if (isPlaying) {
@@ -120,17 +168,18 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                       },
                     ),
                   ],
-                )
-                    .animate()
-                    .slideY(
-                        begin: 1,
-                        end: 0,
-                        duration: 300.ms,
-                        curve: Curves.easeOut)
-                    .fadeIn(duration: 200.ms);
-              },
-            ),
+                ),
+              )
+                  .animate()
+                  .slideY(
+                      begin: 1,
+                      end: 0,
+                      duration: 300.ms,
+                      curve: Curves.easeOut)
+                  .fadeIn(duration: 200.ms);
+            },
           ),
+        ),
       ],
     );
   }
