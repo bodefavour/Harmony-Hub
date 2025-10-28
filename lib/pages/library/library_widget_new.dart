@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/services/supabase_service.dart';
 import '/services/audio_service.dart';
+import '/theme/modern_navigation.dart';
 import 'library_controller.dart';
 
 class LibraryWidgetNew extends StatefulWidget {
@@ -18,6 +19,7 @@ class LibraryWidgetNew extends StatefulWidget {
 
 class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  int _currentNavIndex = 2; // Library is index 2
 
   @override
   void initState() {
@@ -56,6 +58,26 @@ class _LibraryWidgetNewState extends State<LibraryWidgetNew> {
                 elevation: 2.0,
               ),
               body: _buildLibraryBody(context, controller),
+              bottomNavigationBar: ModernBottomNav(
+                currentIndex: _currentNavIndex,
+                onTap: (index) {
+                  setState(() => _currentNavIndex = index);
+                  switch (index) {
+                    case 0:
+                      context.pushNamed('homePage');
+                      break;
+                    case 1:
+                      context.pushNamed('Search');
+                      break;
+                    case 2:
+                      // Already on Library
+                      break;
+                    case 3:
+                      context.pushNamed('userProfile');
+                      break;
+                  }
+                },
+              ),
             ),
           );
         },

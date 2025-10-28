@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/services/supabase_service.dart';
 import '/services/audio_service.dart';
 import '/services/recommendation_service.dart';
+import '/theme/modern_navigation.dart';
 import 'search_controller.dart' as search;
 
 class SearchWidgetNew extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _searchController = TextEditingController();
   late TabController _tabController;
+  int _currentNavIndex = 1; // Search is index 1
 
   @override
   void initState() {
@@ -67,6 +69,26 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                 elevation: 2.0,
               ),
               body: _buildSearchBody(context, controller),
+              bottomNavigationBar: ModernBottomNav(
+                currentIndex: _currentNavIndex,
+                onTap: (index) {
+                  setState(() => _currentNavIndex = index);
+                  switch (index) {
+                    case 0:
+                      context.pushNamed('homePage');
+                      break;
+                    case 1:
+                      // Already on Search
+                      break;
+                    case 2:
+                      context.pushNamed('Library');
+                      break;
+                    case 3:
+                      context.pushNamed('userProfile');
+                      break;
+                  }
+                },
+              ),
             ),
           );
         },
