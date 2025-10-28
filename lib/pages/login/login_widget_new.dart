@@ -93,12 +93,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ? [
                     AppTheme.darkBackground,
                     const Color(0xFF1a1a1a),
-                    AppTheme.spotifyGreen.withOpacity(0.05),
+                    AppTheme.harmonyOrange.withOpacity(0.05),
                   ]
                 : [
                     AppTheme.lightBackground,
                     const Color(0xFFf0f0f0),
-                    AppTheme.spotifyGreen.withOpacity(0.03),
+                    AppTheme.harmonyOrange.withOpacity(0.03),
                   ],
           ),
         ),
@@ -230,7 +230,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             child: Text(
                               'Forgot password?',
                               style: AppTheme.bodyMedium.copyWith(
-                                color: AppTheme.spotifyGreen,
+                                color: AppTheme.harmonyOrange,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -346,7 +346,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: Text(
                             'Sign up',
                             style: AppTheme.bodyMedium.copyWith(
-                              color: AppTheme.spotifyGreen,
+                              color: AppTheme.harmonyOrange,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

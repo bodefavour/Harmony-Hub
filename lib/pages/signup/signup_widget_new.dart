@@ -283,7 +283,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                           onChanged: (value) {
                             setState(() => _acceptTerms = value ?? false);
                           },
-                          activeColor: AppTheme.spotifyGreen,
+                          activeColor: AppTheme.harmonyOrange,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -301,7 +301,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                               TextSpan(
                                 text: 'Terms of Service',
                                 style: TextStyle(
-                                  color: AppTheme.spotifyGreen,
+                                  color: AppTheme.harmonyOrange,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -309,7 +309,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                               TextSpan(
                                 text: 'Privacy Policy',
                                 style: TextStyle(
-                                  color: AppTheme.spotifyGreen,
+                                  color: AppTheme.harmonyOrange,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -408,7 +408,7 @@ class _SignupWidgetNewState extends State<SignupWidgetNew> {
                         child: Text(
                           'Sign In',
                           style: AppTheme.bodyMedium.copyWith(
-                            color: AppTheme.spotifyGreen,
+                            color: AppTheme.harmonyOrange,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

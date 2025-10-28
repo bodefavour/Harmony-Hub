@@ -187,7 +187,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                                 shape: BoxShape.circle,
                                 gradient: RadialGradient(
                                   colors: [
-                                    AppTheme.spotifyGreen.withOpacity(0.3),
+                                    AppTheme.harmonyOrange.withOpacity(0.3),
                                     Colors.transparent,
                                   ],
                                 ),
@@ -223,12 +223,12 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                                       fit: BoxFit.cover,
                                     )
                                   : Container(
-                                      color: AppTheme.spotifyGreen
+                                      color: AppTheme.harmonyOrange
                                           .withOpacity(0.3),
                                       child: Icon(
                                         Icons.music_note,
                                         size: 120,
-                                        color: AppTheme.spotifyGreen,
+                                        color: AppTheme.harmonyOrange,
                                       ),
                                     ),
                             ),
@@ -279,7 +279,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             icon: Icon(
                               _isLiked ? Icons.favorite : Icons.favorite_border,
                               color: _isLiked
-                                  ? AppTheme.spotifyGreen
+                                  ? AppTheme.harmonyOrange
                                   : Colors.grey,
                               size: 32,
                             ),
@@ -304,11 +304,11 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                               overlayShape: const RoundSliderOverlayShape(
                                 overlayRadius: 16,
                               ),
-                              activeTrackColor: AppTheme.spotifyGreen,
+                              activeTrackColor: AppTheme.harmonyOrange,
                               inactiveTrackColor: Colors.grey.withOpacity(0.3),
-                              thumbColor: AppTheme.spotifyGreen,
+                              thumbColor: AppTheme.harmonyOrange,
                               overlayColor:
-                                  AppTheme.spotifyGreen.withOpacity(0.2),
+                                  AppTheme.harmonyOrange.withOpacity(0.2),
                             ),
                             child: Slider(
                               value:
@@ -355,7 +355,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             icon: Icon(
                               Icons.shuffle,
                               color: _isShuffled
-                                  ? AppTheme.spotifyGreen
+                                  ? AppTheme.harmonyOrange
                                   : Colors.grey,
                             ),
                             iconSize: 28,
@@ -409,7 +409,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                             icon: Icon(
                               _isRepeating ? Icons.repeat_one : Icons.repeat,
                               color: _isRepeating
-                                  ? AppTheme.spotifyGreen
+                                  ? AppTheme.harmonyOrange
                                   : Colors.grey,
                             ),
                             iconSize: 28,
@@ -526,16 +526,16 @@ class _NowPlayingModalState extends State<NowPlayingModal>
                   : _volume > 0
                       ? Icons.volume_down
                       : Icons.volume_off,
-              color: AppTheme.spotifyGreen,
+              color: AppTheme.harmonyOrange,
               size: 32,
             ),
             SizedBox(height: AppTheme.space16),
             SliderTheme(
               data: SliderThemeData(
-                activeTrackColor: AppTheme.spotifyGreen,
+                activeTrackColor: AppTheme.harmonyOrange,
                 inactiveTrackColor: Colors.grey.withOpacity(0.3),
-                thumbColor: AppTheme.spotifyGreen,
-                overlayColor: AppTheme.spotifyGreen.withOpacity(0.2),
+                thumbColor: AppTheme.harmonyOrange,
+                overlayColor: AppTheme.harmonyOrange.withOpacity(0.2),
               ),
               child: Slider(
                 value: _volume,

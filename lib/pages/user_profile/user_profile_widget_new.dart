@@ -67,7 +67,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                                       child: Icon(
                                         Icons.person,
                                         size: 60,
-                                        color: AppTheme.spotifyGreen,
+                                        color: AppTheme.harmonyOrange,
                                       ),
                                     ),
                             ),
@@ -83,7 +83,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                                 width: 36,
                                 height: 36,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.spotifyGreen,
+                                  color: AppTheme.harmonyOrange,
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     color: Colors.white,
@@ -208,7 +208,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                       onChanged: (value) {
                         setState(() => _notificationsEnabled = value);
                       },
-                      activeColor: AppTheme.spotifyGreen,
+                      activeColor: AppTheme.harmonyOrange,
                     ),
                   ).animate().fadeIn(delay: 700.ms).slideX(begin: -0.1),
 
@@ -234,7 +234,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
                         setState(() => _darkModeEnabled = value);
                         // TODO: Toggle theme
                       },
-                      activeColor: AppTheme.spotifyGreen,
+                      activeColor: AppTheme.harmonyOrange,
                     ),
                   ).animate().fadeIn(delay: 800.ms).slideX(begin: -0.1),
 
@@ -413,12 +413,12 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
           width: 40,
           height: 40,
           decoration: BoxDecoration(
-            color: AppTheme.spotifyGreen.withOpacity(0.1),
+            color: AppTheme.harmonyOrange.withOpacity(0.1),
             borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
           ),
           child: Icon(
             icon,
-            color: AppTheme.spotifyGreen,
+            color: AppTheme.harmonyOrange,
             size: 20,
           ),
         ),
@@ -496,7 +496,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
         quality,
         style: AppTheme.bodyLarge.copyWith(
           color: isSelected
-              ? AppTheme.spotifyGreen
+              ? AppTheme.harmonyOrange
               : isDark
                   ? Colors.white
                   : Colors.black,
@@ -510,7 +510,7 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
         ),
       ),
       trailing: isSelected
-          ? Icon(Icons.check_circle, color: AppTheme.spotifyGreen)
+          ? Icon(Icons.check_circle, color: AppTheme.harmonyOrange)
           : null,
       onTap: () {
         setState(() => _audioQuality = quality);

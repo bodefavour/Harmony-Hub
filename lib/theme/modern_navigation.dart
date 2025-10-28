@@ -98,7 +98,7 @@ class _NavItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: AppTheme.space8),
           decoration: BoxDecoration(
             color: isSelected
-                ? AppTheme.spotifyGreen.withOpacity(0.1)
+                ? AppTheme.harmonyOrange.withOpacity(0.1)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
           ),
@@ -111,7 +111,7 @@ class _NavItem extends StatelessWidget {
                 child: Icon(
                   icon,
                   color: isSelected
-                      ? AppTheme.spotifyGreen
+                      ? AppTheme.harmonyOrange
                       : isDark
                           ? AppTheme.textSecondary
                           : AppTheme.textSecondaryLight,
@@ -123,7 +123,7 @@ class _NavItem extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 style: AppTheme.caption.copyWith(
                   color: isSelected
-                      ? AppTheme.spotifyGreen
+                      ? AppTheme.harmonyOrange
                       : isDark
                           ? AppTheme.textSecondary
                           : AppTheme.textSecondaryLight,

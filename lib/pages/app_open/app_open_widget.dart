@@ -48,12 +48,12 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                 ? [
                     AppTheme.darkBackground,
                     const Color(0xFF1a1a1a),
-                    AppTheme.spotifyGreen.withOpacity(0.1),
+                    AppTheme.harmonyOrange.withOpacity(0.1),
                   ]
                 : [
                     AppTheme.lightBackground,
                     const Color(0xFFf0f0f0),
-                    AppTheme.spotifyGreen.withOpacity(0.05),
+                    AppTheme.harmonyOrange.withOpacity(0.05),
                   ],
           ),
         ),
@@ -265,7 +265,7 @@ class _FeaturePill extends StatelessWidget {
         color: isDark ? AppTheme.darkCard.withOpacity(0.5) : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(AppTheme.radiusFull),
         border: Border.all(
-          color: AppTheme.spotifyGreen.withOpacity(0.3),
+          color: AppTheme.harmonyOrange.withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -275,7 +275,7 @@ class _FeaturePill extends StatelessWidget {
           Icon(
             icon,
             size: 16,
-            color: AppTheme.spotifyGreen,
+            color: AppTheme.harmonyOrange,
           ),
           const SizedBox(width: AppTheme.space8),
           Text(

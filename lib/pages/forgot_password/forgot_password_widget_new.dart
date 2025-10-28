@@ -192,7 +192,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
                   child: Text(
                     'Back to Sign In',
                     style: AppTheme.bodyMedium.copyWith(
-                      color: AppTheme.spotifyGreen,
+                      color: AppTheme.harmonyOrange,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -261,7 +261,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
           Text(
             _emailController.text,
             style: AppTheme.bodyLarge.copyWith(
-              color: AppTheme.spotifyGreen,
+              color: AppTheme.harmonyOrange,
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,
@@ -278,7 +278,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
                   : AppTheme.lightSurface,
               borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
               border: Border.all(
-                color: AppTheme.spotifyGreen.withOpacity(0.3),
+                color: AppTheme.harmonyOrange.withOpacity(0.3),
                 width: 1,
               ),
             ),
@@ -286,7 +286,7 @@ class _ForgotPasswordWidgetNewState extends State<ForgotPasswordWidgetNew> {
               children: [
                 Icon(
                   Icons.info_outline,
-                  color: AppTheme.spotifyGreen,
+                  color: AppTheme.harmonyOrange,
                   size: 32,
                 ),
                 SizedBox(height: AppTheme.space12),

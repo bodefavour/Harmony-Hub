@@ -157,7 +157,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       child: Text(
                         'Skip',
                         style: AppTheme.bodyMedium.copyWith(
-                          color: AppTheme.spotifyGreen,
+                          color: AppTheme.harmonyOrange,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -195,7 +195,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   controller: _pageController,
                   count: _pages.length,
                   effect: ExpandingDotsEffect(
-                    activeDotColor: AppTheme.spotifyGreen,
+                    activeDotColor: AppTheme.harmonyOrange,
                     dotColor: isDark
                         ? AppTheme.textTertiary
                         : AppTheme.textTertiaryLight,

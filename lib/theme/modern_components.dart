@@ -50,8 +50,8 @@ class GlassCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            splashColor: AppTheme.spotifyGreen.withOpacity(0.1),
-            highlightColor: AppTheme.spotifyGreen.withOpacity(0.05),
+            splashColor: AppTheme.harmonyOrange.withOpacity(0.1),
+            highlightColor: AppTheme.harmonyOrange.withOpacity(0.05),
             child: Padding(
               padding: padding ?? const EdgeInsets.all(AppTheme.space16),
               child: child,
@@ -96,12 +96,15 @@ class ModernButton extends StatelessWidget {
             ? AppTheme.primaryGradient
             : null,
         color: !isOutline && !useGradient && onPressed != null
-            ? AppTheme.spotifyGreen
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(AppTheme.radiusFull),
-        border: isOutline
-            ? Border.all(color: AppTheme.spotifyGreen, width: 2)
+            ? AppTheme.harmonyOrange
             : null,
+        borderRadius: BorderRadius.circular(AppTheme.radiusFull),
+        border: Border.all(
+          color: isOutline 
+              ? AppTheme.harmonyOrange 
+              : (onPressed != null ? Colors.transparent : Colors.grey),
+          width: 2,
+        ),
         boxShadow: !isOutline && onPressed != null ? AppTheme.glowShadow : null,
       ),
       child: Material(
@@ -126,7 +129,7 @@ class ModernButton extends StatelessWidget {
                         Icon(
                           icon,
                           color:
-                              isOutline ? AppTheme.spotifyGreen : Colors.white,
+                              isOutline ? AppTheme.harmonyOrange : Colors.white,
                           size: 20,
                         ),
                         const SizedBox(width: AppTheme.space8),
@@ -135,7 +138,7 @@ class ModernButton extends StatelessWidget {
                         text,
                         style: AppTheme.bodyLarge.copyWith(
                           color:
-                              isOutline ? AppTheme.spotifyGreen : Colors.white,
+                              isOutline ? AppTheme.harmonyOrange : Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -306,7 +309,7 @@ class ModernCover extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: AppTheme.spotifyGreen,
+                      color: AppTheme.harmonyOrange,
                       shape: BoxShape.circle,
                       boxShadow: AppTheme.glowShadow,
                     ),
@@ -386,7 +389,7 @@ class SectionHeader extends StatelessWidget {
               child: Text(
                 'See all',
                 style: AppTheme.bodyMedium.copyWith(
-                  color: AppTheme.spotifyGreen,
+                  color: AppTheme.harmonyOrange,
                   fontWeight: FontWeight.w600,
                 ),
               ),

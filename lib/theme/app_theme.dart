@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Modern Design System inspired by Spotify & Apple Music
+/// Modern Design System inspired by Spotify & Apple Music  
 /// Features: Glassmorphism, Smooth animations, Beautiful gradients
 
 class AppTheme {
   // ============ COLOR PALETTE ============
 
-  // Primary Brand Colors (Spotify-inspired)
-  static const Color spotifyGreen = Color(0xFF1DB954);
-  static const Color spotifyGreenDark = Color(0xFF1ED760);
-  static const Color spotifyGreenLight = Color(0xFF1FDF64);
+  // Primary Brand Colors (Harmony Hub Orange)
+  static const Color harmonyOrange = Color(0xFFFF5722); // Main brand color
+  static const Color harmonyOrangeDark = Color(0xFFE64A19);
+  static const Color harmonyOrangeLight = Color(0xFFFF7043);
 
   // Dark Theme Colors
   static const Color darkBackground = Color(0xFF121212);
@@ -48,7 +48,7 @@ class AppTheme {
   // ============ GRADIENTS ============
 
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [spotifyGreen, spotifyGreenLight],
+    colors: [harmonyOrange, harmonyOrangeLight],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -115,7 +115,7 @@ class AppTheme {
 
   static List<BoxShadow> get glowShadow => [
         BoxShadow(
-          color: spotifyGreen.withOpacity(0.3),
+          color: harmonyOrange.withOpacity(0.3),
           blurRadius: 20,
           spreadRadius: 2,
         ),
@@ -272,8 +272,8 @@ class AppTheme {
     brightness: Brightness.dark,
     scaffoldBackgroundColor: darkBackground,
     colorScheme: const ColorScheme.dark(
-      primary: spotifyGreen,
-      secondary: spotifyGreenDark,
+      primary: harmonyOrange,
+      secondary: harmonyOrangeDark,
       surface: darkSurface,
       error: error,
       onPrimary: textPrimary,
@@ -301,8 +301,8 @@ class AppTheme {
     brightness: Brightness.light,
     scaffoldBackgroundColor: lightBackground,
     colorScheme: const ColorScheme.light(
-      primary: spotifyGreen,
-      secondary: spotifyGreenDark,
+      primary: harmonyOrange,
+      secondary: harmonyOrangeDark,
       surface: lightSurface,
       error: error,
       onPrimary: textPrimary,
