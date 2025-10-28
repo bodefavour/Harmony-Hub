@@ -1,62 +1,81 @@
 # Gospel Songs Seeder
 
-This script seeds gospel songs with direct URLs into your Supabase database.
+This seeds gospel songs with direct URLs into your Supabase database.
 
-## Setup
+## Quick Start (SQL Method) ⚡
 
-1. **Update Supabase credentials** in `lib/scripts/seed_gospel_songs.dart`:
-   ```dart
-   await Supabase.initialize(
-     url: 'YOUR_SUPABASE_URL',  // Replace with your Supabase URL
-     anonKey: 'YOUR_SUPABASE_ANON_KEY',  // Replace with your anon key
-   );
-   ```
+1. **Open Supabase Dashboard**
+   - Go to your project at https://supabase.com
+   - Click on "SQL Editor" in the left sidebar
 
-2. **Install required packages** (if not already installed):
-   ```bash
-   flutter pub add uuid
-   ```
+2. **Run the SQL Script**
+   - Open `seed_gospel_songs.sql` in a text editor
+   - Copy the entire contents
+   - Paste into the Supabase SQL Editor
+   - Click "Run" or press `Ctrl+Enter`
+
+3. **Verify**
+   - The script will show you:
+     - All seeded gospel songs with artists and albums
+     - A summary count of artists, albums, and songs
+
+4. **Done!** 🎉
+   - Hot restart your app (`R` in terminal)
+   - Navigate to home/search
+   - Find and play the gospel songs
+
+## What Gets Created
+
+- **8 Gospel Artists**: Sinach, Bethel Music, Hillsong United, Hillsong Worship, Cory Asbury, Michael W. Smith, Passion, Elevation Worship
+- **10 Albums**: One per artist (some artists have multiple)
+- **10 Gospel Songs**: Popular worship songs with direct URLs
+
+## Important Notes
+
+✅ **Uses Direct URLs** - No file storage needed in Supabase
+✅ **Safe to Run Multiple Times** - Uses `ON CONFLICT DO NOTHING` to prevent duplicates
+✅ **is_local = false** - Marks these as external URL songs
+✅ **Placeholder URLs** - Currently uses SoundHelix test URLs
 
 ## Using Real Gospel Song URLs
 
-The current `gospel_songs_seed.json` uses placeholder URLs from SoundHelix. To use real gospel songs:
+The script uses placeholder URLs from SoundHelix. To use real gospel songs:
 
-### Option 1: Free Music Archives
-Update the `audioUrl` fields with links from:
-- **Free Music Archive**: https://freemusicarchive.org/
-- **Internet Archive**: https://archive.org/details/audio
-- **ccMixter**: https://ccmixter.org/
+### Option 1: Replace URLs in SQL File
+Edit `seed_gospel_songs.sql` and replace the `storage_path` URLs with real ones:
 
-### Option 2: YouTube to MP3 (for legal/licensed content)
-If you have permission or the songs are public domain:
-1. Find gospel songs on YouTube
-2. Use a YouTube to MP3 converter
-3. Host on a CDN or use direct links
+```sql
+-- Before
+'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
 
-### Option 3: Use Your Own Hosted Files
-Upload gospel song files to:
-- Cloudinary
-- AWS S3
-- Google Cloud Storage
-- Or any CDN
-
-Then update the `audioUrl` fields with those URLs.
-
-## Running the Seeder
-
-```bash
-cd "c:\Users\user\Harmony Hub\Harmony-Hub"
-dart run lib/scripts/seed_gospel_songs.dart
+-- After (example with a real URL)
+'https://example.com/gospel-songs/way-maker.mp3'
 ```
 
-## What It Does
+### Option 2: Update After Seeding
+Run this SQL in Supabase to update specific songs:
 
-1. ✅ Reads songs from `gospel_songs_seed.json`
-2. ✅ Creates artists if they don't exist
-3. ✅ Creates albums if they don't exist
-4. ✅ Creates songs with **direct URLs** (no file upload needed!)
-5. ✅ Sets `is_local = false` so the app knows these are external URLs
-6. ✅ Skips duplicates automatically
+```sql
+UPDATE songs 
+SET storage_path = 'YOUR_REAL_URL_HERE'
+WHERE id = 's1111111-1111-1111-1111-111111111111';
+```
+
+### Where to Find Free Gospel Song URLs
+
+- **Free Music Archive**: https://freemusicarchive.org/ (search for gospel/worship)
+- **Internet Archive**: https://archive.org/details/audio (public domain music)
+- **ccMixter**: https://ccmixter.org/ (Creative Commons licensed)
+- **Your Own CDN**: Upload to Cloudinary, AWS S3, or Google Cloud Storage
+
+## Alternative: Dart Script Method
+
+If you prefer running a Dart script instead of SQL:
+
+1. Update Supabase credentials in `lib/scripts/seed_gospel_songs.dart`
+2. Run: `dart run lib/scripts/seed_gospel_songs.dart`
+
+(Note: Requires `uuid` package and Supabase credentials)
 
 ## Testing
 
@@ -66,10 +85,28 @@ After seeding:
 3. Find the newly added gospel songs
 4. Play them - they should work with the direct URLs!
 
-## Notes
+## How It Works
 
-- The AudioService has been updated to handle both:
-  - **Direct URLs** (`http://` or `https://`) - used as-is
-  - **Supabase storage paths** - converted to signed URLs
-- Songs with `is_local = false` use direct URLs
-- No storage space used in Supabase for these songs! 🎉
+The AudioService automatically detects URL-based songs:
+- If `storage_path` starts with `http://` or `https://` → Uses direct URL
+- Otherwise → Creates Supabase signed URL
+
+This means:
+✅ No storage space used
+✅ Fast loading
+✅ Can use any public audio URL
+✅ Mix local files and URLs in the same app
+
+---
+
+## Troubleshooting
+
+**Songs not appearing?**
+- Check Supabase SQL Editor for any errors
+- Verify the songs table has the new entries
+- Make sure you hot restarted the app (not just hot reload)
+
+**Songs not playing?**
+- Check that the URLs are accessible (try opening in browser)
+- Check the debug console for "Using direct URL" messages
+- Verify `is_local = false` for URL-based songs

@@ -88,7 +88,7 @@ class AudioService {
 
       // Check if storage path is already a URL or a Supabase storage path
       String url;
-      if (song.storagePath.startsWith('http://') || 
+      if (song.storagePath.startsWith('http://') ||
           song.storagePath.startsWith('https://')) {
         // It's already a direct URL, use it as is
         url = song.storagePath;
@@ -129,7 +129,7 @@ class AudioService {
 
       // Check if storage path is already a URL or a Supabase storage path
       String url;
-      if (podcast.storagePath!.startsWith('http://') || 
+      if (podcast.storagePath!.startsWith('http://') ||
           podcast.storagePath!.startsWith('https://')) {
         // It's already a direct URL, use it as is
         url = podcast.storagePath!;

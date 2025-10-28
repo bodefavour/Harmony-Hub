@@ -25,7 +25,7 @@ void showNowPlayingModal(BuildContext context) {
       stream: audioService.playerStateStream,
       builder: (context, snapshot) {
         final isPlaying = snapshot.data == PlayerState.playing;
-        
+
         return StreamBuilder<Duration>(
           stream: audioService.positionStream,
           builder: (context, positionSnapshot) {
@@ -33,7 +33,8 @@ void showNowPlayingModal(BuildContext context) {
               stream: audioService.durationStream,
               builder: (context, durationSnapshot) {
                 final position = positionSnapshot.data ?? Duration.zero;
-                final duration = durationSnapshot.data ?? const Duration(minutes: 3);
+                final duration =
+                    durationSnapshot.data ?? const Duration(minutes: 3);
 
                 return NowPlayingModal(
                   songTitle: currentSong.title,

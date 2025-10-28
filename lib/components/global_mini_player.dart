@@ -34,14 +34,15 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
     super.initState();
     // Don't initialize AudioService here - it's already initialized elsewhere
     // Calling initialize() multiple times causes GlobalKey conflicts
-    
+
     // Listen to router changes
     widget.router.routerDelegate.addListener(_onRouteChanged);
   }
 
   void _onRouteChanged() {
     // Only rebuild if route actually changed
-    final currentRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+    final currentRoute =
+        widget.router.routerDelegate.currentConfiguration.uri.toString();
     if (mounted && currentRoute != _lastRoute) {
       _lastRoute = currentRoute;
       // Schedule rebuild for next frame to avoid setState during build
@@ -91,7 +92,9 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                   }
 
                   // Get current route and modal state
-                  final currentRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+                  final currentRoute = widget
+                      .router.routerDelegate.currentConfiguration.uri
+                      .toString();
                   final isModalVisible = _modalNotifier.isModalVisible;
                   final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
 

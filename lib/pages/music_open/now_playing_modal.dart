@@ -51,7 +51,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
     super.initState();
     // Notify that modal is visible
     _modalNotifier.showModal();
-    
+
     _coverController = AnimationController(
       duration: const Duration(seconds: 20),
       vsync: this,
@@ -67,7 +67,7 @@ class _NowPlayingModalState extends State<NowPlayingModal>
   void dispose() {
     // Notify that modal is hidden
     _modalNotifier.hideModal();
-    
+
     _coverController.dispose();
     _waveController.dispose();
     super.dispose();

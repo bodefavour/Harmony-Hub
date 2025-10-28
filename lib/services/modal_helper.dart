@@ -12,10 +12,10 @@ Future<T?> showManagedModalBottomSheet<T>({
   bool enableDrag = true,
 }) async {
   final modalNotifier = ModalVisibilityNotifier();
-  
+
   // Notify that modal is shown
   modalNotifier.showModal();
-  
+
   try {
     final result = await showModalBottomSheet<T>(
       context: context,
@@ -25,7 +25,7 @@ Future<T?> showManagedModalBottomSheet<T>({
       enableDrag: enableDrag,
       builder: builder,
     );
-    
+
     return result;
   } finally {
     // Always hide modal notification when done

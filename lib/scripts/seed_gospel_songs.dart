@@ -48,15 +48,19 @@ void main() async {
       String artistId;
       if (artistResponse == null) {
         print('   Creating artist: $artistName');
-        final newArtist = await supabase.from('artists').insert({
-          'id': uuid.v4(),
-          'name': artistName,
-          'bio': 'Gospel artist',
-          'genre': 'Gospel',
-          'cover_image': songData['coverUrl'],
-          'created_at': DateTime.now().toIso8601String(),
-          'updated_at': DateTime.now().toIso8601String(),
-        }).select().single();
+        final newArtist = await supabase
+            .from('artists')
+            .insert({
+              'id': uuid.v4(),
+              'name': artistName,
+              'bio': 'Gospel artist',
+              'genre': 'Gospel',
+              'cover_image': songData['coverUrl'],
+              'created_at': DateTime.now().toIso8601String(),
+              'updated_at': DateTime.now().toIso8601String(),
+            })
+            .select()
+            .single();
         artistId = newArtist['id'] as String;
       } else {
         artistId = artistResponse['id'] as String;
@@ -74,16 +78,20 @@ void main() async {
       String albumId;
       if (albumResponse == null) {
         print('   Creating album: $albumName');
-        final newAlbum = await supabase.from('albums').insert({
-          'id': uuid.v4(),
-          'artist_id': artistId,
-          'title': albumName,
-          'release_date': DateTime.now().toIso8601String(),
-          'genre': 'Gospel',
-          'cover_image': songData['coverUrl'],
-          'created_at': DateTime.now().toIso8601String(),
-          'updated_at': DateTime.now().toIso8601String(),
-        }).select().single();
+        final newAlbum = await supabase
+            .from('albums')
+            .insert({
+              'id': uuid.v4(),
+              'artist_id': artistId,
+              'title': albumName,
+              'release_date': DateTime.now().toIso8601String(),
+              'genre': 'Gospel',
+              'cover_image': songData['coverUrl'],
+              'created_at': DateTime.now().toIso8601String(),
+              'updated_at': DateTime.now().toIso8601String(),
+            })
+            .select()
+            .single();
         albumId = newAlbum['id'] as String;
       } else {
         albumId = albumResponse['id'] as String;
