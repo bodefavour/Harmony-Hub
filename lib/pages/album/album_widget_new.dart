@@ -347,7 +347,7 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                 ),
                 child: Text(
                   'Songs (${albumSongs.length})',
-                  style: AppTheme.headlineSmall.copyWith(
+                  style: AppTheme.headlineMedium.copyWith(
                     color: isDark
                         ? AppTheme.textPrimary
                         : AppTheme.textPrimaryLight,
