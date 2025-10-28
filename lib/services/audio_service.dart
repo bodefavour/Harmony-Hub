@@ -29,6 +29,10 @@ class AudioService {
 
   Song? _currentSong;
   Podcast? _currentPodcast;
+  List<Song> _playlist = [];
+  int _currentIndex = 0;
+  bool _isShuffleEnabled = false;
+  bool _isRepeatEnabled = false;
 
   final StreamController<PlayerState> _stateController =
       StreamController<PlayerState>.broadcast();
@@ -354,6 +358,112 @@ class AudioService {
 
   /// Get current playing state
   Stream<bool> get playingStream => _player.playingStream;
+
+  /// Check if shuffle is enabled
+  bool get isShuffleEnabled => _isShuffleEnabled;
+
+  /// Check if repeat is enabled
+  bool get isRepeatEnabled => _isRepeatEnabled;
+
+  /// Get current playlist
+  List<Song> get playlist => _playlist;
+
+  // ============================================
+  // PLAYLIST & QUEUE MANAGEMENT
+  // ============================================
+
+  /// Set playlist
+  void setPlaylist(List<Song> songs, {int startIndex = 0}) {
+    _playlist = songs;
+    _currentIndex = startIndex;
+    if (_isShuffleEnabled) {
+      _shufflePlaylist();
+    }
+  }
+
+  /// Toggle shuffle mode
+  void toggleShuffle() {
+    _isShuffleEnabled = !_isShuffleEnabled;
+    if (_isShuffleEnabled && _playlist.isNotEmpty) {
+      _shufflePlaylist();
+    }
+  }
+
+  /// Toggle repeat mode
+  void toggleRepeat() {
+    _isRepeatEnabled = !_isRepeatEnabled;
+  }
+
+  /// Shuffle the playlist
+  void _shufflePlaylist() {
+    if (_playlist.isEmpty) return;
+    
+    // Keep current song at current position
+    final currentSong = _currentIndex < _playlist.length ? _playlist[_currentIndex] : null;
+    
+    // Shuffle the list
+    _playlist.shuffle();
+    
+    // Move current song to the front if it exists
+    if (currentSong != null) {
+      _playlist.remove(currentSong);
+      _playlist.insert(0, currentSong);
+      _currentIndex = 0;
+    }
+  }
+
+  /// Skip to next song
+  Future<void> skipToNext() async {
+    if (_playlist.isEmpty) return;
+
+    if (_currentIndex < _playlist.length - 1) {
+      _currentIndex++;
+      await playSong(_playlist[_currentIndex]);
+    } else if (_isRepeatEnabled) {
+      // If repeat is on, go back to first song
+      _currentIndex = 0;
+      await playSong(_playlist[_currentIndex]);
+    }
+  }
+
+  /// Skip to previous song
+  Future<void> skipToPrevious() async {
+    if (_playlist.isEmpty) return;
+
+    // If we're more than 3 seconds into the song, restart it
+    if (_player.position.inSeconds > 3) {
+      await seek(Duration.zero);
+      return;
+    }
+
+    // Otherwise go to previous song
+    if (_currentIndex > 0) {
+      _currentIndex--;
+      await playSong(_playlist[_currentIndex]);
+    } else if (_isRepeatEnabled) {
+      // If repeat is on, go to last song
+      _currentIndex = _playlist.length - 1;
+      await playSong(_playlist[_currentIndex]);
+    }
+  }
+
+  /// Play song at specific index in playlist
+  Future<void> playAtIndex(int index) async {
+    if (index < 0 || index >= _playlist.length) return;
+    _currentIndex = index;
+    await playSong(_playlist[_currentIndex]);
+  }
+
+  /// Add song to queue
+  void addToQueue(Song song) {
+    _playlist.add(song);
+  }
+
+  /// Clear playlist
+  void clearPlaylist() {
+    _playlist.clear();
+    _currentIndex = 0;
+  }
 
   // ============================================
   // CLEANUP

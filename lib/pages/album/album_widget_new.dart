@@ -256,8 +256,8 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                     ),
                     const SizedBox(height: AppTheme.space8),
                     Text(
-                      currentAlbum!.artistName ?? 'Various Artists',
-                      style: AppTheme.headlineSmall.copyWith(
+                      'Various Artists',
+                      style: AppTheme.headlineMedium.copyWith(
                         color: isDark
                             ? AppTheme.textSecondary
                             : AppTheme.textSecondaryLight,

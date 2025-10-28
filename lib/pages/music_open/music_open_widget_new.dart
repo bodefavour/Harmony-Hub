@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'dart:async';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/theme/app_theme.dart';
 import '/models/song.dart';
 import '/services/supabase_service.dart';
+import '/services/audio_service.dart';
 import 'music_open_model.dart';
 export 'music_open_model.dart';
 
@@ -26,13 +28,19 @@ class MusicOpenWidgetNew extends StatefulWidget {
 class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
   late MusicOpenModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final AudioService _audioService = AudioService();
+  
   Song? currentSong;
   bool isLoading = true;
   bool isPlaying = false;
   bool isFavorite = false;
   bool showLyrics = false;
   double currentPosition = 0.0;
-  double totalDuration = 300.0; // Default 5 minutes
+  double totalDuration = 300.0;
+  
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _durationSubscription;
+  StreamSubscription? _playerStateSubscription;
 
   @override
   void initState() {
@@ -40,6 +48,36 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
     _model = createModel(context, () => MusicOpenModel());
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'musicOpen'});
     _loadSongData();
+    _setupAudioListeners();
+  }
+
+  void _setupAudioListeners() {
+    // Listen to position changes
+    _positionSubscription = _audioService.positionStream.listen((position) {
+      if (mounted) {
+        setState(() {
+          currentPosition = position.inSeconds.toDouble();
+        });
+      }
+    });
+
+    // Listen to duration changes
+    _durationSubscription = _audioService.durationStream.listen((duration) {
+      if (mounted && duration != null) {
+        setState(() {
+          totalDuration = duration.inSeconds.toDouble();
+        });
+      }
+    });
+
+    // Listen to player state changes
+    _playerStateSubscription = _audioService.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state == PlayerState.playing;
+        });
+      }
+    });
   }
 
   Future<void> _loadSongData() async {
@@ -49,18 +87,31 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
           currentSong = Song.fromJson(widget.song);
           isLoading = false;
         });
+        // Set playlist with just this song for now
+        _audioService.setPlaylist([currentSong!], startIndex: 0);
+        // Auto-play the song
+        await _audioService.playSong(currentSong!);
       } else if (widget.songId != null) {
         final songs = await SupabaseService().fetchSongs();
         currentSong = songs.firstWhere((s) => s.id == widget.songId);
         setState(() => isLoading = false);
+        // Set playlist with all songs, starting at this one
+        final startIndex = songs.indexWhere((s) => s.id == widget.songId);
+        _audioService.setPlaylist(songs, startIndex: startIndex >= 0 ? startIndex : 0);
+        // Auto-play the song
+        await _audioService.playSong(currentSong!);
       }
     } catch (e) {
+      print('Error loading song: $e');
       setState(() => isLoading = false);
     }
   }
 
   @override
   void dispose() {
+    _positionSubscription?.cancel();
+    _durationSubscription?.cancel();
+    _playerStateSubscription?.cancel();
     _model.dispose();
     super.dispose();
   }
@@ -373,11 +424,13 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
               overlayColor: AppTheme.harmonyOrange.withOpacity(0.2),
             ),
             child: Slider(
-              value: currentPosition,
-              max: totalDuration,
+              value: currentPosition.clamp(0.0, totalDuration),
+              max: totalDuration > 0 ? totalDuration : 1.0,
               onChanged: (value) {
                 setState(() => currentPosition = value);
-                // TODO: Seek to position
+              },
+              onChangeEnd: (value) {
+                _audioService.seek(Duration(seconds: value.toInt()));
               },
             ),
           ),
@@ -421,18 +474,19 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
         children: [
           IconButton(
             onPressed: () {
-              // TODO: Toggle shuffle
+              _audioService.toggleShuffle();
             },
             icon: Icon(
               Icons.shuffle,
               size: 28,
-              color:
-                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color: _audioService.isShuffleEnabled
+                  ? AppTheme.harmonyOrange
+                  : (isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight),
             ),
           ),
           IconButton(
             onPressed: () {
-              // TODO: Previous song
+              _audioService.skipToPrevious();
             },
             icon: Icon(
               Icons.skip_previous,
@@ -455,9 +509,12 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
               ],
             ),
             child: IconButton(
-              onPressed: () {
-                setState(() => isPlaying = !isPlaying);
-                // TODO: Toggle play/pause
+              onPressed: () async {
+                if (isPlaying) {
+                  await _audioService.pause();
+                } else {
+                  await _audioService.resume();
+                }
               },
               icon: Icon(
                 isPlaying ? Icons.pause : Icons.play_arrow,
@@ -472,7 +529,7 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
               ),
           IconButton(
             onPressed: () {
-              // TODO: Next song
+              _audioService.skipToNext();
             },
             icon: Icon(
               Icons.skip_next,
@@ -482,13 +539,14 @@ class _MusicOpenWidgetNewState extends State<MusicOpenWidgetNew> {
           ),
           IconButton(
             onPressed: () {
-              // TODO: Toggle repeat
+              _audioService.toggleRepeat();
             },
             icon: Icon(
               Icons.repeat,
               size: 28,
-              color:
-                  isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              color: _audioService.isRepeatEnabled
+                  ? AppTheme.harmonyOrange
+                  : (isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight),
             ),
           ),
         ],
