@@ -498,7 +498,8 @@ class _AlbumCard extends StatelessWidget {
             Text(
               title,
               style: AppTheme.bodyMedium.copyWith(
-                color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                color:
+                    isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                 fontWeight: FontWeight.w600,
               ),
               maxLines: 1,
@@ -508,7 +509,9 @@ class _AlbumCard extends StatelessWidget {
             Text(
               artist,
               style: AppTheme.bodySmall.copyWith(
-                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                color: isDark
+                    ? AppTheme.textSecondary
+                    : AppTheme.textSecondaryLight,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
