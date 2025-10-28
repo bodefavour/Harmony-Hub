@@ -72,7 +72,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Spacer(),
-                      
+
                       // Animated Logo
                       Container(
                         width: 100,
@@ -184,7 +184,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                               curve: Curves.easeOut,
                             ),
                       ),
-                      
+
                       const Spacer(),
                     ],
                   ),
@@ -196,55 +196,61 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                    // Get Started Button
-                    ModernButton(
-                      text: 'Get Started',
-                      icon: Icons.music_note_rounded,
-                      onPressed: () {
-                        logFirebaseEvent('APP_OPEN_get_started_pressed');
-                        context.pushNamed('onboarding');
-                      },
-                      width: double.infinity,
-                      useGradient: true,
-                    ).animate().fadeIn(duration: 400.ms, delay: 800.ms).slideY(
-                          begin: 0.5,
-                          end: 0,
-                          duration: 400.ms,
-                          curve: Curves.easeOut,
+                      // Get Started Button
+                      ModernButton(
+                        text: 'Get Started',
+                        icon: Icons.music_note_rounded,
+                        onPressed: () {
+                          logFirebaseEvent('APP_OPEN_get_started_pressed');
+                          context.pushNamed('onboarding');
+                        },
+                        width: double.infinity,
+                        useGradient: true,
+                      )
+                          .animate()
+                          .fadeIn(duration: 400.ms, delay: 800.ms)
+                          .slideY(
+                            begin: 0.5,
+                            end: 0,
+                            duration: 400.ms,
+                            curve: Curves.easeOut,
+                          ),
+
+                      const SizedBox(height: AppTheme.space16),
+
+                      // Sign In Button
+                      ModernButton(
+                        text: 'Sign In',
+                        onPressed: () {
+                          logFirebaseEvent('APP_OPEN_sign_in_pressed');
+                          context.pushNamed('login');
+                        },
+                        isOutline: true,
+                        width: double.infinity,
+                      )
+                          .animate()
+                          .fadeIn(duration: 400.ms, delay: 900.ms)
+                          .slideY(
+                            begin: 0.5,
+                            end: 0,
+                            duration: 400.ms,
+                            curve: Curves.easeOut,
+                          ),
+
+                      const SizedBox(height: AppTheme.space24),
+
+                      // Footer Text
+                      Text(
+                        'By continuing, you agree to our Terms of Service\nand Privacy Policy',
+                        style: AppTheme.caption.copyWith(
+                          color: isDark
+                              ? AppTheme.textTertiary
+                              : AppTheme.textTertiaryLight,
                         ),
-
-                    const SizedBox(height: AppTheme.space16),
-
-                    // Sign In Button
-                    ModernButton(
-                      text: 'Sign In',
-                      onPressed: () {
-                        logFirebaseEvent('APP_OPEN_sign_in_pressed');
-                        context.pushNamed('login');
-                      },
-                      isOutline: true,
-                      width: double.infinity,
-                    ).animate().fadeIn(duration: 400.ms, delay: 900.ms).slideY(
-                          begin: 0.5,
-                          end: 0,
-                          duration: 400.ms,
-                          curve: Curves.easeOut,
-                        ),
-
-                    const SizedBox(height: AppTheme.space24),
-
-                    // Footer Text
-                    Text(
-                      'By continuing, you agree to our Terms of Service\nand Privacy Policy',
-                      style: AppTheme.caption.copyWith(
-                        color: isDark
-                            ? AppTheme.textTertiary
-                            : AppTheme.textTertiaryLight,
-                      ),
-                      textAlign: TextAlign.center,
-                    ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
-                  ],
-                ),
+                        textAlign: TextAlign.center,
+                      ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
+                    ],
+                  ),
                 ),
               ],
             ),
