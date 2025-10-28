@@ -129,7 +129,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   Text(
                     'Welcome back',
                     style: AppTheme.displayLarge.copyWith(
-                      color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                      color: isDark
+                          ? AppTheme.textPrimary
+                          : AppTheme.textPrimaryLight,
                     ),
                   )
                       .animate()
@@ -275,7 +277,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         child: Text(
                           'or continue with',
-                          style: AppTheme.bodySmall(context, isDark: isDark),
+                          style: AppTheme.bodySmall.copyWith(
+                            color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -327,7 +331,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         Text(
                           'Don\'t have an account? ',
-                          style: AppTheme.bodyMedium(context, isDark: isDark),
+                          style: AppTheme.bodyMedium.copyWith(
+                            color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -335,8 +341,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                           child: Text(
                             'Sign up',
-                            style: AppTheme.bodyMedium(context, isDark: isDark)
-                                .copyWith(
+                            style: AppTheme.bodyMedium.copyWith(
                               color: AppTheme.spotifyGreen,
                               fontWeight: FontWeight.bold,
                             ),
@@ -401,7 +406,8 @@ class _SocialLoginButton extends StatelessWidget {
               const SizedBox(width: AppTheme.space8),
               Text(
                 label,
-                style: AppTheme.bodyMedium(context, isDark: isDark).copyWith(
+                style: AppTheme.bodyMedium.copyWith(
+                  color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                   fontWeight: FontWeight.w600,
                 ),
               ),
