@@ -31,6 +31,7 @@ dependencies:
   # assets_audio_player_web: ^3.1.1  # REMOVED - incompatible, using just_audio instead
   flutter_dotenv: ^5.1.0
   audio_session: ^0.2.2
+  audio_service: ^0.18.15
   auto_size_text: ^3.0.0
   cached_network_image: ^3.3.1
   collection: ^1.19.0

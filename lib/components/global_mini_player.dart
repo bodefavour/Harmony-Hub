@@ -31,96 +31,102 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    // Get current route to hide mini player on music open page
+    final currentRoute = ModalRoute.of(context)?.settings.name ?? '';
+    final isOnMusicOpenPage = currentRoute.contains('musicOpen') || 
+                               currentRoute.contains('music_open');
+
     return Stack(
       children: [
         // Main app content
         widget.child,
 
-        // Mini player overlay at bottom
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 80, // Position above bottom nav (80px height)
-          child: StreamBuilder<PlayerState>(
-            stream: _audioService.playerStateStream,
-            builder: (context, snapshot) {
-              final playerState = snapshot.data ?? PlayerState.idle;
-              final currentSong = _audioService.currentSong;
+        // Mini player overlay at bottom (hide on music open page)
+        if (!isOnMusicOpenPage)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 80, // Position above bottom nav (80px height)
+            child: StreamBuilder<PlayerState>(
+              stream: _audioService.playerStateStream,
+              builder: (context, snapshot) {
+                final playerState = snapshot.data ?? PlayerState.idle;
+                final currentSong = _audioService.currentSong;
 
-              // Only show mini player when there's a current song
-              if (currentSong == null ||
-                  playerState == PlayerState.idle ||
-                  playerState == PlayerState.error) {
-                return const SizedBox.shrink();
-              }
+                // Only show mini player when there's a current song
+                if (currentSong == null ||
+                    playerState == PlayerState.idle ||
+                    playerState == PlayerState.error) {
+                  return const SizedBox.shrink();
+                }
 
-              final isPlaying = playerState == PlayerState.playing;
+                final isPlaying = playerState == PlayerState.playing;
 
-              return Material(
-                elevation: 8,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Progress indicator
-                    StreamBuilder<Duration>(
-                      stream: _audioService.positionStream,
-                      builder: (context, positionSnapshot) {
-                        return StreamBuilder<Duration?>(
-                          stream: _audioService.durationStream,
-                          builder: (context, durationSnapshot) {
-                            final position =
-                                positionSnapshot.data ?? Duration.zero;
-                            final duration =
-                                durationSnapshot.data ?? Duration.zero;
-                            final progress = duration.inMilliseconds > 0
-                                ? position.inMilliseconds /
-                                    duration.inMilliseconds
-                                : 0.0;
+                return Material(
+                  elevation: 8,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Progress indicator
+                      StreamBuilder<Duration>(
+                        stream: _audioService.positionStream,
+                        builder: (context, positionSnapshot) {
+                          return StreamBuilder<Duration?>(
+                            stream: _audioService.durationStream,
+                            builder: (context, durationSnapshot) {
+                              final position =
+                                  positionSnapshot.data ?? Duration.zero;
+                              final duration =
+                                  durationSnapshot.data ?? Duration.zero;
+                              final progress = duration.inMilliseconds > 0
+                                  ? position.inMilliseconds /
+                                      duration.inMilliseconds
+                                  : 0.0;
 
-                            return LinearProgressIndicator(
-                              value: progress,
-                              backgroundColor: Colors.grey.withOpacity(0.2),
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                  AppTheme.harmonyOrange),
-                              minHeight: 2,
-                            );
-                          },
-                        );
-                      },
-                    ),
+                              return LinearProgressIndicator(
+                                value: progress,
+                                backgroundColor: Colors.grey.withOpacity(0.2),
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    AppTheme.harmonyOrange),
+                                minHeight: 2,
+                              );
+                            },
+                          );
+                        },
+                      ),
 
-                    // Now Playing Bar
-                    NowPlayingBar(
-                      songTitle: currentSong.title,
-                      artistName: currentSong.artistName ?? 'Unknown Artist',
-                      coverUrl: currentSong.album?.coverImage,
-                      isPlaying: isPlaying,
-                      onTap: () {
-                        // Navigate to full music player
-                        context.pushNamed(
-                          'musicOpen',
-                          pathParameters: {'songId': currentSong.id},
-                          extra: currentSong.toJson(),
-                        );
-                      },
-                      onPlayPause: () {
-                        if (isPlaying) {
-                          _audioService.pause();
-                        } else {
-                          _audioService.resume();
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              )
-                  .animate()
-                  .slideY(
-                      begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
-                  .fadeIn(duration: 200.ms);
-            },
+                      // Now Playing Bar
+                      NowPlayingBar(
+                        songTitle: currentSong.title,
+                        artistName: currentSong.artistName ?? 'Unknown Artist',
+                        coverUrl: currentSong.album?.coverImage,
+                        isPlaying: isPlaying,
+                        onTap: () {
+                          // Navigate to full music player
+                          context.pushNamed(
+                            'musicOpen',
+                            pathParameters: {'songId': currentSong.id},
+                            extra: currentSong.toJson(),
+                          );
+                        },
+                        onPlayPause: () {
+                          if (isPlaying) {
+                            _audioService.pause();
+                          } else {
+                            _audioService.resume();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                )
+                    .animate()
+                    .slideY(
+                        begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
+                    .fadeIn(duration: 200.ms);
+              },
+            ),
           ),
-        ),
       ],
     );
   }

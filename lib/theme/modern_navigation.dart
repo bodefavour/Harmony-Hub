@@ -169,44 +169,62 @@ class NowPlayingBar extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 70,
-        margin: const EdgeInsets.all(AppTheme.space8),
+        height: 64,
+        margin: const EdgeInsets.symmetric(
+          horizontal: AppTheme.space12,
+          vertical: AppTheme.space8,
+        ),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              isDark ? const Color(0xFF282828) : const Color(0xFFF5F5F5),
-              isDark ? const Color(0xFF383838) : const Color(0xFFEEEEEE),
-            ],
-          ),
-          borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-          boxShadow: AppTheme.elevatedShadow,
+          color: isDark 
+              ? const Color(0xFF1C1C1E) 
+              : Colors.white,
+          borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(isDark ? 0.4 : 0.15),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+              spreadRadius: 0,
+            ),
+          ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+          borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
           child: Row(
             children: [
               // Album Cover
               Container(
-                width: 70,
-                height: 70,
+                width: 64,
+                height: 64,
                 decoration: BoxDecoration(
                   color: AppTheme.darkCard,
-                  borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(AppTheme.radiusLarge),
+                    bottomLeft: Radius.circular(AppTheme.radiusLarge),
+                  ),
                 ),
                 child: coverUrl != null
-                    ? Image.network(
-                        coverUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.music_note,
-                            color: AppTheme.textSecondary,
-                          );
-                        },
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(AppTheme.radiusLarge),
+                          bottomLeft: Radius.circular(AppTheme.radiusLarge),
+                        ),
+                        child: Image.network(
+                          coverUrl!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.music_note,
+                              color: AppTheme.textSecondary,
+                              size: 24,
+                            );
+                          },
+                        ),
                       )
                     : const Icon(
                         Icons.music_note,
                         color: AppTheme.textSecondary,
+                        size: 24,
                       ),
               ),
               const SizedBox(width: AppTheme.space12),
@@ -222,10 +240,12 @@ class NowPlayingBar extends StatelessWidget {
                         color: isDark
                             ? AppTheme.textPrimary
                             : AppTheme.textPrimaryLight,
+                        fontWeight: FontWeight.w600,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(height: 2),
                     Text(
                       artistName,
                       style: AppTheme.bodySmall.copyWith(
@@ -240,16 +260,21 @@ class NowPlayingBar extends StatelessWidget {
                 ),
               ),
               // Play/Pause Button
-              IconButton(
-                onPressed: onPlayPause,
-                icon: Icon(
-                  isPlaying ? Icons.pause : Icons.play_arrow,
-                  color:
-                      isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+              Container(
+                margin: const EdgeInsets.only(right: AppTheme.space8),
+                decoration: BoxDecoration(
+                  color: AppTheme.harmonyOrange,
+                  shape: BoxShape.circle,
                 ),
-                iconSize: 32,
+                child: IconButton(
+                  onPressed: onPlayPause,
+                  icon: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white,
+                  ),
+                  iconSize: 28,
+                ),
               ),
-              const SizedBox(width: AppTheme.space8),
             ],
           ),
         ),
