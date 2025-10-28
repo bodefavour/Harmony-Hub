@@ -364,7 +364,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               artist: 'Various Artists',
                               coverUrl: album.coverImage,
                               onTap: () {
-                                context.pushNamed('album');
+                                context.pushNamed(
+                                  'album',
+                                  pathParameters: {'albumId': album.id},
+                                );
                               },
                               isDark: isDark,
                             )

@@ -3,6 +3,6 @@
 .dart_tool/
 
 # Environment variables - DO NOT commit
-.env
-.env.local
 .env.*.local
+config.bat
+node_modules
