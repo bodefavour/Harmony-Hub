@@ -44,11 +44,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return GlobalMiniPlayer(
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor:
-            isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor:
+          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
         body: Column(
           children: [
             // Main Content
@@ -426,15 +425,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 break;
               case 3:
                 context.pushReplacementNamed('userProfile');
-                break;
-            }
-          },
-        ),
+              break;
+          }
+        },
       ),
+      persistentFooterButtons: const [
+        MiniPlayerWidget(),
+      ],
     );
-  }
-
-  String _getGreeting() {
+  }  String _getGreeting() {
     final hour = DateTime.now().hour;
     if (hour < 12) return 'Good morning';
     if (hour < 18) return 'Good afternoon';

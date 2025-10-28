@@ -40,45 +40,46 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
 
   @override
   Widget build(BuildContext context) {
-    return GlobalMiniPlayer(
-      child: ChangeNotifierProvider(
-        create: (_) => search.SearchController(
-          supabaseService: SupabaseService(),
-          audioService: AudioService(),
-          recommendationService: RecommendationService(),
-        )..initialize(),
-        child: Consumer<search.SearchController>(
-          builder: (context, controller, _) {
-            return GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
-              child: Scaffold(
-                key: scaffoldKey,
-                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                body: _buildSearchBody(context, controller),
-                bottomNavigationBar: ModernBottomNav(
-                  currentIndex: _currentNavIndex,
-                  onTap: (index) {
-                    setState(() => _currentNavIndex = index);
-                    switch (index) {
-                      case 0:
-                        context.pushReplacementNamed('homePage');
-                        break;
-                      case 1:
-                        // Already on Search
-                        break;
-                      case 2:
-                        context.pushReplacementNamed('Library');
-                        break;
-                      case 3:
-                        context.pushReplacementNamed('userProfile');
-                        break;
-                    }
-                  },
-                ),
+    return ChangeNotifierProvider(
+      create: (_) => search.SearchController(
+        supabaseService: SupabaseService(),
+        audioService: AudioService(),
+        recommendationService: RecommendationService(),
+      )..initialize(),
+      child: Consumer<search.SearchController>(
+        builder: (context, controller, _) {
+          return GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Scaffold(
+              key: scaffoldKey,
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: _buildSearchBody(context, controller),
+              bottomNavigationBar: ModernBottomNav(
+                currentIndex: _currentNavIndex,
+                onTap: (index) {
+                  setState(() => _currentNavIndex = index);
+                  switch (index) {
+                    case 0:
+                      context.pushReplacementNamed('homePage');
+                      break;
+                    case 1:
+                      // Already on Search
+                      break;
+                    case 2:
+                      context.pushReplacementNamed('Library');
+                      break;
+                    case 3:
+                      context.pushReplacementNamed('userProfile');
+                      break;
+                  }
+                },
               ),
-            );
-          },
-        ),
+              persistentFooterButtons: const [
+                MiniPlayerWidget(),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
