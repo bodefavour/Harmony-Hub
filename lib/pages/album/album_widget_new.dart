@@ -44,11 +44,12 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
       if (widget.albumId != null) {
         final albums = await SupabaseService().fetchAlbums();
         currentAlbum = albums.firstWhere((a) => a.id == widget.albumId);
-        
+
         // Fetch songs for this album
         final allSongs = await SupabaseService().fetchSongs();
-        albumSongs = allSongs.where((s) => s.albumId == widget.albumId).toList();
-        
+        albumSongs =
+            allSongs.where((s) => s.albumId == widget.albumId).toList();
+
         setState(() => isLoading = false);
       }
     } catch (e) {
@@ -134,12 +135,14 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
             SliverAppBar(
               expandedHeight: 400,
               pinned: true,
-              backgroundColor: isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
+              backgroundColor:
+                  isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
               leading: IconButton(
                 onPressed: () => context.safePop(),
                 icon: Icon(
                   Icons.arrow_back,
-                  color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                  color:
+                      isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                 ),
               ),
               actions: [
@@ -149,7 +152,9 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                   },
                   icon: Icon(
                     Icons.share_outlined,
-                    color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                    color: isDark
+                        ? AppTheme.textPrimary
+                        : AppTheme.textPrimaryLight,
                   ),
                 ),
                 IconButton(
@@ -161,7 +166,9 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                     isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: isFavorite
                         ? AppTheme.harmonyOrange
-                        : (isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight),
+                        : (isDark
+                            ? AppTheme.textPrimary
+                            : AppTheme.textPrimaryLight),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -196,7 +203,8 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                       child: Center(
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                            borderRadius:
+                                BorderRadius.circular(AppTheme.radiusMedium),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
@@ -206,14 +214,16 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                             ],
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                            borderRadius:
+                                BorderRadius.circular(AppTheme.radiusMedium),
                             child: AspectRatio(
                               aspectRatio: 1,
                               child: currentAlbum!.coverImage != null
                                   ? Image.network(
                                       currentAlbum!.coverImage!,
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
                                         return _buildPlaceholderArt();
                                       },
                                     )
@@ -274,7 +284,9 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                               if (albumSongs.isNotEmpty) {
                                 context.pushNamed(
                                   'musicOpen',
-                                  pathParameters: {'songId': albumSongs.first.id},
+                                  pathParameters: {
+                                    'songId': albumSongs.first.id
+                                  },
                                   extra: albumSongs.first.toJson(),
                                 );
                               }
@@ -286,7 +298,8 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                                borderRadius: BorderRadius.circular(
+                                    AppTheme.radiusMedium),
                               ),
                             ),
                           ),
@@ -297,15 +310,15 @@ class _AlbumWidgetNewState extends State<AlbumWidgetNew> {
                             // TODO: Shuffle play
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: isDark
-                                ? AppTheme.darkCard
-                                : AppTheme.lightCard,
+                            backgroundColor:
+                                isDark ? AppTheme.darkCard : AppTheme.lightCard,
                             foregroundColor: isDark
                                 ? AppTheme.textPrimary
                                 : AppTheme.textPrimaryLight,
                             padding: const EdgeInsets.all(16),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                              borderRadius:
+                                  BorderRadius.circular(AppTheme.radiusMedium),
                               side: BorderSide(
                                 color: AppTheme.harmonyOrange.withOpacity(0.3),
                               ),
