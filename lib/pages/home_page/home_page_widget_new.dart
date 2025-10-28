@@ -222,9 +222,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               onTap: () {
                                 context.pushNamed(
                                   'musicOpen',
-                                  pathParameters: {
-                                    'songId': song.id
-                                  },
+                                  pathParameters: {'songId': song.id},
                                   extra: song.toJson(),
                                 );
                               },
@@ -418,7 +416,9 @@ class _SongTile extends StatelessWidget {
                   Text(
                     title,
                     style: AppTheme.bodyLarge.copyWith(
-                      color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                      color: isDark
+                          ? AppTheme.textPrimary
+                          : AppTheme.textPrimaryLight,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -426,7 +426,9 @@ class _SongTile extends StatelessWidget {
                   Text(
                     artist,
                     style: AppTheme.bodySmall.copyWith(
-                      color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                      color: isDark
+                          ? AppTheme.textSecondary
+                          : AppTheme.textSecondaryLight,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -495,7 +497,8 @@ class _AlbumCard extends StatelessWidget {
             // Album Title
             Text(
               title,
-              style: AppTheme.bodyMedium(context, isDark: isDark).copyWith(
+              style: AppTheme.bodyMedium.copyWith(
+                color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
                 fontWeight: FontWeight.w600,
               ),
               maxLines: 1,
@@ -504,7 +507,9 @@ class _AlbumCard extends StatelessWidget {
             // Artist Name
             Text(
               artist,
-              style: AppTheme.bodySmall(context, isDark: isDark),
+              style: AppTheme.bodySmall.copyWith(
+                color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
