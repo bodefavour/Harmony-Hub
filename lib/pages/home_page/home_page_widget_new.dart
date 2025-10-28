@@ -112,15 +112,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Text(
                                           _getGreeting(),
                                           style: AppTheme.bodySmall.copyWith(
-                                            color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                                            color: isDark
+                                                ? AppTheme.textSecondary
+                                                : AppTheme.textSecondaryLight,
                                           ),
                                         ),
                                         Text(
-                                          (currentUserDisplayName?.isNotEmpty ?? false)
+                                          (currentUserDisplayName?.isNotEmpty ??
+                                                  false)
                                               ? currentUserDisplayName!
                                               : 'Music Lover',
-                                          style: AppTheme.headlineMedium.copyWith(
-                                            color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                                          style:
+                                              AppTheme.headlineMedium.copyWith(
+                                            color: isDark
+                                                ? AppTheme.textPrimary
+                                                : AppTheme.textPrimaryLight,
                                           ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,

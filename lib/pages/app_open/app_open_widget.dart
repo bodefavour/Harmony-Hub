@@ -225,7 +225,9 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                     Text(
                       'By continuing, you agree to our Terms of Service\nand Privacy Policy',
                       style: AppTheme.caption.copyWith(
-                        color: isDark ? AppTheme.textTertiary : AppTheme.textTertiaryLight,
+                        color: isDark
+                            ? AppTheme.textTertiary
+                            : AppTheme.textTertiaryLight,
                       ),
                       textAlign: TextAlign.center,
                     ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
