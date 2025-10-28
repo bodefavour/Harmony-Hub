@@ -3,6 +3,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
+import '/services/supabase_service.dart';
+import '/models/song.dart';
+import '/models/album.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'home_page_model.dart';
@@ -176,11 +179,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 SliverPadding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppTheme.space16),
-                  sliver: FutureBuilder<List<SongsRow>>(
-                    future: SongsTable().queryRows(
-                      queryFn: (q) =>
-                          q.order('created_at', ascending: false).limit(10),
-                    ),
+                  sliver: FutureBuilder<List<Song>>(
+                    future: SupabaseService().fetchSongs(limit: 10),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return SliverList(
@@ -216,14 +216,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           (context, index) {
                             final song = songs[index];
                             return _SongTile(
-                              title: song.title ?? 'Unknown Song',
-                              artist: song.artist ?? 'Unknown Artist',
-                              coverUrl: song.coverImage,
+                              title: song.title,
+                              artist: song.artistName ?? 'Unknown Artist',
+                              coverUrl: song.album?.coverImage,
                               onTap: () {
                                 context.pushNamed(
                                   'musicOpen',
                                   pathParameters: {
-                                    'songId': song.id.toString()
+                                    'songId': song.id
                                   },
                                   extra: song.toJson(),
                                 );
@@ -269,10 +269,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 SliverPadding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppTheme.space16),
-                  sliver: FutureBuilder<List<AlbumsRow>>(
-                    future: AlbumsTable().queryRows(
-                      queryFn: (q) => q.limit(6),
-                    ),
+                  sliver: FutureBuilder<List<Album>>(
+                    future: SupabaseService().fetchAlbums(limit: 6),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return SliverGrid(
@@ -300,8 +298,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           (context, index) {
                             final album = albums[index];
                             return _AlbumCard(
-                              title: album.title ?? 'Unknown Album',
-                              artist: album.artist ?? 'Unknown Artist',
+                              title: album.title,
+                              artist: 'Various Artists',
                               coverUrl: album.coverImage,
                               onTap: () {
                                 context.pushNamed('album');
@@ -419,13 +417,17 @@ class _SongTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppTheme.bodyLarge(context, isDark: isDark),
+                    style: AppTheme.bodyLarge.copyWith(
+                      color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     artist,
-                    style: AppTheme.bodySmall(context, isDark: isDark),
+                    style: AppTheme.bodySmall.copyWith(
+                      color: isDark ? AppTheme.textSecondary : AppTheme.textSecondaryLight,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
