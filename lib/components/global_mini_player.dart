@@ -77,18 +77,31 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
           right: 0,
           bottom:
               84, // Position above bottom nav - increased to prevent overflow
-          child: StreamBuilder<PlayerState>(
-            stream: _audioService.playerStateStream,
-            builder: (context, snapshot) {
-              final playerState = snapshot.data ?? PlayerState.idle;
-              final currentSong = _audioService.currentSong;
+          child: ValueListenableBuilder<String>(
+            valueListenable: _currentRouteNotifier,
+            builder: (context, currentRoute, _) {
+              // Check if we're on the music open page FIRST
+              final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
+              
+              print('DEBUG MINI PLAYER CHECK: route="$currentRoute", hide=$isOnMusicOpenPage');
 
-              // Only show mini player when there's a current song
-              if (currentSong == null ||
-                  playerState == PlayerState.idle ||
-                  playerState == PlayerState.error) {
+              // Hide mini player on music open page
+              if (isOnMusicOpenPage) {
                 return const SizedBox.shrink();
               }
+
+              return StreamBuilder<PlayerState>(
+                stream: _audioService.playerStateStream,
+                builder: (context, snapshot) {
+                  final playerState = snapshot.data ?? PlayerState.idle;
+                  final currentSong = _audioService.currentSong;
+
+                  // Only show mini player when there's a current song
+                  if (currentSong == null ||
+                      playerState == PlayerState.idle ||
+                      playerState == PlayerState.error) {
+                    return const SizedBox.shrink();
+                  }
 
               // Check if we're on the music open page
               // Get current route from the router
@@ -185,8 +198,10 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                   .slideY(
                       begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
                   .fadeIn(duration: 200.ms);
+                },
+              ); // End of StreamBuilder
             },
-          ),
+          ), // End of ValueListenableBuilder
         ),
       ],
     );
