@@ -50,9 +50,8 @@ class _LoginWidgetState extends State<LoginWidget> {
     GoRouter.of(context).prepareAuthEvent();
 
     final user = await authManager.signInWithEmail(
-      context,
-      _model.emailTextController.text,
-      _model.passwordTextController.text,
+      email: _model.emailTextController.text,
+      password: _model.passwordTextController.text,
     );
 
     setState(() => _isLoading = false);
@@ -70,11 +69,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     GoRouter.of(context).prepareAuthEvent();
 
-    final user = await authManager.signInWithGoogle(context);
+    final success = await authManager.signInWithGoogle();
 
     setState(() => _isLoading = false);
 
-    context.goNamedAuth('homePage', context.mounted);
+    if (success) {
+      context.goNamedAuth('homePage', context.mounted);
+    }
   }
 
   @override
@@ -127,7 +128,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   // Header
                   Text(
                     'Welcome back',
-                    style: AppTheme.displayLarge(context, isDark: isDark),
+                    style: AppTheme.displayLarge.copyWith(
+                      color: isDark ? AppTheme.textPrimary : AppTheme.textPrimaryLight,
+                    ),
                   )
                       .animate()
                       .fadeIn(duration: 400.ms, delay: 100.ms)
@@ -137,7 +140,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                   Text(
                     'Sign in to continue to Harmony Hub',
-                    style: AppTheme.bodyLarge(context, isDark: isDark).copyWith(
+                    style: AppTheme.bodyLarge.copyWith(
                       color: isDark
                           ? AppTheme.textSecondary
                           : AppTheme.textSecondaryLight,
@@ -224,9 +227,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             },
                             child: Text(
                               'Forgot password?',
-                              style:
-                                  AppTheme.bodyMedium(context, isDark: isDark)
-                                      .copyWith(
+                              style: AppTheme.bodyMedium.copyWith(
                                 color: AppTheme.spotifyGreen,
                                 fontWeight: FontWeight.w600,
                               ),
