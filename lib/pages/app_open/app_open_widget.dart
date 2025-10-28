@@ -59,19 +59,24 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(AppTheme.space24),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppTheme.space24,
+              vertical: AppTheme.space16,
+            ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Logo and Tagline Section
+                // Logo and Tagline Section (60% of screen)
                 Expanded(
+                  flex: 6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Spacer(),
+                      
                       // Animated Logo
                       Container(
-                        width: 120,
-                        height: 120,
+                        width: 100,
+                        height: 100,
                         decoration: BoxDecoration(
                           gradient: AppTheme.primaryGradient,
                           shape: BoxShape.circle,
@@ -79,7 +84,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                         ),
                         child: const Icon(
                           Icons.music_note_rounded,
-                          size: 60,
+                          size: 50,
                           color: Colors.white,
                         ),
                       )
@@ -98,7 +103,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                             color: Colors.white.withOpacity(0.3),
                           ),
 
-                      const SizedBox(height: AppTheme.space32),
+                      const SizedBox(height: AppTheme.space24),
 
                       // App Name
                       ShaderMask(
@@ -107,9 +112,10 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                         child: Text(
                           'Harmony Hub',
                           style: AppTheme.displayLarge.copyWith(
-                            fontSize: 48,
+                            fontSize: 42,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
+                            letterSpacing: -1,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -123,15 +129,16 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                             curve: Curves.easeOut,
                           ),
 
-                      const SizedBox(height: AppTheme.space16),
+                      const SizedBox(height: AppTheme.space12),
 
                       // Tagline
                       Text(
                         'Where music meets your soul',
-                        style: AppTheme.headlineMedium.copyWith(
+                        style: AppTheme.bodyLarge.copyWith(
                           color: isDark
                               ? AppTheme.textSecondary
                               : AppTheme.textSecondaryLight,
+                          fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,
                       )
@@ -144,13 +151,13 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                             curve: Curves.easeOut,
                           ),
 
-                      const SizedBox(height: AppTheme.space48),
+                      const SizedBox(height: AppTheme.space32),
 
                       // Feature Pills
                       Wrap(
                         alignment: WrapAlignment.center,
-                        spacing: AppTheme.space12,
-                        runSpacing: AppTheme.space12,
+                        spacing: AppTheme.space8,
+                        runSpacing: AppTheme.space8,
                         children: [
                           _FeaturePill(
                             icon: Icons.library_music_rounded,
@@ -159,12 +166,12 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                           ),
                           _FeaturePill(
                             icon: Icons.favorite_rounded,
-                            label: 'Personalized playlists',
+                            label: 'Personalized',
                             isDark: isDark,
                           ),
                           _FeaturePill(
                             icon: Icons.high_quality_rounded,
-                            label: 'High quality audio',
+                            label: 'High quality',
                             isDark: isDark,
                           ),
                         ]
@@ -177,13 +184,18 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                               curve: Curves.easeOut,
                             ),
                       ),
+                      
+                      const Spacer(),
                     ],
                   ),
                 ),
 
-                // Bottom Action Buttons
-                Column(
-                  children: [
+                // Bottom Action Buttons (40% of screen)
+                Flexible(
+                  flex: 4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
                     // Get Started Button
                     ModernButton(
                       text: 'Get Started',
@@ -232,6 +244,7 @@ class _AppOpenWidgetState extends State<AppOpenWidget>
                       textAlign: TextAlign.center,
                     ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
                   ],
+                ),
                 ),
               ],
             ),

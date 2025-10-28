@@ -7,9 +7,12 @@ import '/services/supabase_service.dart';
 import '/services/recommendation_service.dart';
 import '/models/song.dart';
 import '/models/album.dart';
+import '/models/daily_feed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
+import 'home_page_controller.dart';
 export 'home_page_model.dart';
 
 /// Modern Home Page - Spotify/Apple Music inspired
@@ -157,6 +160,154 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                     ),
+                  ),
+                ),
+
+                // Daily Worship Feed Section (AI-Powered)
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: AppTheme.space12),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppTheme.space16),
+                        child: FutureBuilder<DailyFeed?>(
+                          future: RecommendationService()
+                              .generateDailyFeed(currentUserUid),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const ShimmerLoader(
+                                width: double.infinity,
+                                height: 200,
+                              );
+                            }
+
+                            if (!snapshot.hasData || snapshot.data == null) {
+                              return const SizedBox.shrink();
+                            }
+
+                            final dailyFeed = snapshot.data!;
+
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: isDark
+                                    ? AppTheme.darkCard
+                                    : AppTheme.lightCard,
+                                borderRadius: BorderRadius.circular(
+                                    AppTheme.radiusMedium),
+                                boxShadow: AppTheme.cardShadow,
+                              ),
+                              padding: const EdgeInsets.all(AppTheme.space16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Header with AI badge
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: AppTheme.space8,
+                                          vertical: AppTheme.space4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          gradient: AppTheme.primaryGradient,
+                                          borderRadius: BorderRadius.circular(
+                                              AppTheme.radiusSmall),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(
+                                              Icons.auto_awesome,
+                                              size: 14,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                                width: AppTheme.space4),
+                                            Text(
+                                              'AI Generated',
+                                              style: AppTheme.caption.copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        _getTimeBasedEmoji(),
+                                        style: const TextStyle(fontSize: 24),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: AppTheme.space12),
+
+                                  // Title and description
+                                  Text(
+                                    dailyFeed.title,
+                                    style: AppTheme.headlineMedium.copyWith(
+                                      color: isDark
+                                          ? AppTheme.textPrimary
+                                          : AppTheme.textPrimaryLight,
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppTheme.space4),
+                                  Text(
+                                    dailyFeed.description ?? '',
+                                    style: AppTheme.bodyMedium.copyWith(
+                                      color: isDark
+                                          ? AppTheme.textSecondary
+                                          : AppTheme.textSecondaryLight,
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppTheme.space16),
+
+                                  // Song count and play button
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.music_note,
+                                        size: 16,
+                                        color: isDark
+                                            ? AppTheme.textSecondary
+                                            : AppTheme.textSecondaryLight,
+                                      ),
+                                      const SizedBox(width: AppTheme.space4),
+                                      Text(
+                                        '${dailyFeed.songs?.length ?? dailyFeed.songIds.length} songs',
+                                        style: AppTheme.bodySmall.copyWith(
+                                          color: isDark
+                                              ? AppTheme.textSecondary
+                                              : AppTheme.textSecondaryLight,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      ModernButton(
+                                        text: 'Play Now',
+                                        onPressed: () {
+                                          if (dailyFeed.songs != null &&
+                                              dailyFeed.songs!.isNotEmpty) {
+                                            // TODO: Play the daily feed
+                                            context.pushNamed('music_open');
+                                          }
+                                        },
+                                        icon: Icons.play_arrow_rounded,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                                .animate()
+                                .fadeIn(duration: 400.ms)
+                                .slideY(begin: 0.2, end: 0, duration: 400.ms);
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.space24),
+                    ],
                   ),
                 ),
 
@@ -370,6 +521,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     if (hour < 12) return 'Good morning';
     if (hour < 18) return 'Good afternoon';
     return 'Good evening';
+  }
+
+  String _getTimeBasedEmoji() {
+    final hour = DateTime.now().hour;
+    if (hour >= 4 && hour < 12) return '🌅'; // Morning
+    if (hour >= 12 && hour < 17) return '☀️'; // Afternoon
+    if (hour >= 17 && hour < 21) return '🌆'; // Evening
+    return '🌙'; // Night
   }
 }
 
