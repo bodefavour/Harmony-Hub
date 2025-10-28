@@ -7,7 +7,6 @@ import '/services/supabase_service.dart';
 import '/services/audio_service.dart';
 import '/services/recommendation_service.dart';
 import '/theme/modern_navigation.dart';
-import '/components/global_mini_player.dart';
 import 'search_controller.dart' as search;
 
 class SearchWidgetNew extends StatefulWidget {
@@ -74,9 +73,6 @@ class _SearchWidgetNewState extends State<SearchWidgetNew>
                   }
                 },
               ),
-              persistentFooterButtons: const [
-                MiniPlayerWidget(),
-              ],
             ),
           );
         },

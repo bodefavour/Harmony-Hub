@@ -4,7 +4,6 @@ import '/theme/app_theme.dart';
 import '/theme/modern_components.dart';
 import '/theme/modern_navigation.dart';
 import '/auth/supabase_auth/auth_util.dart';
-import '/components/global_mini_player.dart';
 
 class UserProfileWidgetNew extends StatefulWidget {
   const UserProfileWidgetNew({super.key});
@@ -353,9 +352,6 @@ class _UserProfileWidgetNewState extends State<UserProfileWidgetNew> {
           if (index == 2) Navigator.pushReplacementNamed(context, '/library');
         },
       ),
-      persistentFooterButtons: const [
-        MiniPlayerWidget(),
-      ],
     );
   }
 

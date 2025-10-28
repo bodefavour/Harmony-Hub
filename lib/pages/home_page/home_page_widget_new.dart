@@ -7,7 +7,6 @@ import '/services/supabase_service.dart';
 import '/services/recommendation_service.dart';
 import '/models/album.dart';
 import '/models/daily_feed.dart';
-import '/components/global_mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'home_page_model.dart';
@@ -426,9 +425,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           }
         },
       ),
-      persistentFooterButtons: const [
-        MiniPlayerWidget(),
-      ],
     );
   }
 
