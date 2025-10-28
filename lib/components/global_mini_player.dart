@@ -31,7 +31,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   void initState() {
     super.initState();
     _audioService.initialize();
-    
+
     // Listen to router location changes
     widget.router.routerDelegate.addListener(_onRouteChanged);
   }
@@ -130,9 +130,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                               return LinearProgressIndicator(
                                 value: progress,
                                 backgroundColor: Colors.grey.withOpacity(0.2),
-                                valueColor:
-                                    const AlwaysStoppedAnimation<Color>(
-                                        AppTheme.harmonyOrange),
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    AppTheme.harmonyOrange),
                                 minHeight: 3,
                               );
                             },
@@ -172,10 +171,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
               )
                   .animate()
                   .slideY(
-                      begin: 1,
-                      end: 0,
-                      duration: 300.ms,
-                      curve: Curves.easeOut)
+                      begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
                   .fadeIn(duration: 200.ms);
             },
           ),
