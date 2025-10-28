@@ -32,7 +32,7 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
     super.initState();
     // Don't initialize AudioService here - it's already initialized elsewhere
     // Calling initialize() multiple times causes GlobalKey conflicts
-    
+
     // Update route on init
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateRoute();
@@ -49,7 +49,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   }
 
   void _updateRoute() {
-    final newRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+    final newRoute =
+        widget.router.routerDelegate.currentConfiguration.uri.toString();
     if (_currentRouteNotifier.value != newRoute) {
       _currentRouteNotifier.value = newRoute;
       print('DEBUG ROUTE UPDATED: $newRoute');
@@ -91,7 +92,9 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
 
               // Check if we're on the music open page
               // Get current route from the router
-              final currentRoute = widget.router.routerDelegate.currentConfiguration.uri.toString();
+              final currentRoute = widget
+                  .router.routerDelegate.currentConfiguration.uri
+                  .toString();
               final isOnMusicOpenPage = currentRoute.contains('/musicOpen');
 
               print(
@@ -115,7 +118,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                         stream: _audioService.durationStream,
                         builder: (context, durationSnapshot) {
                           final duration = durationSnapshot.data;
-                          if (duration == null || duration.inMilliseconds <= 0) {
+                          if (duration == null ||
+                              duration.inMilliseconds <= 0) {
                             return const SizedBox.shrink();
                           }
 

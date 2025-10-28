@@ -95,7 +95,8 @@ class _NavItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(vertical: AppTheme.space4), // Reduced from space8
+          padding: const EdgeInsets.symmetric(
+              vertical: AppTheme.space4), // Reduced from space8
           decoration: BoxDecoration(
             color: isSelected
                 ? AppTheme.harmonyOrange.withOpacity(0.1)
