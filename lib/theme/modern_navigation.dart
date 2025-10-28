@@ -175,9 +175,7 @@ class NowPlayingBar extends StatelessWidget {
           vertical: AppTheme.space8,
         ),
         decoration: BoxDecoration(
-          color: isDark 
-              ? const Color(0xFF1C1C1E) 
-              : Colors.white,
+          color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
           borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
           boxShadow: [
             BoxShadow(

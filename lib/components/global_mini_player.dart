@@ -33,8 +33,8 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
   Widget build(BuildContext context) {
     // Get current route to hide mini player on music open page
     final currentRoute = ModalRoute.of(context)?.settings.name ?? '';
-    final isOnMusicOpenPage = currentRoute.contains('musicOpen') || 
-                               currentRoute.contains('music_open');
+    final isOnMusicOpenPage = currentRoute.contains('musicOpen') ||
+        currentRoute.contains('music_open');
 
     return Stack(
       children: [
@@ -62,41 +62,44 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
 
                 final isPlaying = playerState == PlayerState.playing;
 
-                return Material(
-                  elevation: 8,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Progress indicator
-                      StreamBuilder<Duration>(
-                        stream: _audioService.positionStream,
-                        builder: (context, positionSnapshot) {
-                          return StreamBuilder<Duration?>(
-                            stream: _audioService.durationStream,
-                            builder: (context, durationSnapshot) {
-                              final position =
-                                  positionSnapshot.data ?? Duration.zero;
-                              final duration =
-                                  durationSnapshot.data ?? Duration.zero;
-                              final progress = duration.inMilliseconds > 0
-                                  ? position.inMilliseconds /
-                                      duration.inMilliseconds
-                                  : 0.0;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Progress indicator
+                    StreamBuilder<Duration>(
+                      stream: _audioService.positionStream,
+                      builder: (context, positionSnapshot) {
+                        return StreamBuilder<Duration?>(
+                          stream: _audioService.durationStream,
+                          builder: (context, durationSnapshot) {
+                            final position =
+                                positionSnapshot.data ?? Duration.zero;
+                            final duration =
+                                durationSnapshot.data ?? Duration.zero;
+                            final progress = duration.inMilliseconds > 0
+                                ? position.inMilliseconds /
+                                    duration.inMilliseconds
+                                : 0.0;
 
-                              return LinearProgressIndicator(
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: AppTheme.space12),
+                              child: LinearProgressIndicator(
                                 value: progress,
                                 backgroundColor: Colors.grey.withOpacity(0.2),
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                    AppTheme.harmonyOrange),
-                                minHeight: 2,
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                valueColor:
+                                    const AlwaysStoppedAnimation<Color>(
+                                        AppTheme.harmonyOrange),
+                                minHeight: 3,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
 
-                      // Now Playing Bar
-                      NowPlayingBar(
+                    // Now Playing Bar
+                    NowPlayingBar(
                         songTitle: currentSong.title,
                         artistName: currentSong.artistName ?? 'Unknown Artist',
                         coverUrl: currentSong.album?.coverImage,
@@ -122,7 +125,10 @@ class _GlobalMiniPlayerOverlayState extends State<GlobalMiniPlayerOverlay> {
                 )
                     .animate()
                     .slideY(
-                        begin: 1, end: 0, duration: 300.ms, curve: Curves.easeOut)
+                        begin: 1,
+                        end: 0,
+                        duration: 300.ms,
+                        curve: Curves.easeOut)
                     .fadeIn(duration: 200.ms);
               },
             ),
